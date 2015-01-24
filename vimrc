@@ -757,13 +757,13 @@
   map <F6> :set invpaste<CR>:set paste?<CR>
 
   " remap arrow keys
-  nnoremap <left> :bprev<CR>
-  nnoremap <right> :bnext<CR>
-  nnoremap <up> :tabnext<CR>
-  nnoremap <down> :tabprev<CR>
+  "nnoremap <left> :bprev<CR>
+  "nnoremap <right> :bnext<CR>
+  "nnoremap <up> :tabnext<CR>
+  "nnoremap <down> :tabprev<CR>
 
   " smash escape
-  inoremap jk <esc>
+  inoremap jj <esc>
   inoremap kj <esc>
 
   " change cursor position in insert mode
@@ -777,11 +777,11 @@
   endif
 
   " sane regex {{{
-    nnoremap / /\v
-    vnoremap / /\v
-    nnoremap ? ?\v
-    vnoremap ? ?\v
-    nnoremap :s/ :s/\v
+  "  nnoremap / /\v
+  "  vnoremap / /\v
+  "  nnoremap ? ?\v
+  "  vnoremap ? ?\v
+  "  nnoremap :s/ :s/\v
   " }}}
 
   " command-line window {{{
@@ -906,6 +906,9 @@
     let g:kolor_underlined=1
   "}}}
 "}}}
+
+if count(s:settings.plugin_groups, 'dev') "{{{
+endif "}}}
 
 " finish loading {{{
   if exists('g:dotvim_settings.disabled_plugins')
