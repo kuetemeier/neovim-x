@@ -196,12 +196,18 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
 
 ### [nerdtree](https://github.com/scrooloose/nerdtree)
 *  file browser
-*  `<F2>` toggle browser
-*  `<F3>` open tree to path of the current file
+*  `<F9>` toggle browser
+*  `<F8>` open tree to path of the current file
 
 ### [tcomment](https://github.com/tomtom/tcomment_vim)
 *  very versatile commenting plugin that can do motions
 *  `gcc` to toggle or `gc{motion}`
+
+### [scratch](https://github.com/mtth/scratch.vim)
+*  Unobtrusive scratch window
+*  `gs` in normal mode opens scratch window in insert mode
+*  `gs` in visual mode pastes the current selection
+*  variant `gS` clears the scratch buffer before opening it
 
 ### [ctrlp](https://github.com/kien/ctrlp.vim)
 *  fuzzy file searching
