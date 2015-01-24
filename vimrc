@@ -281,8 +281,12 @@
     set guioptions-=T                                 "toolbar icons
 
     if s:is_macvim
-      set gfn=Ubuntu_Mono:h14
-      set transparency=2
+      silent! set guifont=Inconsolata-g\ for\ Powerline:h13
+      if &guifont != 'Inconsolata-g for Powerline:h13'
+        set guifont=Ubuntu_Mono:h16
+      endif
+      " set guifont=Inconsolata-g\ for\ Powerline:h13
+      set transparency=0
     endif
 
     if s:is_windows
