@@ -178,7 +178,11 @@
   if exists('$TMUX')
     set clipboard=
   else
-    set clipboard=unnamed                             "sync with OS clipboard
+    if has('unnamedplus')  " When possible use + register for copy-paste
+      set clipboard=unnamed,unnamedplus
+    else         " On mac and Windows, use * register for copy-paste
+      set clipboard=unnamed                           "sync with OS clipboard
+    endif
   endif
   set hidden                                          "allow buffer switching without saving
   set autoread                                        "auto reload if file saved externally
@@ -211,18 +215,19 @@
   let &softtabstop=s:settings.default_indent          "number of spaces per tab in insert mode
   let &shiftwidth=s:settings.default_indent           "number of spaces when indenting
   set list                                            "highlight whitespace
-  set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+  set listchars=tab:»·,trail:·,extends:❯,precedes:❮
   set shiftround
   set linebreak
   let &showbreak='↪ '
 
   set scrolloff=1                                     "always show content after scroll
-  set scrolljump=5                                    "minimum number of lines to scroll
+  set scrolljump=1                                    "minimum number of lines to scroll
   set display+=lastline
   set wildmenu                                        "show list for autocomplete
   set wildmode=list:full
   set wildignorecase
 
+  " Open new split panes to right and bottom, which feels more natural
   set splitbelow
   set splitright
 
@@ -577,11 +582,11 @@
       let NERDTreeShowBookmarks=1
       let NERDTreeIgnore=['\.git','\.hg']
       let NERDTreeBookmarksFile=s:get_cache_dir('NERDTreeBookmarks')
-      nnoremap <F2> :NERDTreeToggle<CR>
-      nnoremap <F3> :NERDTreeFind<CR>
+      nnoremap <F9> :NERDTreeToggle<CR>
+      nnoremap <F8> :NERDTreeFind<CR>
     "}}}
     NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
-      nnoremap <silent> <F9> :TagbarToggle<CR>
+      nnoremap <silent> <F10> :TagbarToggle<CR>
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'unite') "{{{
@@ -728,7 +733,7 @@
     "}}}
     NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
       let g:goldenview__enable_default_mapping=0
-      nmap <F4> <Plug>ToggleGoldenViewAutoResize
+      nmap <F3> <Plug>ToggleGoldenViewAutoResize
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'windows') "{{{
@@ -754,7 +759,7 @@
   nnoremap <leader>w :w<cr>
 
   " toggle paste
-  map <F6> :set invpaste<CR>:set paste?<CR>
+  map <F2> :set invpaste<CR>:set paste?<CR>
 
   " remap arrow keys
   "nnoremap <left> :bprev<CR>
@@ -767,8 +772,8 @@
   inoremap kj <esc>
 
   " change cursor position in insert mode
-  inoremap <C-h> <left>
-  inoremap <C-l> <right>
+  " inoremap <C-h> <left>
+  " inoremap <C-l> <right>
 
   inoremap <C-u> <C-g>u<C-u>
 
@@ -858,7 +863,7 @@
   nmap <leader>l :set list! list?<cr>
   nnoremap <BS> :set hlsearch! hlsearch?<cr>
 
-  map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
         \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
         \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -908,6 +913,140 @@
 "}}}
 
 if count(s:settings.plugin_groups, 'dev') "{{{
+
+
+  " Movement {
+
+    " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc>
+    " do by default), and ~ covert case over line breaks; also have the cursor
+    " keys wrap in insert mode:
+    set whichwrap=h,l,~,[,]
+
+    " use <Ctrl>+N/<Ctrl>+P to cycle through files:
+    nnoremap <C-N> :next<CR>
+    nnoremap <C-P> :prev<CR>
+
+  " }
+
+  " Activate spell checking {{{2
+  " ----------------------------
+  if has("spell")
+    " turn spelling on by default
+    " set spell
+
+    " toggle spelling with F4 key
+    map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+    " they were using white on white
+    highlight PmenuSel ctermfg=black ctermbg=lightgray
+
+    " limit it to just the top 10 items
+    set sps=best,10
+  endif
+  " --- }}}2
+
+  " Spellfile location {{{2
+  " -----------------------
+  " Set spellfile to location that is guaranteed to exist, can be symlinked to
+  " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+  set spellfile=$HOME/.vim/spell/en.utf-8.add
+  " --- }}}2
+
+  set spelllang=en,de
+
+  " Remapping of german keys {{{
+  map <silent> Ü [
+  inoremap <silent> Ü [
+  map <silent> ö :
+  inoremap <silent> ö :
+  map <silent> Ä ]
+  inoremap <silent> Ä ]
+  map <silent> ü {
+  map <silent> ä }
+  inoremap <silent> ü {
+  inoremap <silent> ä }
+  noremap <silent> ß /
+  inoremap <silent> ß /
+  " }}}
+
+  " key combinations to genereate german umlauts {{{
+  inoremap <silent> o" ö
+  inoremap <silent> a" ä
+  inoremap <silent> u" ü
+  inoremap <silent> O" Ö
+  inoremap <silent> A" Ä
+  inoremap <silent> U" Ü
+  " }}}
+
+  " easier formatting of paragraphs {{{
+  vmap Q gq
+  " have Q reformat the current paragraph (or selected text if there is any):
+  vnoremap Q gqqp
+  vnoremap Q gq
+  " }}}
+
+
+  " Folding {{{
+
+    if has('folding')
+
+      " fold on the marker
+      set foldmethod=syntax
+
+      " turn on folding
+      set foldenable
+
+      " A column with the specified width is shown at the side of the window
+      " which indicates open and closed folds.
+      set foldcolumn=0
+
+      " autofold anything (but I can still fold manually).
+      "  set foldlevel=0
+
+      " Specify the movements which open folds.
+      set foldopen=block,hor,mark,percent,quickfix,tag,search
+
+      function! NeatFoldText() " {{{2
+        " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+        let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{' . '\d*\s*', '', 'g') . ' '
+        let lines_count = v:foldend - v:foldstart + 1
+        let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+        let foldchar = matchstr(&fillchars, 'fold:\zs.')
+        let foldtextstart = strpart('' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+        let foldtextend = lines_count_text . repeat(foldchar, 8)
+        let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+        return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+      endfunction
+      " }}}2
+
+      set foldtext=NeatFoldText()
+
+      " Code folding options
+      nmap <leader>f0 :set foldlevel=0<CR>:set foldcolumn=0<CR>
+      nmap <leader>f1 :set foldlevel=1<CR>:set foldcolumn=1<CR>
+      nmap <leader>f2 :set foldlevel=2<CR>:set foldcolumn=3<CR>
+      nmap <leader>f3 :set foldlevel=3<CR>:set foldcolumn=4<CR>
+      nmap <leader>f4 :set foldlevel=4<CR>:set foldcolumn=5<CR>
+      nmap <leader>f5 :set foldlevel=5<CR>:set foldcolumn=5<CR>
+      nmap <leader>f6 :set foldlevel=6<CR>:set foldcolumn=5<CR>
+      nmap <leader>f7 :set foldlevel=7<CR>:set foldcolumn=5<CR>
+      nmap <leader>f8 :set foldlevel=8<CR>:set foldcolumn=5<CR>
+      nmap <leader>f9 :set foldlevel=9<CR>:set foldcolumn=5<CR>
+
+    endif
+  " }}}
+
+  " unhighlight search highlight with C-L
+  nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
+
+  " Resize windows {{{
+  " -------------------
+  " You can use the command :resize +5 or :res -5 to resize windows
+  " this are just quick shortcuts
+  nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+  nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+  " --- }}}
+
 endif "}}}
 
 " finish loading {{{
