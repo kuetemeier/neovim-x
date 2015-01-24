@@ -1,9 +1,29 @@
-" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0
+" Modeline and Notes {{{
+" vim: fdm=marker ts=2 sts=2 sw=2 fmr={{{,}}}
+
+" vim configuration file
+" (c) 1998-2015 Joerg Kuetemeier <jk@kuetemeier.net>
+
+" Licensed under the Apache License, Version 2.0 (the "License");
+" you may not use this file except in compliance with the License.
+" You may obtain a copy of the License at
+"
+"     http://www.apache.org/licenses/LICENSE-2.0
+"
+" Unless required by applicable law or agreed to in writing, software
+" distributed under the License is distributed on an "AS IS" BASIS,
+" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+" See the License for the specific language governing permissions and
+" limitations under the License.
+
+" }}}
 
 " detect OS {{{
-  let s:is_windows = has('win32') || has('win64')
+  let s:is_windows = has('win16') || has('win32') || has('win64')
   let s:is_cygwin = has('win32unix')
   let s:is_macvim = has('gui_macvim')
+  let s:is_osx = has('macunix')
+  let s:is_linux = has('unix') && !has('macunix') && !has('win32unix')
 "}}}
 
 " dotvim settings {{{
@@ -22,10 +42,9 @@
   " initialize default settings
   let s:settings = {}
   let s:settings.default_indent = 2
-  let s:settings.max_column = 120
+  let s:settings.max_column = 80
   let s:settings.autocomplete_method = 'neocomplcache'
   let s:settings.enable_cursorcolumn = 0
-  "let s:settings.colorscheme = 'jellybeans'
   let s:settings.colorscheme = 'hybrid'
   if has('lua')
     let s:settings.autocomplete_method = 'neocomplete'
@@ -138,6 +157,13 @@
     endif
   endfunction "}}}
 "}}}
+
+" Read sensible common vim settings {{{
+  " https://github.com/tpope/vim-sensible
+  if filereadable(expand("~/.vim/sensible.vim"))
+    source ~/.vim/sensible.vim
+  endif
+" }}}
 
 " base configuration {{{
   set timeoutlen=300                                  "mapping timeout
