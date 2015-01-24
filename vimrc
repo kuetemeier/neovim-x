@@ -353,6 +353,19 @@
       let g:airline#extensions#tabline#enabled = 1
       let g:airline#extensions#tabline#left_sep=' '
       let g:airline#extensions#tabline#left_alt_sep='¦'
+
+      set noshowmode
+
+      " find themes at: https://github.com/bling/vim-airline/wiki/Screenshots
+      let g:airline_theme='hybrid' " works best for hybrid theme
+      let g:airline_enable_branch=1
+      let g:airline_powerline_fonts=1
+      let g:airline_detect_whitespace = 1
+      let g:airline#extensions#hunks#non_zero_only = 1
+
+      let g:airline#extensions#tabline#enabled = 2
+      " let g:airline#extensions#tabline#fnamemod = ':t'
+      let g:airline#extensions#tabline#buffer_min_count = 2
     "}}}
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'tpope/vim-repeat'
@@ -896,7 +909,7 @@
   autocmd FileType vim setlocal fdm=indent keywordprg=:help
 "}}}
 
-" color schemes {{{
+" Color schemes {{{
   NeoBundle 'altercation/vim-colors-solarized' "{{{
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
@@ -907,15 +920,17 @@
   NeoBundle 'chriskempson/base16-vim'
   NeoBundle 'w0ng/vim-hybrid'
   NeoBundle 'sjl/badwolf'
+  NeoBundle 'endel/vim-github-colorscheme'
   NeoBundle 'zeis/vim-kolor' "{{{
     let g:kolor_underlined=1
   "}}}
 "}}}
 
-if count(s:settings.plugin_groups, 'dev') "{{{
+" Development in Progress {{{
+if count(s:settings.plugin_groups, 'dev')
 
 
-  " Movement {
+  " Movement {{{
 
     " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc>
     " do by default), and ~ covert case over line breaks; also have the cursor
@@ -926,10 +941,9 @@ if count(s:settings.plugin_groups, 'dev') "{{{
     nnoremap <C-N> :next<CR>
     nnoremap <C-P> :prev<CR>
 
-  " }
+  " }}}
 
-  " Activate spell checking {{{2
-  " ----------------------------
+  " Activate spell checking {{{
   if has("spell")
     " turn spelling on by default
     " set spell
@@ -942,17 +956,15 @@ if count(s:settings.plugin_groups, 'dev') "{{{
 
     " limit it to just the top 10 items
     set sps=best,10
+    set spelllang=en,de
   endif
-  " --- }}}2
+  " }}}
 
-  " Spellfile location {{{2
-  " -----------------------
+  " Spellfile location {{{
   " Set spellfile to location that is guaranteed to exist, can be symlinked to
   " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
   set spellfile=$HOME/.vim/spell/en.utf-8.add
-  " --- }}}2
-
-  set spelllang=en,de
+  " }}}
 
   " Remapping of german keys {{{
   map <silent> Ü [
@@ -969,7 +981,7 @@ if count(s:settings.plugin_groups, 'dev') "{{{
   inoremap <silent> ß /
   " }}}
 
-  " key combinations to genereate german umlauts {{{
+  " Key combinations to genereate german umlauts {{{
   inoremap <silent> o" ö
   inoremap <silent> a" ä
   inoremap <silent> u" ü
@@ -978,13 +990,12 @@ if count(s:settings.plugin_groups, 'dev') "{{{
   inoremap <silent> U" Ü
   " }}}
 
-  " easier formatting of paragraphs {{{
+  " Easier formatting of paragraphs {{{
   vmap Q gq
   " have Q reformat the current paragraph (or selected text if there is any):
   vnoremap Q gqqp
   vnoremap Q gq
   " }}}
-
 
   " Folding {{{
 
@@ -1006,7 +1017,8 @@ if count(s:settings.plugin_groups, 'dev') "{{{
       " Specify the movements which open folds.
       set foldopen=block,hor,mark,percent,quickfix,tag,search
 
-      function! NeatFoldText() " {{{2
+
+      function! NeatFoldText() " {{{
         " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
         let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{' . '\d*\s*', '', 'g') . ' '
         let lines_count = v:foldend - v:foldstart + 1
@@ -1017,7 +1029,7 @@ if count(s:settings.plugin_groups, 'dev') "{{{
         let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
         return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
       endfunction
-      " }}}2
+      " }}}
 
       set foldtext=NeatFoldText()
 
