@@ -1,11 +1,11 @@
 # dotvim - Personal Vim Configuration
 
-This is my ***personal*** vim configuration. It is inspired by
-(dotvim)[https://github.com/bling/dotvim] created by
-(Bailey Ling)[https://github.com/bling], particularly the configuration
-structure. I also would like to thank (Steve Francia)[http://spf13.com/] aka.
-(spf13)[https://github.com/spf13], (Tim Pope)[https://github.com/tpope] and
-(Shougo)[https://github.com/Shougo] for their work, plugins an configuration
+This is [my](https://github.com/jkuetemeier) ***personal*** vim configuration. It is inspired by
+[dotvim](https://github.com/bling/dotvim) created by
+[Bailey Ling](https://github.com/bling), particularly the configuration
+structure. I also would like to thank [Steve Francia](http://spf13.com/) aka.
+[spf13](https://github.com/spf13), [Tim Pope](https://github.com/tpope) and
+[Shougo](https://github.com/Shougo) for their work, plugins an configuration
 examples. 
 
 ## Installation
@@ -266,7 +266,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+  [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
