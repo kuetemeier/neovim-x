@@ -305,7 +305,7 @@
 
   if has('gui_running')
     " open maximized
-    set lines=999 columns=9999
+    " set lines=999 columns=9999
     if s:is_windows
       autocmd GUIEnter * simalt ~x
     endif
@@ -520,7 +520,11 @@
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 'thinca/vim-visualstar'
-    NeoBundle 'tomtom/tcomment_vim'
+    NeoBundle 'tomtom/tcomment_vim' "{{{
+      " TComment, comment and uncomment with <Leader>c
+      map <Leader>c <C-_><C-_>
+    "}}}
+
     NeoBundle 'terryma/vim-expand-region'
     NeoBundle 'terryma/vim-multiple-cursors'
     NeoBundle 'chrisbra/NrrwRgn'
@@ -541,6 +545,12 @@
     NeoBundle 'jiangmiao/auto-pairs'
     NeoBundle 'justinmk/vim-sneak' "{{{
       let g:sneak#streak = 1
+    "}}}
+
+    " Zen Editing
+    NeoBundle 'junegunn/goyo.vim'
+    NeoBundle 'amix/vim-zenroom2' "{{{
+     nnoremap <silent> <Leader>z :Goyo<cr>
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -601,6 +611,7 @@
     NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
       nnoremap <silent> <F10> :TagbarToggle<CR>
     "}}}
+    NeoBundle 'Lokaltog/vim-easymotion'
   endif "}}}
   if count(s:settings.plugin_groups, 'unite') "{{{
     NeoBundle 'Shougo/unite.vim' "{{{
@@ -737,7 +748,7 @@
       let g:vimshell_data_directory=s:get_cache_dir('vimshell')
       let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
-      nnoremap <Leader>c :VimShell -split<cr>
+      "nnoremap <Leader>c :VimShell -split<cr>
       nnoremap <Leader>cc :VimShell -split<cr>
       nnoremap <Leader>cn :VimShellInteractive node<cr>
       nnoremap <Leader>cl :VimShellInteractive lua<cr>
@@ -895,18 +906,29 @@
 "}}}
 
 " autocmd {{{
-  " go back to previous position of cursor if any
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \  exe 'normal! g`"zvzz' |
-    \ endif
+  augroup myac
+    " go back to previous position of cursor if any
+    autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \  exe 'normal! g`"zvzz' |
+      \ endif
 
-  autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-  autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
-  autocmd FileType css,scss nnoremap <silent> <Leader>S vi{:sort<CR>
-  autocmd FileType python setlocal foldmethod=indent
-  autocmd FileType markdown setlocal nolist
-  autocmd FileType vim setlocal fdm=indent keywordprg=:help
+    autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType css,scss nnoremap <silent> <Leader>S vi{:sort<CR>
+    " }
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType markdown setlocal nolist
+    autocmd FileType vim setlocal fdm=indent keywordprg=:help
+    autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell |
+      \ nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+    autocmd FileType gitcommit setlocal spell
+
+    autocmd FileType c,cpp setlocal comments-=:// comments+=f://
+    autocmd FileType pl setlocal comments-=:# comments+=f:#
+    autocmd FileType perl setlocal comments-=:# comments+=f:#
+  augroup END
 "}}}
 
 " Color schemes {{{
@@ -926,7 +948,7 @@
   "}}}
 "}}}
 
-" Development in Progress {{{
+" Development in Progress
 if count(s:settings.plugin_groups, 'dev')
 
 
@@ -967,18 +989,22 @@ if count(s:settings.plugin_groups, 'dev')
   " }}}
 
   " Remapping of german keys {{{
-  map <silent> Ü [
-  inoremap <silent> Ü [
+  map <silent> ü [
+  nmap <silent> ü [
+  omap <silent> ü [
+  xmap <silent> ü [
+  inoremap <silent> ü [
   map <silent> ö :
   inoremap <silent> ö :
-  map <silent> Ä ]
-  inoremap <silent> Ä ]
-  map <silent> ü {
-  map <silent> ä }
-  inoremap <silent> ü {
-  inoremap <silent> ä }
-  noremap <silent> ß /
-  inoremap <silent> ß /
+  map <silent> ä ]
+  nmap <silent> ä ]
+  omap <silent> ä ]
+  xmap <silent> ä ]
+  inoremap <silent> ä ]
+  map <silent> Ü {
+  map <silent> Ä }
+  inoremap <silent> Ü {
+  inoremap <silent> Ä }
   " }}}
 
   " Key combinations to genereate german umlauts {{{
@@ -1018,7 +1044,7 @@ if count(s:settings.plugin_groups, 'dev')
       set foldopen=block,hor,mark,percent,quickfix,tag,search
 
 
-      function! NeatFoldText() " {{{
+      function! NeatFoldText() "{{{
         " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
         let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{' . '\d*\s*', '', 'g') . ' '
         let lines_count = v:foldend - v:foldstart + 1
@@ -1029,7 +1055,7 @@ if count(s:settings.plugin_groups, 'dev')
         let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
         return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
       endfunction
-      " }}}
+      "}}}
 
       set foldtext=NeatFoldText()
 
@@ -1050,16 +1076,17 @@ if count(s:settings.plugin_groups, 'dev')
 
   " unhighlight search highlight with C-L
   nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
+  nnoremap <silent> <Leader>o :Goyo<cr>
+  nnoremap <silent> <Leader>u :set lines=999 columns=9999<cr>
 
   " Resize windows {{{
-  " -------------------
-  " You can use the command :resize +5 or :res -5 to resize windows
-  " this are just quick shortcuts
-  nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-  nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-  " --- }}}
+    " You can use the command :resize +5 or :res -5 to resize windows
+    " this are just quick shortcuts
+    nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+    nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+  "}}}
 
-endif "}}}
+endif
 
 " finish loading {{{
   if exists('g:dotvim_settings.disabled_plugins')
