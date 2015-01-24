@@ -423,7 +423,7 @@
     \ }
     NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}} "{{{
-      nnoremap <leader>fjs :call JsBeautify()<cr>
+      nnoremap <Leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
@@ -459,19 +459,19 @@
       NeoBundle 'bitbucket:ludovicchabant/vim-lawrencium'
     endif
     NeoBundle 'tpope/vim-fugitive' "{{{
-      nnoremap <silent> <leader>gs :Gstatus<CR>
-      nnoremap <silent> <leader>gd :Gdiff<CR>
-      nnoremap <silent> <leader>gc :Gcommit<CR>
-      nnoremap <silent> <leader>gb :Gblame<CR>
-      nnoremap <silent> <leader>gl :Glog<CR>
-      nnoremap <silent> <leader>gp :Git push<CR>
-      nnoremap <silent> <leader>gw :Gwrite<CR>
-      nnoremap <silent> <leader>gr :Gremove<CR>
+      nnoremap <silent> <Leader>gs :Gstatus<CR>
+      nnoremap <silent> <Leader>gd :Gdiff<CR>
+      nnoremap <silent> <Leader>gc :Gcommit<CR>
+      nnoremap <silent> <Leader>gb :Gblame<CR>
+      nnoremap <silent> <Leader>gl :Glog<CR>
+      nnoremap <silent> <Leader>gp :Git push<CR>
+      nnoremap <silent> <Leader>gw :Gwrite<CR>
+      nnoremap <silent> <Leader>gr :Gremove<CR>
       autocmd BufReadPost fugitive://* set bufhidden=delete
     "}}}
     NeoBundleLazy 'gregsexton/gitv', {'depends':['tpope/vim-fugitive'], 'autoload':{'commands':'Gitv'}} "{{{
-      nnoremap <silent> <leader>gv :Gitv<CR>
-      nnoremap <silent> <leader>gV :Gitv!<CR>
+      nnoremap <silent> <Leader>gv :Gitv<CR>
+      nnoremap <silent> <Leader>gV :Gitv!<CR>
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'autocomplete') "{{{
@@ -558,7 +558,7 @@
       let g:EasyGrepRecursive=1
       let g:EasyGrepAllOptionsInExplorer=1
       let g:EasyGrepCommand=1
-      nnoremap <leader>vo :GrepOptions<cr>
+      nnoremap <Leader>vo :GrepOptions<cr>
     "}}}
     NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
       let g:ctrlp_clear_cache_on_exit=1
@@ -737,12 +737,12 @@
       let g:vimshell_data_directory=s:get_cache_dir('vimshell')
       let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
-      nnoremap <leader>c :VimShell -split<cr>
-      nnoremap <leader>cc :VimShell -split<cr>
-      nnoremap <leader>cn :VimShellInteractive node<cr>
-      nnoremap <leader>cl :VimShellInteractive lua<cr>
-      nnoremap <leader>cr :VimShellInteractive irb<cr>
-      nnoremap <leader>cp :VimShellInteractive python<cr>
+      nnoremap <Leader>c :VimShell -split<cr>
+      nnoremap <Leader>cc :VimShell -split<cr>
+      nnoremap <Leader>cn :VimShellInteractive node<cr>
+      nnoremap <Leader>cl :VimShellInteractive lua<cr>
+      nnoremap <Leader>cr :VimShellInteractive irb<cr>
+      nnoremap <Leader>cp :VimShellInteractive python<cr>
     "}}}
     NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
       let g:goldenview__enable_default_mapping=0
@@ -756,20 +756,20 @@
     NeoBundleLazy 'nosami/Omnisharp', {'autoload':{'filetypes':['cs']}}
   endif "}}}
 
-  nnoremap <leader>nbu :Unite neobundle/update -vertical -no-start-insert<cr>
+  nnoremap <Leader>nbu :Unite neobundle/update -vertical -no-start-insert<cr>
 "}}}
 
 " mappings {{{
   " formatting shortcuts
-  nmap <leader>fef :call Preserve("normal gg=G")<CR>
-  nmap <leader>f$ :call StripTrailingWhitespace()<CR>
-  vmap <leader>s :sort<cr>
+  nmap <Leader>fef :call Preserve("normal gg=G")<CR>
+  nmap <Leader>f$ :call StripTrailingWhitespace()<CR>
+  vmap <Leader>s :sort<cr>
 
   " eval vimscript by line or visual selection
-  nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
-  vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
+  nmap <silent> <Leader>e :call Source(line('.'), line('.'))<CR>
+  vmap <silent> <Leader>e :call Source(line('v'), line('.'))<CR>
 
-  nnoremap <leader>w :w<cr>
+  nnoremap <Leader>w :w<cr>
 
   " toggle paste
   map <F2> :set invpaste<CR>:set paste?<CR>
@@ -838,14 +838,14 @@
   nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
   " find current word in quickfix
-  nnoremap <leader>fw :execute "vimgrep ".expand("<cword>")." %"<cr>:copen<cr>
+  nnoremap <Leader>fw :execute "vimgrep ".expand("<cword>")." %"<cr>:copen<cr>
   " find last search in quickfix
-  nnoremap <leader>ff :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
+  nnoremap <Leader>ff :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 
   " shortcuts for windows {{{
-    nnoremap <leader>v <C-w>v<C-w>l
-    nnoremap <leader>s <C-w>s
-    nnoremap <leader>vsa :vert sba<cr>
+    nnoremap <Leader>v <C-w>v<C-w>l
+    nnoremap <Leader>s <C-w>s
+    nnoremap <Leader>vsa :vert sba<cr>
     nnoremap <C-h> <C-w>h
     nnoremap <C-j> <C-w>j
     nnoremap <C-k> <C-w>k
@@ -853,8 +853,8 @@
   "}}}
 
   " tab shortcuts
-  map <leader>tn :tabnew<CR>
-  map <leader>tc :tabclose<CR>
+  map <Leader>tn :tabnew<CR>
+  map <Leader>tc :tabclose<CR>
 
   " make Y consistent with C and D. See :help Y.
   nnoremap Y y$
@@ -869,11 +869,11 @@
   nnoremap gb :ls<cr>:e #
 
   if neobundle#is_sourced('vim-dispatch')
-    nnoremap <leader>tag :Dispatch ctags -R<cr>
+    nnoremap <Leader>tag :Dispatch ctags -R<cr>
   endif
 
   " general
-  nmap <leader>l :set list! list?<cr>
+  nmap <Leader>l :set list! list?<cr>
   nnoremap <BS> :set hlsearch! hlsearch?<cr>
 
   map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -881,10 +881,10 @@
         \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
   " helpers for profiling {{{
-    nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
-    nnoremap <silent> <leader>DP :exe ":profile pause"<cr>
-    nnoremap <silent> <leader>DC :exe ":profile continue"<cr>
-    nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
+    nnoremap <silent> <Leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+    nnoremap <silent> <Leader>DP :exe ":profile pause"<cr>
+    nnoremap <silent> <Leader>DC :exe ":profile continue"<cr>
+    nnoremap <silent> <Leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
   "}}}
 "}}}
 
@@ -903,7 +903,7 @@
 
   autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
   autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
-  autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
+  autocmd FileType css,scss nnoremap <silent> <Leader>S vi{:sort<CR>
   autocmd FileType python setlocal foldmethod=indent
   autocmd FileType markdown setlocal nolist
   autocmd FileType vim setlocal fdm=indent keywordprg=:help
@@ -1034,16 +1034,16 @@ if count(s:settings.plugin_groups, 'dev')
       set foldtext=NeatFoldText()
 
       " Code folding options
-      nmap <leader>f0 :set foldlevel=0<CR>:set foldcolumn=0<CR>
-      nmap <leader>f1 :set foldlevel=1<CR>:set foldcolumn=1<CR>
-      nmap <leader>f2 :set foldlevel=2<CR>:set foldcolumn=3<CR>
-      nmap <leader>f3 :set foldlevel=3<CR>:set foldcolumn=4<CR>
-      nmap <leader>f4 :set foldlevel=4<CR>:set foldcolumn=5<CR>
-      nmap <leader>f5 :set foldlevel=5<CR>:set foldcolumn=5<CR>
-      nmap <leader>f6 :set foldlevel=6<CR>:set foldcolumn=5<CR>
-      nmap <leader>f7 :set foldlevel=7<CR>:set foldcolumn=5<CR>
-      nmap <leader>f8 :set foldlevel=8<CR>:set foldcolumn=5<CR>
-      nmap <leader>f9 :set foldlevel=9<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f0 :set foldlevel=0<CR>:set foldcolumn=0<CR>
+      nmap <Leader>f1 :set foldlevel=1<CR>:set foldcolumn=1<CR>
+      nmap <Leader>f2 :set foldlevel=2<CR>:set foldcolumn=3<CR>
+      nmap <Leader>f3 :set foldlevel=3<CR>:set foldcolumn=4<CR>
+      nmap <Leader>f4 :set foldlevel=4<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f5 :set foldlevel=5<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f6 :set foldlevel=6<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f7 :set foldlevel=7<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f8 :set foldlevel=8<CR>:set foldcolumn=5<CR>
+      nmap <Leader>f9 :set foldlevel=9<CR>:set foldcolumn=5<CR>
 
     endif
   " }}}
