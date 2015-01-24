@@ -134,6 +134,7 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
    * `<leader>DP` pauses profiling
    * `<leader>DC` continues profiling
    * `<leader>DQ` finishes profiling and exits vim
+* `<Leader>p` insert in new line
 
 ### Visual mode
 *  `<leader>s` sort selection

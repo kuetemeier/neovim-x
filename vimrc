@@ -784,6 +784,7 @@
 
   " toggle paste
   map <F2> :set invpaste<CR>:set paste?<CR>
+  nnoremap <Leader>p :pu<CR>
 
   " remap arrow keys
   "nnoremap <left> :bprev<CR>
