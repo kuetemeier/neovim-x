@@ -53,11 +53,6 @@ $RECYCLE.BIN/
 \#*\#
 .\#*
 
-# Vim
-*.s[a-w][a-z]
-*.un~
-.netrwhist
-
 # PyCharm
 .idea
 .iml
