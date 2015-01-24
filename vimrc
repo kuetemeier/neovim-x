@@ -25,7 +25,8 @@
   let s:settings.max_column = 120
   let s:settings.autocomplete_method = 'neocomplcache'
   let s:settings.enable_cursorcolumn = 0
-  let s:settings.colorscheme = 'jellybeans'
+  "let s:settings.colorscheme = 'jellybeans'
+  let s:settings.colorscheme = 'hybrid'
   if has('lua')
     let s:settings.autocomplete_method = 'neocomplete'
   elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
@@ -226,7 +227,8 @@
     endif
 
     " backups
-    set backup
+    set nobackup
+    set nowritebackup
     let &backupdir = s:get_cache_dir('backup')
 
     " swap files
@@ -339,6 +341,9 @@
         \ 'windows': '"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\nmake.exe" make_msvc32.mak',
       \ },
     \ }
+  endif "}}}
+  if count(s:settings.plugin_groups, 'knet') "{{{
+    NeoBundle 'git@git.kuetemeier.net:kuetemeiernet/knet-vim-snippets.git'
   endif "}}}
   if count(s:settings.plugin_groups, 'web') "{{{
     NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
