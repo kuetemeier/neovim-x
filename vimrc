@@ -166,7 +166,7 @@
 " }}}
 
 " base configuration {{{
-  set timeoutlen=300                                  "mapping timeout
+  set timeoutlen=1000                                 "mapping timeout
   set ttimeoutlen=50                                  "keycode timeout
 
   set mouse=a                                         "enable mouse
@@ -307,7 +307,8 @@
     " open maximized
     " set lines=999 columns=9999
     " maximize mvim
-    nnoremap <silent> <Leader>u :set lines=999 columns=9999<cr>
+    nnoremap <silent> <Leader>U :set lines=999 columns=9999<cr>
+    nnoremap <silent> <Leader>u :set lines=25 columns=80<cr>
     if s:is_windows
       autocmd GUIEnter * simalt ~x
     endif
