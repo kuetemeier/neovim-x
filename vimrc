@@ -306,6 +306,8 @@
   if has('gui_running')
     " open maximized
     " set lines=999 columns=9999
+    " maximize mvim
+    nnoremap <silent> <Leader>u :set lines=999 columns=9999<cr>
     if s:is_windows
       autocmd GUIEnter * simalt ~x
     endif
@@ -520,10 +522,7 @@
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 'thinca/vim-visualstar'
-    NeoBundle 'tomtom/tcomment_vim' "{{{
-      " TComment, comment and uncomment with <Leader>c
-      map <Leader>c <C-_><C-_>
-    "}}}
+    NeoBundle 'tomtom/tcomment_vim'
 
     NeoBundle 'terryma/vim-expand-region'
     NeoBundle 'terryma/vim-multiple-cursors'
@@ -550,7 +549,7 @@
     " Zen Editing
     NeoBundle 'junegunn/goyo.vim'
     NeoBundle 'amix/vim-zenroom2' "{{{
-     nnoremap <silent> <Leader>z :Goyo<cr>
+      nnoremap <silent> <Leader>o :Goyo<cr>
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -748,7 +747,7 @@
       let g:vimshell_data_directory=s:get_cache_dir('vimshell')
       let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
-      "nnoremap <Leader>c :VimShell -split<cr>
+      nnoremap <Leader>c :VimShell -split<cr>
       nnoremap <Leader>cc :VimShell -split<cr>
       nnoremap <Leader>cn :VimShellInteractive node<cr>
       nnoremap <Leader>cl :VimShellInteractive lua<cr>
@@ -1076,8 +1075,6 @@ if count(s:settings.plugin_groups, 'dev')
 
   " unhighlight search highlight with C-L
   nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
-  nnoremap <silent> <Leader>o :Goyo<cr>
-  nnoremap <silent> <Leader>u :set lines=999 columns=9999<cr>
 
   " Resize windows {{{
     " You can use the command :resize +5 or :res -5 to resize windows
@@ -1085,6 +1082,12 @@ if count(s:settings.plugin_groups, 'dev')
     nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
     nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
   "}}}
+
+  NeoBundle 'mtth/scratch.vim'
+
+  " NeoBundle 'myusuf3/numbers.vim'
+  " let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell',
+  "   \ 'w3m', 'tagbar', 'gundo', 'nerdtree', 'Vundle']
 
 endif
 
