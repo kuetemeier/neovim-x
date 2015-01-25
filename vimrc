@@ -648,6 +648,7 @@
       autocmd FileType unite call s:unite_settings()
 
       nmap <space> [unite]
+      "nmap <Leader>m [unite]
       nnoremap [unite] <nop>
 
       if s:is_windows
@@ -1083,6 +1084,8 @@ if count(s:settings.plugin_groups, 'dev')
   "}}}
 
   NeoBundle 'mtth/scratch.vim'
+  " NeoBundle 'gcmt/wildfire.vim'
+  " nmap <leader>m <Plug>(wildfire-quick-select)
 
   " NeoBundle 'myusuf3/numbers.vim'
   " let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell',
