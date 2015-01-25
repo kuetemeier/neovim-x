@@ -990,23 +990,20 @@ if count(s:settings.plugin_groups, 'dev')
   " }}}
 
   " Remapping of german keys {{{
-  map <silent> ü [
-  nmap <silent> ü [
-  omap <silent> ü [
-  xmap <silent> ü [
-  inoremap <silent> ü [
-  map <silent> ö :
-  inoremap <silent> ö :
-  map <silent> ä ]
-  nmap <silent> ä ]
-  omap <silent> ä ]
-  xmap <silent> ä ]
-  inoremap <silent> ä ]
-  map <silent> Ü {
-  map <silent> Ä }
-  inoremap <silent> Ü {
-  inoremap <silent> Ä }
+    map <silent> ü [
+    map! <silent> ü [
+    map <silent> ö :
+    map! <silent> ö :
+    map <silent> Ö \|
+    map! <silent> Ö \|
+    map <silent> ä ]
+    map! <silent> ä ]
+    map <silent> Ü {
+    map! <silent> Ü {
+    map <silent> Ä }
+    map! <silent> Ä }
   " }}}
+  "set keymap=german
 
   " Key combinations to genereate german umlauts {{{
   inoremap <silent> o" ö
