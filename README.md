@@ -11,7 +11,7 @@ examples.
 ## Installation
 
 1.  clone this repository into your `~/.vim` directory
-1.  `git clone --recusive git@github.com:jkuetemeier/dotvim.git .vim`
+1.  `git clone --recursive git@github.com:jkuetemeier/dotvim.git .vim`
 1.  `mv ~/.vimrc ~/.vimrc.backup`
 1.  Choose a dotvimrc file `ln -s ~/.vim/dotvimrc ~/.vimrc` or create one:
 
