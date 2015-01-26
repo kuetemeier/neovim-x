@@ -51,6 +51,9 @@
   elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
     let s:settings.autocomplete_method = 'ycm'
   endif
+  if exists('g:dotvim_settings.autocomplete')
+    let s:settings.autocomplete_method = g:dotvim_settings.autocomplete
+  endif
 
   if exists('g:dotvim_settings.plugin_groups')
     let s:settings.plugin_groups = g:dotvim_settings.plugin_groups
@@ -392,6 +395,9 @@
   if count(s:settings.plugin_groups, 'knet') "{{{
     NeoBundle 'git@git.kuetemeier.net:kuetemeiernet/knet-vim-snippets.git'
   endif "}}}
+  if count(s:settings.plugin_groups, 'jk') "{{{
+    NeoBundle 'git@git.kuetemeier.net:jkuetemeier/jk-vim-plugin.git'
+  endif "}}}
   if count(s:settings.plugin_groups, 'web') "{{{
     NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
@@ -402,17 +408,17 @@
     NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
     NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
     NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
-    NeoBundleLazy 'mattn/emmet-vim', {'autoload':{'filetypes':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']}} "{{{
-      function! s:zen_html_tab()
-        let line = getline('.')
-        if match(line, '<.*>') < 0
-          return "\<c-y>,"
-        endif
-        return "\<c-y>n"
-      endfunction
-      autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-      autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
-    "}}}
+    " NeoBundleLazy 'mattn/emmet-vim', {'autoload':{'filetypes':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']}} "{{{
+    "   function! s:zen_html_tab()
+    "     let line = getline('.')
+    "     if match(line, '<.*>') < 0
+    "       return "\<c-y>,"
+    "     endif
+    "     return "\<c-y>n"
+    "   endfunction
+    "   autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+    "   autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
+    " "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
     NeoBundleLazy 'marijnh/tern_for_vim', {
@@ -480,7 +486,18 @@
   if count(s:settings.plugin_groups, 'autocomplete') "{{{
     NeoBundle 'honza/vim-snippets'
     if s:settings.autocomplete_method == 'ycm' "{{{
-      NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
+      NeoBundle 'ervandew/supertab'
+      NeoBundle 'Valloric/YouCompleteMe', {
+            \ 'build' : {
+            \     'mac' : './install.sh --clang-completer',
+            \     'unix' : './install.sh --clang-completer --omnisharp-completer',
+            \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+            \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+            \    }
+            \ }
+      " Add or remove arguments to install.sh as necessary.
+      " Additional steps might be necessary for Windows, as always. ;)
+      "NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
         let g:ycm_complete_in_comments_and_strings=1
         let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
         let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
@@ -492,23 +509,60 @@
         let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
         let g:UltiSnipsSnippetsDir='~/.vim/snippets'
       "}}}
-    else
-      NeoBundle 'Shougo/neosnippet-snippets'
-      NeoBundle 'Shougo/neosnippet.vim' "{{{
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-        let g:neosnippet#enable_snipmate_compatibility=1
+      " make YCM compatible with UltiSnips (using supertab)
+      let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+      let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+      let g:SuperTabDefaultCompletionType = '<C-n>'
 
-        imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
-        smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-        imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-        smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-      "}}}
+      " better key bindings for UltiSnipsExpandTrigger
+      let g:UltiSnipsExpandTrigger = "<tab>"
+      let g:UltiSnipsJumpForwardTrigger = "<tab>"
+      let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    else
+      " NeoBundle 'Shougo/neosnippet-snippets'
+      " NeoBundle 'Shougo/neosnippet.vim' "{{{
+      "   let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+      "   let g:neosnippet#enable_snipmate_compatibility=1
+      "
+      "   imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
+      "   smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      "   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+      "   smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+      " "}}}
     endif "}}}
     if s:settings.autocomplete_method == 'neocomplete' "{{{
+      echom "neocomplete"
       NeoBundleLazy 'Shougo/neocomplete.vim', {'autoload':{'insert':1}, 'vim_version':'7.3.885'} "{{{
         let g:neocomplete#enable_at_startup=1
         let g:neocomplete#data_directory=s:get_cache_dir('neocomplete')
       "}}}
+      " <TAB>: completion.
+      inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+      " <C-h>, <BS>: close popup and delete backword char.
+      inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+      inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+      inoremap <expr><C-y>  neocomplete#close_popup()
+      inoremap <expr><C-e>  neocomplete#cancel_popup()
+      " Enable omni completion.
+      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+      " Enable heavy omni completion.
+      if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+      endif
+      " NeoBundle 'SirVer/ultisnips' "{{{
+      "   let g:UltiSnipsExpandTrigger="<tab>"
+      "   let g:UltiSnipsJumpForwardTrigger="<tab>"
+      "   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+      "   let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+      "
+      "   let g:UltiSnipsJumpForwardTrigger="<c-b>"
+      "   let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+      " "}}}
     endif "}}}
     if s:settings.autocomplete_method == 'neocomplcache' "{{{
       NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
