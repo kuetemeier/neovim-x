@@ -430,6 +430,7 @@
         \ 'windows': 'npm install',
       \ },
     \ }
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
     NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}} "{{{
       nnoremap <Leader>fjs :call JsBeautify()<cr>
@@ -486,7 +487,7 @@
   if count(s:settings.plugin_groups, 'autocomplete') "{{{
     NeoBundle 'honza/vim-snippets'
     if s:settings.autocomplete_method == 'ycm' "{{{
-      NeoBundle 'ervandew/supertab'
+      " YouCompleteMe {{{
       NeoBundle 'Valloric/YouCompleteMe', {
             \ 'build' : {
             \     'mac' : './install.sh --clang-completer',
@@ -497,38 +498,28 @@
             \ }
       " Add or remove arguments to install.sh as necessary.
       " Additional steps might be necessary for Windows, as always. ;)
-      "NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
         let g:ycm_complete_in_comments_and_strings=1
-        let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-        let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+        let g:ycm_key_list_select_completion=['<C-n>', '<Down>', '<tab>']
+        let g:ycm_key_list_previous_completion=['<C-p>', '<Up>', '<s-tab>']
         let g:ycm_filetype_blacklist={'unite': 1}
       "}}}
       NeoBundle 'SirVer/ultisnips' "{{{
-        let g:UltiSnipsExpandTrigger="<tab>"
-        let g:UltiSnipsJumpForwardTrigger="<tab>"
-        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-        let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+         let g:UltiSnipsExpandTrigger="<Leader>m"
+         let g:UltiSnipsJumpForwardTrigger="<Leader>m"
+         let g:UltiSnipsJumpBackwardTrigger="<Leader>."
+         let g:UltiSnipsSnippetsDir='~/.vim/snippets'
       "}}}
-      " make YCM compatible with UltiSnips (using supertab)
-      let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-      let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-      let g:SuperTabDefaultCompletionType = '<C-n>'
-
-      " better key bindings for UltiSnipsExpandTrigger
-      let g:UltiSnipsExpandTrigger = "<tab>"
-      let g:UltiSnipsJumpForwardTrigger = "<tab>"
-      let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
     else
-      " NeoBundle 'Shougo/neosnippet-snippets'
-      " NeoBundle 'Shougo/neosnippet.vim' "{{{
-      "   let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-      "   let g:neosnippet#enable_snipmate_compatibility=1
-      "
-      "   imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
-      "   smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-      "   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-      "   smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
-      " "}}}
+      NeoBundle 'Shougo/neosnippet-snippets'
+      NeoBundle 'Shougo/neosnippet.vim' "{{{
+        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
+        let g:neosnippet#enable_snipmate_compatibility=1
+
+        imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-n>" : "\<TAB>")
+        smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+        imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+        smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
+      "}}}
     endif "}}}
     if s:settings.autocomplete_method == 'neocomplete' "{{{
       echom "neocomplete"
