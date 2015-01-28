@@ -908,6 +908,18 @@
     nnoremap <C-j> <C-w>j
     nnoremap <C-k> <C-w>k
     nnoremap <C-l> <C-w>l
+
+    inoremap <C-h> <ESC><C-w>ha
+    inoremap <C-j> <ESC><C-w>ja
+    inoremap <C-k> <ESC><C-w>ka
+    inoremap <C-l> <ESC><C-w>la
+
+    nmap <Leader>j :b#<CR>
+    imap <Leader>j <ESC>:b#<CR>
+    nmap <Leader>l :bnext<CR>
+    nmap <Leader>h :bprev<CR>
+    imap <Leader>l <ESC>:bnext<CR>
+    imap <Leader>h <ESC>:bprev<CR>
   "}}}
 
   " tab shortcuts
@@ -931,7 +943,7 @@
   endif
 
   " general
-  nmap <Leader>l :set list! list?<cr>
+  "nmap <Leader>l :set list! list?<cr>
   nnoremap <BS> :set hlsearch! hlsearch?<cr>
 
   map <F11> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
