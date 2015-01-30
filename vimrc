@@ -507,7 +507,8 @@
          let g:UltiSnipsExpandTrigger="<Leader>m"
          let g:UltiSnipsJumpForwardTrigger="<Leader>m"
          let g:UltiSnipsJumpBackwardTrigger="<Leader>."
-         let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+         let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+         let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
       "}}}
     else
       NeoBundle 'Shougo/neosnippet-snippets'
