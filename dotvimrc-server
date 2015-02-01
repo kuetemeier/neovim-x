@@ -5,6 +5,6 @@ let g:dotvim_settings.minimal_server_version = 1
 
 " if there are groups you want always loaded, you can use this:
 let g:dotvim_settings.plugin_groups_include =
-  \ ['web', 'javascript', 'indent-guides']
+  \ ['numbers']
 
 source ~/.vim/vimrc
