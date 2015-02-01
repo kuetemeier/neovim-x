@@ -560,7 +560,7 @@
          let g:UltiSnipsExpandTrigger="<Leader>m"
          let g:UltiSnipsJumpForwardTrigger="<Leader>m"
          let g:UltiSnipsJumpBackwardTrigger="<Leader>."
-         let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips"]
+         let g:UltiSnipsSnippetDirectories = ["ultisnips"]
          let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
       "}}}
     else
