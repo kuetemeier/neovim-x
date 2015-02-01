@@ -287,6 +287,8 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
    closing quotes and braces
 *  [startify](https://github.com/mhinz/vim-startify) gives you a better start
    screen
+*  [expand-region](https://github.com/terryma/vim-expand-region) expand and
+   shrink selections
 
 # and even more plugins...
 *  i think i've listed about half of the plugins contained in this

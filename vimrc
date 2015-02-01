@@ -43,23 +43,29 @@
   let s:settings = {}
   let s:settings.default_indent = 2
   let s:settings.max_column = 80
-  let s:settings.autocomplete_method = 'neocomplcache'
+  let s:settings.autocomplete_method = 'ycm'
   let s:settings.enable_cursorcolumn = 0
   let s:settings.colorscheme = 'hybrid'
-  if has('lua')
-    let s:settings.autocomplete_method = 'neocomplete'
-  elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
-    let s:settings.autocomplete_method = 'ycm'
-  endif
-  if exists('g:dotvim_settings.autocomplete')
-    let s:settings.autocomplete_method = g:dotvim_settings.autocomplete
-  endif
 
   " check for a 'minimal server version' configuration
   if !exists('g:dotvim_settings.minimal_server_version')
     let s:settings.msv = 0
   else
     let s:settings.msv = g:dotvim_settings.minimal_server_version
+  endif
+
+  if s:settings.msv
+    " use neocomplcache on server config as default
+    let s:settings.autocomplete_method = 'neocomplcache'
+  endif
+
+  " if has('lua')
+  "   let s:settings.autocomplete_method = 'neocomplete'
+  " elseif filereadable(expand("~/.vim/bundle/YouCompleteMe/python/ycm_core.*"))
+  "   let s:settings.autocomplete_method = 'ycm'
+  " endif
+  if exists('g:dotvim_settings.autocomplete')
+    let s:settings.autocomplete_method = g:dotvim_settings.autocomplete
   endif
 
   " default: show custom foldtext
@@ -81,8 +87,10 @@
   else
     let s:settings.plugin_groups = []
     call add(s:settings.plugin_groups, 'core')
-    call add(s:settings.plugin_groups, 'germanmapping')
+    call add(s:settings.plugin_groups, 'editing')
     call add(s:settings.plugin_groups, 'folding')
+    call add(s:settings.plugin_groups, 'germanmapping')
+    call add(s:settings.plugin_groups, 'scm')
     if !s:settings.msv
       call add(s:settings.plugin_groups, 'web')
       call add(s:settings.plugin_groups, 'javascript')
@@ -90,9 +98,7 @@
       call add(s:settings.plugin_groups, 'python')
       call add(s:settings.plugin_groups, 'scala')
       call add(s:settings.plugin_groups, 'go')
-      call add(s:settings.plugin_groups, 'scm')
-      call add(s:settings.plugin_groups, 'editing')
-      call add(s:settings.plugin_groups, 'indents')
+      call add(s:settings.plugin_groups, 'indent-g')
       call add(s:settings.plugin_groups, 'navigation')
       call add(s:settings.plugin_groups, 'unite')
       call add(s:settings.plugin_groups, 'autocomplete')
@@ -330,11 +336,6 @@
   endif
 
   if has('gui_running')
-    " open maximized
-    " set lines=999 columns=9999
-    " maximize mvim
-    nnoremap <silent> <Leader>U :set lines=999 columns=9999<cr>
-    nnoremap <silent> <Leader>u :set lines=25 columns=80<cr>
     if s:is_windows
       autocmd GUIEnter * simalt ~x
     endif
@@ -358,7 +359,17 @@
     if has('gui_gtk')
       set gfn=Ubuntu\ Mono\ 11
     endif
+
+    " open maximized
+    " set lines=999 columns=9999
+    " maximize mvim
+    nnoremap <silent> <Leader>U :set lines=999 columns=9999<cr>
+    nnoremap <silent> <Leader>u :set lines=25 columns=80<cr>
   else
+
+    nnoremap <silent> <Leader>U :echo "This is not a GUI Vim, cannot resize"<cr>
+    nnoremap <silent> <Leader>u :echo "This is not a GUI Vim, cannot resize"<cr>
+
     if $COLORTERM == 'gnome-terminal'
       set t_Co=256 "why you no tell me correct colors?!?!
     endif
@@ -377,7 +388,10 @@
 
 " plugin/mapping configuration {{{
   if count(s:settings.plugin_groups, 'core') "{{{
+    " allows you to configure % to match more than just single characters
     NeoBundle 'matchit.zip'
+
+    " lean & mean status/tabline for vim that's light as air
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
       let g:airline#extensions#tabline#left_sep=' '
@@ -396,29 +410,45 @@
       " let g:airline#extensions#tabline#fnamemod = ':t'
       let g:airline#extensions#tabline#buffer_min_count = 2
     "}}}
+
+    " surround.vim: quoting/parenthesizing made simple
     NeoBundle 'tpope/vim-surround'
+
+    " repeat.vim: enable repeating supported plugin maps with '.'
     NeoBundle 'tpope/vim-repeat'
-    NeoBundle 'tpope/vim-dispatch'
+
+    " eunuch.vim: helpers for UNIX
     NeoBundle 'tpope/vim-eunuch'
+
+    " unimpaired.vim: pairs of handy bracket mappings
     NeoBundle 'tpope/vim-unimpaired' "{{{
       nmap <c-up> [e
       nmap <c-down> ]e
       vmap <c-up> [egv
       vmap <c-down> ]egv
     "}}}
-    NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build': {
+
+    if !s:settings.msv
+      " dispatch.vim: asynchronous build and test dispatcher
+      NeoBundle 'tpope/vim-dispatch'
+
+      " Interactive command execution in Vim.
+      NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build': {
         \ 'mac': 'make -f make_mac.mak',
         \ 'unix': 'make -f make_unix.mak',
         \ 'cygwin': 'make -f make_cygwin.mak',
         \ 'windows': '"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\nmake.exe" make_msvc32.mak',
-      \ },
-    \ }
+        \ },
+      \ }
+    endif
   endif "}}}
   if count(s:settings.plugin_groups, 'knet') "{{{
+    " Kuetemeier.NET GmbH plugin with custom snippets
     NeoBundle 'git@git.kuetemeier.net:kuetemeiernet/knet-vim-snippets.git'
   endif "}}}
   if count(s:settings.plugin_groups, 'jk') "{{{
+    " Personal plugin from Jörg Kütemeier
     NeoBundle 'git@git.kuetemeier.net:jkuetemeier/jk-vim-plugin.git'
   endif "}}}
   if count(s:settings.plugin_groups, 'web') "{{{
@@ -568,15 +598,6 @@
       if !exists('g:neocomplete#sources#omni#input_patterns')
         let g:neocomplete#sources#omni#input_patterns = {}
       endif
-      " NeoBundle 'SirVer/ultisnips' "{{{
-      "   let g:UltiSnipsExpandTrigger="<tab>"
-      "   let g:UltiSnipsJumpForwardTrigger="<tab>"
-      "   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-      "   let g:UltiSnipsSnippetsDir='~/.vim/snippets'
-      "
-      "   let g:UltiSnipsJumpForwardTrigger="<c-b>"
-      "   let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-      " "}}}
     endif "}}}
     if s:settings.autocomplete_method == 'neocomplcache' "{{{
       NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
@@ -587,15 +608,19 @@
     endif "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'editing') "{{{
-    NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
-    NeoBundle 'tpope/vim-endwise'
-    NeoBundle 'tpope/vim-speeddating'
-    NeoBundle 'thinca/vim-visualstar'
+    " An extensible & universal comment vim-plugin that also handles embedded
+    " filetypes
     NeoBundle 'tomtom/tcomment_vim'
 
-    NeoBundle 'terryma/vim-expand-region'
+    " True Sublime Text style multiple selections for Vim
     NeoBundle 'terryma/vim-multiple-cursors'
-    NeoBundle 'chrisbra/NrrwRgn'
+
+    " The missing motion for Vim
+    NeoBundle 'justinmk/vim-sneak' "{{{
+      let g:sneak#streak = 1
+    "}}}
+
+    " Vim script for text filtering and alignment
     NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
       nmap <Leader>a& :Tabularize /&<CR>
       vmap <Leader>a& :Tabularize /&<CR>
@@ -610,16 +635,41 @@
       nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
       vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     "}}}
-    NeoBundle 'jiangmiao/auto-pairs'
-    NeoBundle 'justinmk/vim-sneak' "{{{
-      let g:sneak#streak = 1
-    "}}}
 
-    " Zen Editing
-    NeoBundle 'junegunn/goyo.vim'
-    NeoBundle 'amix/vim-zenroom2' "{{{
-      nnoremap <silent> <Leader>o :Goyo<cr>
-    "}}}
+    " EditorConfig plugin for Vim
+    NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
+
+    " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim
+    " script, etc
+    NeoBundle 'tpope/vim-endwise'
+
+    " speeddating.vim: use CTRL-A/CTRL-X to increment dates, times, and more
+    NeoBundle 'tpope/vim-speeddating'
+
+    " Vim plugin that allows you to visually select increasingly larger
+    " regions of text using the same key combination.
+    " use '+' and '_' to expand and shrink regions
+    NeoBundle 'terryma/vim-expand-region'
+
+    " A Narrow Region Plugin for vim (like Emacs Narrow Region)
+    NeoBundle 'chrisbra/NrrwRgn'
+    " edit actual selected visual region
+    map <Leader>n :NR<CR>
+    " mark a visual selected region as NrrwRgn
+    map <Leader>nm :NRP<CR>
+    " edit all marked regions
+    map <Leader>nn :NRM<CR>
+
+    " Vim plugin, insert or delete brackets, parens, quotes in pair
+    NeoBundle 'jiangmiao/auto-pairs'
+
+    if !s:settings.msv
+      " Zen Editing
+      NeoBundle 'junegunn/goyo.vim'
+      NeoBundle 'amix/vim-zenroom2' "{{{
+        nnoremap <silent> <Leader>o :Goyo<cr>
+      "}}}
+    endif
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
     NeoBundle 'mileszs/ack.vim' "{{{
@@ -755,11 +805,11 @@
       nnoremap <silent> [unite]j :<C-u>Unite -auto-resize -buffer-name=junk junkfile junkfile/new<cr>
     "}}}
   endif "}}}
-  if count(s:settings.plugin_groups, 'indents') "{{{
+  if count(s:settings.plugin_groups, 'indent-guides') "{{{
     NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
       let g:indent_guides_start_level=1
       let g:indent_guides_guide_size=1
-      let g:indent_guides_enable_on_vim_startup=0
+      let g:indent_guides_enable_on_vim_startup=1
       let g:indent_guides_color_change_percent=3
       if !has('gui_running')
         let g:indent_guides_auto_colors=0
@@ -915,7 +965,6 @@
     " NeoBundle 'kana/vim-textobj-entire'
     " NeoBundle 'lucapette/vim-textobj-underscore'
     NeoBundle 'michaeljsmith/vim-indent-object'
-    NeoBundle 'vim-scripts/camelcasemotion'
   endif "}}}
   if count(s:settings.plugin_groups, 'misc') "{{{
     if exists('$TMUX')
@@ -1207,6 +1256,10 @@ if count(s:settings.plugin_groups, 'dev')
   " NeoBundle 'gcmt/wildfire.vim'
   " nmap <leader>m <Plug>(wildfire-quick-select)
 
+  " NeoBundle 'thinca/vim-visualstar'
+
+  " carefull... overwrites <Leader>w
+  " NeoBundle 'vim-scripts/camelcasemotion'
 endif "}}}
 
 " finish loading {{{
