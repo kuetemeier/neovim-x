@@ -620,6 +620,9 @@
       let g:sneak#streak = 1
     "}}}
 
+    " Scratch Buffer
+    NeoBundle 'mtth/scratch.vim'
+
     " Vim script for text filtering and alignment
     NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
       nmap <Leader>a& :Tabularize /&<CR>
@@ -1078,7 +1081,6 @@
     nnoremap q? q?i
   " }}}
 
-
   " screen line scroll
   nnoremap <silent> j gj
   nnoremap <silent> k gk
@@ -1162,6 +1164,37 @@
     nnoremap <silent> <Leader>DC :exe ":profile continue"<cr>
     nnoremap <silent> <Leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
   "}}}
+
+  " Movement {{{
+
+    " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc>
+    " do by default), and ~ covert case over line breaks; also have the cursor
+    " keys wrap in insert mode:
+    set whichwrap=h,l,~,[,]
+
+    " use <Ctrl>+N/<Ctrl>+P to cycle through files:
+    nnoremap <C-N> :next<CR>
+    nnoremap <C-P> :prev<CR>
+
+  " }}}
+
+  " Easier formatting of paragraphs {{{
+    vmap Q gq
+    " have Q reformat the current paragraph (or selected text if there is any):
+    vnoremap Q gqqp
+    vnoremap Q gq
+  " }}}
+
+  " unhighlight search highlight with C-L
+    nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
+
+  " Resize windows {{{
+  " You can use the command :resize +5 or :res -5 to resize windows
+  " this are just quick shortcuts
+    nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+    nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+  "}}}
+
 "}}}
 
 " commands {{{
@@ -1218,41 +1251,6 @@
 " Development in Progress {{{
 if count(s:settings.plugin_groups, 'dev')
 
-  " Movement {{{
-
-    " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc>
-    " do by default), and ~ covert case over line breaks; also have the cursor
-    " keys wrap in insert mode:
-    set whichwrap=h,l,~,[,]
-
-    " use <Ctrl>+N/<Ctrl>+P to cycle through files:
-    nnoremap <C-N> :next<CR>
-    nnoremap <C-P> :prev<CR>
-
-  " }}}
-
-  " Easier formatting of paragraphs {{{
-    vmap Q gq
-    " have Q reformat the current paragraph (or selected text if there is any):
-    vnoremap Q gqqp
-    vnoremap Q gq
-  " }}}
-
-
-  " unhighlight search highlight with C-L
-    nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
-
-  " Resize windows {{{
-  " You can use the command :resize +5 or :res -5 to resize windows
-  " this are just quick shortcuts
-    nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-    nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-  "}}}
-
-  " Scratch Buffer
-  NeoBundle 'mtth/scratch.vim'
-
-
   " NeoBundle 'gcmt/wildfire.vim'
   " nmap <leader>m <Plug>(wildfire-quick-select)
 
@@ -1260,6 +1258,7 @@ if count(s:settings.plugin_groups, 'dev')
 
   " carefull... overwrites <Leader>w
   " NeoBundle 'vim-scripts/camelcasemotion'
+
 endif "}}}
 
 " finish loading {{{
