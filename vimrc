@@ -34,7 +34,7 @@
 
   let s:cache_dir = get(g:dotvim_settings, 'cache_dir', '~/.vim/.cache')
 
-  if g:dotvim_settings.version != 1
+  if g:dotvim_settings.version != 2
     echom 'The version number in your shim does not match the distribution version.  Please consult the README changelog section.'
     finish
   endif
@@ -55,32 +55,59 @@
     let s:settings.autocomplete_method = g:dotvim_settings.autocomplete
   endif
 
+  " check for a 'minimal server version' configuration
+  if !exists('g:dotvim_settings.minimal_server_version')
+    let s:settings.msv = 0
+  else
+    let s:settings.msv = g:dotvim_settings.minimal_server_version
+  endif
+
+  " default: show custom foldtext
+  if !exists('g:dotvim_settings.no_own_foldtext')
+    let s:settings.no_own_foldtext = 0
+  else
+    let s:settings.no_own_foldtext = g:dotvim_settings.no_own_foldtext
+  endif
+
+  " default: install only the default colorscheme
+  if !exists('g:dotvim_settings.install_all_colorschemes')
+    let s:settings.all_colorschemes = 0
+  else
+    let s:settings.all_colorschemes = g:dotvim_settings.install_all_colorschemes
+  endif
+
   if exists('g:dotvim_settings.plugin_groups')
     let s:settings.plugin_groups = g:dotvim_settings.plugin_groups
   else
     let s:settings.plugin_groups = []
     call add(s:settings.plugin_groups, 'core')
-    call add(s:settings.plugin_groups, 'web')
-    call add(s:settings.plugin_groups, 'javascript')
-    call add(s:settings.plugin_groups, 'ruby')
-    call add(s:settings.plugin_groups, 'python')
-    call add(s:settings.plugin_groups, 'scala')
-    call add(s:settings.plugin_groups, 'go')
-    call add(s:settings.plugin_groups, 'scm')
-    call add(s:settings.plugin_groups, 'editing')
-    call add(s:settings.plugin_groups, 'indents')
-    call add(s:settings.plugin_groups, 'navigation')
-    call add(s:settings.plugin_groups, 'unite')
-    call add(s:settings.plugin_groups, 'autocomplete')
-    " call add(s:settings.plugin_groups, 'textobj')
-    call add(s:settings.plugin_groups, 'misc')
-    if s:is_windows
-      call add(s:settings.plugin_groups, 'windows')
+    call add(s:settings.plugin_groups, 'germanmapping')
+    call add(s:settings.plugin_groups, 'folding')
+    if !s:settings.msv
+      call add(s:settings.plugin_groups, 'web')
+      call add(s:settings.plugin_groups, 'javascript')
+      call add(s:settings.plugin_groups, 'ruby')
+      call add(s:settings.plugin_groups, 'python')
+      call add(s:settings.plugin_groups, 'scala')
+      call add(s:settings.plugin_groups, 'go')
+      call add(s:settings.plugin_groups, 'scm')
+      call add(s:settings.plugin_groups, 'editing')
+      call add(s:settings.plugin_groups, 'indents')
+      call add(s:settings.plugin_groups, 'navigation')
+      call add(s:settings.plugin_groups, 'unite')
+      call add(s:settings.plugin_groups, 'autocomplete')
+      call add(s:settings.plugin_groups, 'textobj')
+      call add(s:settings.plugin_groups, 'misc')
+      call add(s:settings.plugin_groups, 'numbers')
+      call add(s:settings.plugin_groups, 'spell')
+      if s:is_windows
+        call add(s:settings.plugin_groups, 'windows')
+      endif
     endif
 
     " exclude all language-specific plugins by default
     if !exists('g:dotvim_settings.plugin_groups_exclude')
-      let g:dotvim_settings.plugin_groups_exclude = ['web','javascript','ruby','python','go','scala']
+        let g:dotvim_settings.plugin_groups_exclude = ['web','javascript','ruby','python','go','scala']
     endif
     for group in g:dotvim_settings.plugin_groups_exclude
       let i = index(s:settings.plugin_groups, group)
@@ -286,10 +313,6 @@
   set lazyredraw
   set laststatus=2
   set noshowmode
-  set foldenable                                      "enable folds by default
-  set foldmethod=syntax                               "fold via syntax of files
-  set foldlevelstart=99                               "open all folds by default
-  let g:xml_syntax_folding=1                          "enable xml folding
 
   set cursorline
   autocmd WinLeave * setlocal nocursorline
@@ -507,7 +530,7 @@
          let g:UltiSnipsExpandTrigger="<Leader>m"
          let g:UltiSnipsJumpForwardTrigger="<Leader>m"
          let g:UltiSnipsJumpBackwardTrigger="<Leader>."
-         let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+         let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips"]
          let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
       "}}}
     else
@@ -523,7 +546,6 @@
       "}}}
     endif "}}}
     if s:settings.autocomplete_method == 'neocomplete' "{{{
-      echom "neocomplete"
       NeoBundleLazy 'Shougo/neocomplete.vim', {'autoload':{'insert':1}, 'vim_version':'7.3.885'} "{{{
         let g:neocomplete#enable_at_startup=1
         let g:neocomplete#data_directory=s:get_cache_dir('neocomplete')
@@ -749,11 +771,151 @@
       endif
     "}}}
   endif "}}}
+  if count(s:settings.plugin_groups, 'spell') "{{{
+    " Activate spell checking {{{
+    if has("spell")
+      " turn spelling on by default
+      " set spell
+
+      " toggle spelling with F4 key
+      map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+      " they were using white on white
+      highlight PmenuSel ctermfg=black ctermbg=lightgray
+
+      " limit it to just the top 10 items
+      set sps=best,10
+      set spelllang=en,de
+    endif
+    " }}}
+
+    " Spellfile location {{{
+    " Set spellfile to location that is guaranteed to exist, can be symlinked to
+    " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+    set spellfile=$HOME/.vim/spell/en.utf-8.add
+    " }}}
+  endif "}}}
+  if count(s:settings.plugin_groups, 'germanmapping') "{{{
+    " Remapping of german keys {{{
+    map <silent> ü [
+    map! <silent> ü [
+    map <silent> ö :
+    map! <silent> ö :
+    map <silent> Ö \|
+    map! <silent> Ö \|
+    map <silent> ä ]
+    map! <silent> ä ]
+    map <silent> Ü {
+    map! <silent> Ü {
+    map <silent> Ä }
+    map! <silent> Ä }
+    " }}}
+    "set keymap=german
+
+    " Key combinations to genereate german umlauts {{{
+    inoremap <silent> o" ö
+    inoremap <silent> a" ä
+    inoremap <silent> u" ü
+    inoremap <silent> O" Ö
+    inoremap <silent> A" Ä
+    inoremap <silent> U" Ü
+    " }}}
+  endif "}}}
+
+  if count(s:settings.plugin_groups, 'folding') "{{{
+    if has('folding')
+
+      " fold on the marker
+      set foldmethod=syntax
+
+      " turn on folding
+      set foldenable
+
+      " A column with the specified width is shown at the side of the window
+      " which indicates open and closed folds.
+      set foldcolumn=0
+
+      " autofold anything (but I can still fold manually).
+      "  set foldlevel=0
+
+      " Specify the movements which open folds.
+      set foldopen=block,hor,mark,percent,quickfix,tag,search
+
+      "open all folds by default
+      set foldlevelstart=99
+
+      "enable xml folding
+      let g:xml_syntax_folding=1
+
+      if !s:settings.no_own_foldtext
+        function! NeatFoldText() "{{{
+          " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+          let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{' . '\d*\s*', '', 'g') . ' '
+          let lines_count = v:foldend - v:foldstart + 1
+          let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+          let foldchar = matchstr(&fillchars, 'fold:\zs.')
+          let foldtextstart = strpart('' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+          let foldtextend = lines_count_text . repeat(foldchar, 8)
+          let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+          return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+        endfunction
+        "}}}
+
+        set foldtext=NeatFoldText()
+      endif
+
+      " set direct fold levels {{{
+      nmap <Leader>f0 :set foldlevel=0<CR>:set foldcolumn=0<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f1 :set foldlevel=1<CR>:set foldcolumn=1<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f2 :set foldlevel=2<CR>:set foldcolumn=3<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f3 :set foldlevel=3<CR>:set foldcolumn=4<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f4 :set foldlevel=4<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f5 :set foldlevel=5<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f6 :set foldlevel=6<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f7 :set foldlevel=7<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f8 :set foldlevel=8<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+
+      nmap <Leader>f9 :set foldlevel=9<CR>:set foldcolumn=5<CR>:
+        \ echo "Foldlevel ="&foldlevel<cr>
+      "}}}
+
+      " folds with info message {{{
+      nnoremap zr zr:echo "Foldlevel ="&foldlevel<cr>
+      nnoremap zm zm:echo "Foldlevel ="&foldlevel<cr>
+      nnoremap zR zR:echo "Foldlevel ="&foldlevel<cr>
+      nnoremap zM zM:echo "Foldlevel ="&foldlevel<cr>
+      " }}}
+    endif
+  endif "}}}
+  if count(s:settings.plugin_groups, 'numbers') "{{{
+    NeoBundle 'myusuf3/numbers.vim'
+    let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell',
+          \ 'w3m', 'tagbar', 'gundo', 'nerdtree', 'Vundle']
+  endif "}}}
   if count(s:settings.plugin_groups, 'textobj') "{{{
-    NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-indent'
-    NeoBundle 'kana/vim-textobj-entire'
-    NeoBundle 'lucapette/vim-textobj-underscore'
+    " NeoBundle 'kana/vim-textobj-user'
+    " NeoBundle 'kana/vim-textobj-indent'
+    " NeoBundle 'kana/vim-textobj-entire'
+    " NeoBundle 'lucapette/vim-textobj-underscore'
+    NeoBundle 'michaeljsmith/vim-indent-object'
+    NeoBundle 'vim-scripts/camelcasemotion'
   endif "}}}
   if count(s:settings.plugin_groups, 'misc') "{{{
     if exists('$TMUX')
@@ -767,7 +929,7 @@
     endif
     NeoBundleLazy 'guns/xterm-color-table.vim', {'autoload':{'commands':'XtermColorTable'}}
     NeoBundle 'chrisbra/vim_faq'
-    NeoBundle 'vimwiki'
+    " NeoBundle 'vimwiki'
     NeoBundle 'bufkill.vim'
     NeoBundle 'mhinz/vim-startify' "{{{
       let g:startify_session_dir = s:get_cache_dir('sessions')
@@ -867,12 +1029,6 @@
     nnoremap q? q?i
   " }}}
 
-  " folds {{{
-    nnoremap zr zr:echo &foldlevel<cr>
-    nnoremap zm zm:echo &foldlevel<cr>
-    nnoremap zR zR:echo &foldlevel<cr>
-    nnoremap zM zM:echo &foldlevel<cr>
-  " }}}
 
   " screen line scroll
   nnoremap <silent> j gj
@@ -991,26 +1147,27 @@
   augroup END
 "}}}
 
-" Color schemes {{{
-  NeoBundle 'altercation/vim-colors-solarized' "{{{
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-  "}}}
-  NeoBundle 'nanotech/jellybeans.vim'
-  NeoBundle 'tomasr/molokai'
-  NeoBundle 'chriskempson/vim-tomorrow-theme'
-  NeoBundle 'chriskempson/base16-vim'
+" Colorschemes {{{
   NeoBundle 'w0ng/vim-hybrid'
-  NeoBundle 'sjl/badwolf'
-  NeoBundle 'endel/vim-github-colorscheme'
-  NeoBundle 'zeis/vim-kolor' "{{{
-    let g:kolor_underlined=1
-  "}}}
+  if s:settings.all_colorschemes
+    NeoBundle 'altercation/vim-colors-solarized' "{{{
+      let g:solarized_termcolors=256
+      let g:solarized_termtrans=1
+    "}}}
+    NeoBundle 'nanotech/jellybeans.vim'
+    NeoBundle 'tomasr/molokai'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
+    NeoBundle 'chriskempson/base16-vim'
+    NeoBundle 'sjl/badwolf'
+    NeoBundle 'endel/vim-github-colorscheme'
+    NeoBundle 'zeis/vim-kolor' "{{{
+      let g:kolor_underlined=1
+    "}}}
+  endif
 "}}}
 
-" Development in Progress
+" Development in Progress {{{
 if count(s:settings.plugin_groups, 'dev')
-
 
   " Movement {{{
 
@@ -1025,131 +1182,32 @@ if count(s:settings.plugin_groups, 'dev')
 
   " }}}
 
-  " Activate spell checking {{{
-  if has("spell")
-    " turn spelling on by default
-    " set spell
-
-    " toggle spelling with F4 key
-    map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
-
-    " they were using white on white
-    highlight PmenuSel ctermfg=black ctermbg=lightgray
-
-    " limit it to just the top 10 items
-    set sps=best,10
-    set spelllang=en,de
-  endif
-  " }}}
-
-  " Spellfile location {{{
-  " Set spellfile to location that is guaranteed to exist, can be symlinked to
-  " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-  set spellfile=$HOME/.vim/spell/en.utf-8.add
-  " }}}
-
-  " Remapping of german keys {{{
-    map <silent> ü [
-    map! <silent> ü [
-    map <silent> ö :
-    map! <silent> ö :
-    map <silent> Ö \|
-    map! <silent> Ö \|
-    map <silent> ä ]
-    map! <silent> ä ]
-    map <silent> Ü {
-    map! <silent> Ü {
-    map <silent> Ä }
-    map! <silent> Ä }
-  " }}}
-  "set keymap=german
-
-  " Key combinations to genereate german umlauts {{{
-  inoremap <silent> o" ö
-  inoremap <silent> a" ä
-  inoremap <silent> u" ü
-  inoremap <silent> O" Ö
-  inoremap <silent> A" Ä
-  inoremap <silent> U" Ü
-  " }}}
-
   " Easier formatting of paragraphs {{{
-  vmap Q gq
-  " have Q reformat the current paragraph (or selected text if there is any):
-  vnoremap Q gqqp
-  vnoremap Q gq
+    vmap Q gq
+    " have Q reformat the current paragraph (or selected text if there is any):
+    vnoremap Q gqqp
+    vnoremap Q gq
   " }}}
 
-  " Folding {{{
-
-    if has('folding')
-
-      " fold on the marker
-      set foldmethod=syntax
-
-      " turn on folding
-      set foldenable
-
-      " A column with the specified width is shown at the side of the window
-      " which indicates open and closed folds.
-      set foldcolumn=0
-
-      " autofold anything (but I can still fold manually).
-      "  set foldlevel=0
-
-      " Specify the movements which open folds.
-      set foldopen=block,hor,mark,percent,quickfix,tag,search
-
-
-      function! NeatFoldText() "{{{
-        " let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-        let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{' . '\d*\s*', '', 'g') . ' '
-        let lines_count = v:foldend - v:foldstart + 1
-        let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-        let foldchar = matchstr(&fillchars, 'fold:\zs.')
-        let foldtextstart = strpart('' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-        let foldtextend = lines_count_text . repeat(foldchar, 8)
-        let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-        return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-      endfunction
-      "}}}
-
-      set foldtext=NeatFoldText()
-
-      " Code folding options
-      nmap <Leader>f0 :set foldlevel=0<CR>:set foldcolumn=0<CR>
-      nmap <Leader>f1 :set foldlevel=1<CR>:set foldcolumn=1<CR>
-      nmap <Leader>f2 :set foldlevel=2<CR>:set foldcolumn=3<CR>
-      nmap <Leader>f3 :set foldlevel=3<CR>:set foldcolumn=4<CR>
-      nmap <Leader>f4 :set foldlevel=4<CR>:set foldcolumn=5<CR>
-      nmap <Leader>f5 :set foldlevel=5<CR>:set foldcolumn=5<CR>
-      nmap <Leader>f6 :set foldlevel=6<CR>:set foldcolumn=5<CR>
-      nmap <Leader>f7 :set foldlevel=7<CR>:set foldcolumn=5<CR>
-      nmap <Leader>f8 :set foldlevel=8<CR>:set foldcolumn=5<CR>
-      nmap <Leader>f9 :set foldlevel=9<CR>:set foldcolumn=5<CR>
-
-    endif
-  " }}}
 
   " unhighlight search highlight with C-L
-  nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
+    nnoremap <silent> <C-l> :nohlsearch<CR><C-l><C-w>l
 
   " Resize windows {{{
-    " You can use the command :resize +5 or :res -5 to resize windows
-    " this are just quick shortcuts
+  " You can use the command :resize +5 or :res -5 to resize windows
+  " this are just quick shortcuts
     nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
     nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
   "}}}
 
+  " Scratch Buffer
   NeoBundle 'mtth/scratch.vim'
+
+
   " NeoBundle 'gcmt/wildfire.vim'
   " nmap <leader>m <Plug>(wildfire-quick-select)
 
-  " NeoBundle 'myusuf3/numbers.vim'
-  " let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell',
-  "   \ 'w3m', 'tagbar', 'gundo', 'nerdtree', 'Vundle']
-
-endif
+endif "}}}
 
 " finish loading {{{
   if exists('g:dotvim_settings.disabled_plugins')
