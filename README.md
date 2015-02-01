@@ -11,9 +11,9 @@ examples.
 ## Installation
 
 1.  clone this repository into your `~/.vim` directory
-1.  `git clone --recursive git@github.com:jkuetemeier/dotvim.git .vim`
-1.  `mv ~/.vimrc ~/.vimrc.backup`
-1.  Choose a dotvimrc file `ln -s ~/.vim/dotvimrc ~/.vimrc` or create one:
+2.  `git clone --recursive git@github.com:jkuetemeier/dotvim.git .vim`
+3.  `mv ~/.vimrc ~/.vimrc.backup`
+4.  Choose a dotvimrc file `ln -s ~/.vim/dotvimrc ~/.vimrc` or create one:
 
 ```
 let g:dotvim_settings = {}
@@ -21,9 +21,10 @@ let g:dotvim_settings.version = 1
 source ~/.vim/vimrc
 ```
 
-1.  startup vim and neobundle will detect and ask you install any missing
-    plugins.  you can also manually initiate this with `:NeoBundleInstall`
-1.  done!
+5.  startup vim and neobundle will detect and ask you install any missing
+    plugins. You can also manually initiate this with `:NeoBundleInstall`.
+    NOTE: *This step may take a long time for some plugins*
+6.  done!
 
 
 ## Introduction
@@ -49,7 +50,7 @@ introduced so that users of the distribution can be notified accordingly.
 ```
 " this is the bare minimum
 let g:dotvim_settings = {}
-let g:dotvim_settings.version = 1
+let g:dotvim_settings.version = 2
 
 " here are some basic customizations, please refer to the top of the vimrc file
 " for all possible options
@@ -84,15 +85,15 @@ set guifont=Wingdings:h10
 
 ## Autocomplete
 
-this distribution will pick one of three combinations, in the following
-priority:
+The default configuration uses [youcompleteme][ycm] + [ultisnips][us].
+ [youcompleteme][ycm] needs to compile a Pyhton module. If there is no
+ Python or compile environment, you can use.
 
 1.  [neocomplete][nc] + [neosnippet][ns] if you have `lua` enabled.
-2.  [youcompleteme][ycm] + [ultisnips][us] if you have compiled YCM.
-3.  [neocomplcache][ncl] + [neosnippet][ns] if you only have vimscript
+2.  [neocomplcache][ncl] + [neosnippet][ns] if you only have vimscript
     available
 
-this can be overridden with `g:dotvim_settings.autocomplete_method`
+This can be configured with `g:dotvim_settings.autocomplete_method`.
 
 ## Standard modifications
 
@@ -108,36 +109,36 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
 *  `jj`, `kj` remapped for "smash escape"
 
 ### Normal mode
-*  `<leader>fef` format entire file
-*  `<leader>f$` strip current line of trailing white space
+*  `<Leader>fef` format entire file
+*  `<Leader>f$` strip current line of trailing white space
 *  window shortcuts
-  *  `<leader>v` vertical split
-  *  `<leader>s` horizontal split
-  *  `<leader>vsa` vertically split all buffers
+  *  `<Leader>v` vertical split
+  *  `<Leader>s` horizontal split
+  *  `<Leader>vsa` vertically split all buffers
   *  `<C-h>` `<C-j>` `<C-k>` `<C-l>` move to window in the direction of hkjl
 *  window killer
   *  `Q` remapped to close windows and delete the buffer (if it is the last
      buffer window)
 * searching
-  *  `<leader>fw` find the word under cursor into the quickfix list
-  *  `<leader>ff` find the last search into the quickfix list
+  *  `<Leader>fw` find the word under cursor into the quickfix list
+  *  `<Leader>ff` find the last search into the quickfix list
   *  `/` replaced with `/\v` for sane regex searching
   *  `<cr>` toggles hlsearch
 *  `<Down>` `<Up>` maps to `:bprev` and `:bnext` respectively
 *  `<Left>` `<Right>` maps to `:tabprev` and `:tabnext` respectively
 *  `gp` remapped to visually reselect the last paste
 *  `gb` for quick going to buffer
-*  `<leader>l` toggles `list` and `nolist`
+*  `<Leader>l` toggles `list` and `nolist`
 *  profiling shortcuts
-   * `<leader>DD` starts profiling all functions and files into a file
+   * `<Leader>DD` starts profiling all functions and files into a file
      `profile.log`
-   * `<leader>DP` pauses profiling
-   * `<leader>DC` continues profiling
-   * `<leader>DQ` finishes profiling and exits vim
+   * `<Leader>DP` pauses profiling
+   * `<Leader>DC` continues profiling
+   * `<Leader>DQ` finishes profiling and exits vim
 * `<Leader>p` insert in new line
 
 ### Visual mode
-*  `<leader>s` sort selection
+*  `<Leader>s` sort selection
 *  `>` and `<` automatically reselects the visual selection
 
 ## Plugins
@@ -156,7 +157,8 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
      `ack` if found)
 
 ### [bufkill.vim](http://www.vim.org/scripts/script.php?script_id=1147)
-*  `<leader>bd` or `:BD` will kill a buffer without changing the window layout
+*  `<Leader>bd`, `<Leader>q` or `:BD` will kill a buffer without changing the
+   window layout
 
 ### [sneak.vim](https://github.com/justinmk/vim-sneak)
 *  motion on steriods
@@ -165,30 +167,30 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
 *  makes search/replacing in your project a lot easier without relying on
    `find` and `sed`
 *  the loading time of this plugin is relatively heavy, so it is not loaded at
-   startup.  to load it on-demand, use `<leader>vo`, which opens the options
+   startup.  to load it on-demand, use `<Leader>vo`, which opens the options
    window.
-*  `<leader>vv` find word under the cursor
-*  `<leader>vV` find whole word under the cursor
-*  `<leader>vr` perform global search replace of word under cursor, with
+*  `<Leader>vv` find word under the cursor
+*  `<Leader>vV` find whole word under the cursor
+*  `<Leader>vr` perform global search replace of word under cursor, with
    confirmation
-*  `<leader>vR` same as vr, but matches whole word
+*  `<Leader>vR` same as vr, but matches whole word
 
 ### [fugitive](https://github.com/tpope/vim-fugitive)
 *  git wrapper
-*  `<leader>gs` status
-*  `<leader>gd` diff
-*  `<leader>gc` commit
-*  `<leader>gb` blame
-*  `<leader>gl` log
-*  `<leader>gp` push
-*  `<leader>gw` stage
-*  `<leader>gr` rm
+*  `<Leader>gs` status
+*  `<Leader>gd` diff
+*  `<Leader>gc` commit
+*  `<Leader>gb` blame
+*  `<Leader>gl` log
+*  `<Leader>gp` push
+*  `<Leader>gw` stage
+*  `<Leader>gr` rm
 *  in addition to all the standard bindings when in the git status window, you
    can also use `U` to perform a `git checkout --` on the current file
 
 ### [gitv](https://github.com/gregsexton/gitv)
 *  nice log history viewer for git
-*  `<leader>gv`
+*  `<Leader>gv`
 
 ### [unimpaired](https://github.com/tpope/vim-unimpaired)
 *  many additional bracket `[]` maps
@@ -221,13 +223,13 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
    [funky](https://github.com/tacahiroy/ctrlp-funky)
 
 ### [nrrwrgn](http://github.com/chrisbra/NrrwRgn)
-*  `<leader>nr` puts the current visual selection into a new scratch buffer,
+*  `<Leader>nr` puts the current visual selection into a new scratch buffer,
    allowing you to perform global commands and merge changes to the original
    file automatically
 
 ### [tabular](https://github.com/godlygeek/tabular)
 *  easily aligns code
-*  `<leader>a&`, `<leader>a=`, `<leader>a:`, `<leader>a,`, `<leader>a|`
+*  `<Leader>a&`, `<Leader>a=`, `<Leader>a:`, `<Leader>a,`, `<Leader>a|`
 
 ### [gist](https://github.com/mattn/gist-vim)
 *  automatically get or push changes for gists with `:Gist`
@@ -247,8 +249,9 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
 ### [youcompleteme][ycm]/[ultisnips][us]
 *  amazingly fast fuzzy autocomplete engine combined with an excellent snippets
    library
-*  use `<C-n>` and `<C-p>` to go back/forward between selections, and `<tab>`
-   to expand snippets
+*  use `<C-n>`, `<tab>` and `<C-p>`, `<s-tab>` to go back/forward between
+   selections, and `<Leader>m` to expand snippets. Jump through the replace
+   positions with `<Leader>m` and `<Leader>.`.
 
 ### [neocomplcache][ncl]/[neosnippet][ns]
 *  autocomplete/snippet support as a fallback choice when YCM and/or python is
@@ -257,7 +260,7 @@ this can be overridden with `g:dotvim_settings.autocomplete_method`
 *  if you have lua installed, it will use [neocomplete][nc] instead
 
 ### [vimshell](https://github.com/Shougo/vimshell)
-*  `<leader>c` splits a new window with an embedded shell
+*  `<Leader>c` splits a new window with an embedded shell
 
 ### [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)
 *  mapped to `<C-N>`, this will select all matching words and lets you
@@ -326,3 +329,8 @@ under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations under the License.
 
+[ycm]: https://github.com/Valloric/YouCompleteMe
+[us]: https://github.com/SirVer/ultisnips
+[nc]: https://github.com/Shougo/neocomplete.vim
+[ncl]: https://github.com/Shougo/neocomplcache.vim
+[ns]: https://github.com/Shougo/neosnippet.vim
