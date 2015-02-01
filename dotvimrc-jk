@@ -6,6 +6,6 @@ let g:dotvim_settings.colorscheme = 'hybrid'
 let g:dotvim_settings.autocomplete = 'ycm'
 
 " if there are groups you want always loaded, you can use this:
-let g:dotvim_settings.plugin_groups_include = ['knet', 'jk', 'dev', 'web', 'go', 'javascript']
+let g:dotvim_settings.plugin_groups_include = ['knet', 'jk', 'dev', 'web', 'go', 'javascript', 'indents']
 
 source ~/.vim/vimrc
