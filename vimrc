@@ -513,6 +513,8 @@
   if count(s:settings.plugin_groups, 'go') "{{{
     NeoBundleLazy 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
+    NeoBundle 'cespare/vim-go-templates'
+    au BufRead,BufNewFile *.tmpl set filetype=gotplhtml
   endif "}}}
   if count(s:settings.plugin_groups, 'scm') "{{{
     NeoBundle 'mhinz/vim-signify' "{{{
@@ -1194,7 +1196,7 @@
     nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
     nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
   "}}}
-  
+
   map <Leader>q <Plug>BufKillBd
 
 "}}}
