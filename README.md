@@ -20,7 +20,7 @@ let g:dotvim_settings = {}
 let g:dotvim_settings.version = 1
 source ~/.vim/vimrc
 ```
-
+5.  On Fedora: `sudo yum install cmake gcc-c++ python-libs python-devel`
 5.  startup vim and neobundle will detect and ask you install any missing
     plugins. You can also manually initiate this with `:NeoBundleInstall`.
     NOTE: *This step may take a long time for some plugins*
