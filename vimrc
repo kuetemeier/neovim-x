@@ -626,7 +626,7 @@
       NeoBundle 'Valloric/YouCompleteMe', {
             \ 'build' : {
             \     'mac' : './install.sh --clang-completer',
-            \     'unix' : './install.sh --clang-completer --omnisharp-completer',
+            \     'unix' : './install.sh --clang-completer',
             \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
             \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
             \    }
