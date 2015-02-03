@@ -755,6 +755,21 @@
         nnoremap <silent> <Leader>o :Goyo<cr>
       "}}}
     endif
+
+    map <silent> w <Plug>CamelCaseMotion_w
+    map <silent> b <Plug>CamelCaseMotion_b
+    map <silent> e <Plug>CamelCaseMotion_e
+    omap <silent> iw <Plug>CamelCaseMotion_iw
+    xmap <silent> iw <Plug>CamelCaseMotion_iw
+    omap <silent> ib <Plug>CamelCaseMotion_ib
+    xmap <silent> ib <Plug>CamelCaseMotion_ib
+    omap <silent> ie <Plug>CamelCaseMotion_ie
+    xmap <silent> ie <Plug>CamelCaseMotion_ie
+    sunmap w
+    sunmap b
+    sunmap e
+    " carefull... overwrites <Leader>w (without mappings above)
+    NeoBundle 'vim-scripts/camelcasemotion'
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
     NeoBundle 'mileszs/ack.vim' "{{{
@@ -1298,21 +1313,20 @@
       \  exe 'normal! g`"zvzz' |
       \ endif
 
-    autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-    autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType c,cpp setlocal comments-=:// comments+=f://
     autocmd FileType css,scss nnoremap <silent> <Leader>S vi{:sort<CR>
     " }
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType markdown setlocal nolist
-    autocmd FileType vim setlocal fdm=indent keywordprg=:help
-    autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell |
-      \ nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
     autocmd FileType gitcommit setlocal spell
-
-    autocmd FileType c,cpp setlocal comments-=:// comments+=f://
-    autocmd FileType pl setlocal comments-=:# comments+=f:#
+    autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell |
+      \ nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType markdown setlocal nolist
     autocmd FileType perl setlocal comments-=:# comments+=f:#
+    autocmd FileType pl setlocal comments-=:# comments+=f:#
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType vim setlocal fdm=indent keywordprg=:help
 
     " disable automatic comments in the next line
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -1347,8 +1361,6 @@ if count(s:settings.plugin_groups, 'dev')
 
   " NeoBundle 'thinca/vim-visualstar'
 
-  " carefull... overwrites <Leader>w
-  " NeoBundle 'vim-scripts/camelcasemotion'
 
 endif "}}}
 
