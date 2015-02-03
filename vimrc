@@ -98,7 +98,7 @@
       call add(s:settings.plugin_groups, 'python')
       call add(s:settings.plugin_groups, 'scala')
       call add(s:settings.plugin_groups, 'go')
-      call add(s:settings.plugin_groups, 'indent-g')
+      call add(s:settings.plugin_groups, 'indent-guides')
       call add(s:settings.plugin_groups, 'navigation')
       call add(s:settings.plugin_groups, 'unite')
       call add(s:settings.plugin_groups, 'autocomplete')
@@ -1313,6 +1313,10 @@
     autocmd FileType c,cpp setlocal comments-=:// comments+=f://
     autocmd FileType pl setlocal comments-=:# comments+=f:#
     autocmd FileType perl setlocal comments-=:# comments+=f:#
+
+    " disable automatic comments in the next line
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
   augroup END
 "}}}
 
