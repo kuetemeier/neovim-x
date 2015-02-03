@@ -1132,6 +1132,7 @@
   " formatting shortcuts
   nmap <Leader>fef :call Preserve("normal gg=G")<CR>
   nmap <Leader>f$ :call StripTrailingWhitespace()<CR>
+  nmap <Leader>ft :%s/\s\+$//<CR>
   vmap <Leader>s :sort<cr>
 
   " eval vimscript by line or visual selection
