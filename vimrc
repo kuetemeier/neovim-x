@@ -591,7 +591,7 @@
     NeoBundle 'megaannum/vimside'
   endif "}}}
   if count(s:settings.plugin_groups, 'go') "{{{
-    NeoBundleLazy 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
+    NeoBundleLazy 'fatih/vim-go', {'autoload':{'filetypes':['go']}}
     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
     NeoBundle 'cespare/vim-go-templates'
     au BufRead,BufNewFile *.tmpl set filetype=gotplhtml
