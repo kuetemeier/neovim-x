@@ -592,27 +592,35 @@
   endif "}}}
   if count(s:settings.plugin_groups, 'go') "{{{
     NeoBundleLazy 'fatih/vim-go', {'autoload':{'filetypes':['go']}}
-    " NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
-    au BufRead,BufNewFile *.tmpl set filetype=gotplhtml
-    " let g:go_snippet_engine = "neosnippet"
-    " :GoInstallBinaries
+    " recommended, run :GoInstallBinaries"
 
-    " use gofmt compatible tab settings
-    autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+    augroup golang
+      au BufRead,BufNewFile *.tmpl set filetype=gotplhtml
+      " let g:go_snippet_engine = "neosnippet"
 
-    " get all the errors from syntastic
-    autocmd FileType go let g:syntastic_aggregate_errors = 1
-    autocmd FileType go let g:syntastic_go_checkers = ["go", "govet", "golint"]
+      " use gofmt compatible tab settings
+      autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 
-    " mappings for vim-go
-    autocmd FileType go nmap <leader>d <plug>(go-doc)
-    autocmd FileType go nmap <leader>r <plug>(go-run)
-    autocmd FileType go nmap <leader>b <plug>(go-build)
-    autocmd FileType go nmap <leader>t <plug>(go-test)
-    autocmd FileType go nmap <leader>ds <plug>(go-def-split)
-    autocmd FileType go nmap <leader>dv <plug>(go-def-vertical)
-    autocmd FileType go nmap <leader>dt <plug>(go-def-tab)
-    autocmd FileType go nmap gd <plug>(go-def-split)
+      " Use real tabs in golang files and hide tab listchars
+      autocmd FileType go setlocal list listchars=tab:\ \ ,trail:·,extends:❯,precedes:❮
+
+      " get all the errors from syntastic
+      autocmd FileType go let g:syntastic_aggregate_errors = 1
+      autocmd FileType go let g:syntastic_go_checkers = ["go", "govet", "golint"]
+
+      " mappings for vim-go
+      autocmd FileType go nmap <leader>d <plug>(go-doc)
+      autocmd FileType go nmap <leader>r <plug>(go-run)
+      autocmd FileType go nmap <leader>b <plug>(go-build)
+      autocmd FileType go nmap <leader>t <plug>(go-test)
+      autocmd FileType go nmap <leader>ds <plug>(go-def-split)
+      autocmd FileType go nmap <leader>dv <plug>(go-def-vertical)
+      autocmd FileType go nmap <leader>dt <plug>(go-def-tab)
+      autocmd FileType go nmap gd <plug>(go-def-split)
+    augroup END
+
+    " format with goimports instead of gofmt
+    let g:go_fmt_command = "goimports"
 
   endif "}}}
   if count(s:settings.plugin_groups, 'scm') "{{{
