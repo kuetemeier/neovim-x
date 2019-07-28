@@ -1,3 +1,9 @@
+## Archived
+
+For a more recent version see my new home and dot-files here:
+
+https://github.com/kuetemeier/home-files
+
 # dotvim - Personal Vim Configuration
 
 This is [my](https://github.com/jkuetemeier) ***personal*** vim configuration.
