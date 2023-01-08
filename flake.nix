@@ -1,8 +1,20 @@
 {
   description = "jkr-neovim: Joerg Kuetemeier - NeoVim Configuration";
 
-  inputs.nixvim.url = "github:pta2002/nixvim";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    flake-utils.url = "github:numtide/flake-utils";
+
+    nixvim = {
+      url = "github:pta2002/nixvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        # TODO: beautysh.inputs.utils.follows = "flake-utils";
+      };
+    };
+
+  };
 
   outputs =
     { self
@@ -22,10 +34,11 @@
       nvim = nixvim'.makeNixvim config;
     in
     {
-      formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
       packages = {
         inherit nvim;
         default = nvim;
       };
+
+      formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     });
 }
