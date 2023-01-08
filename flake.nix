@@ -35,7 +35,7 @@
     let
       nixvim' = nixvim.legacyPackages."${system}";
 
-      jkr-nvim-default = nixvim'.makeNixvim config;
+      jkr-nvim-default = nixvim'.makeNixvim (import ./default-config.nix { inherit config pkgs; });
       jkr-nvim-test = nixvim'.makeNixvim config2;
 
       pkgs = nixpkgs.legacyPackages.${system};
@@ -62,7 +62,7 @@
           type = "app";
           program = "${self.packages.${system}.jkr-nvim-test}/bin/nvim";
         };
-        test=jkr-test;
+        test = jkr-test;
 
         # For fun and tests - Hello World - `nix run .#hello`
         hello = flake-utils.lib.mkApp { drv = self.packages.${system}.hello; };
