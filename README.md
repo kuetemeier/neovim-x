@@ -8,6 +8,8 @@ This configuration is based on [Nix: the package manager](https://nixos.org/lear
 
 ## TLDR; Quick run, easy testing
 
+Quickly run and test my Neovim setup without installing it:
+
 ### 1.) Clone the Repo
 
 ```
