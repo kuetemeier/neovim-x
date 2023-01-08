@@ -42,6 +42,12 @@ If you have not enabled flakes yet, just enable them temporarily on the command 
 nix --experimental-features 'nix-command flakes' run .#
 ```
 
+## Development
+
+### Format source code
+
+Use `nix fmt` to format the `.nix` files with `nixpkgs-fmt`.
+
 ## Thanks to
 
 - [nixvim](https://github.com/pta2002/nixvim)
