@@ -27,18 +27,47 @@
       config = {
         colorschemes.gruvbox.enable = true;
       };
+      config2 = {
+        colorschemes.gruvbox.enable = false;
+      };
     in
     flake-utils.lib.eachDefaultSystem (system:
     let
       nixvim' = nixvim.legacyPackages."${system}";
-      nvim = nixvim'.makeNixvim config;
+
+      jkr-nvim-default = nixvim'.makeNixvim config;
+      jkr-nvim-test = nixvim'.makeNixvim config2;
+
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      packages = {
-        inherit nvim;
+      packages = rec {
+        nvim = jkr-nvim-default;
+        inherit jkr-nvim-test;
+        hello = pkgs.hello;
+
         default = nvim;
       };
 
+      apps = rec {
+        # default configuration
+        jkr-nvim-default = {
+          type = "app";
+          program = "${self.packages.${system}.nvim}/bin/nvim";
+        };
+        default = jkr-nvim-default;
+
+        # test configuration - `nix run .#jkr-test`
+        jkr-test = {
+          type = "app";
+          program = "${self.packages.${system}.jkr-nvim-test}/bin/nvim";
+        };
+
+        # For fun and tests - Hello World - `nix run .#hello`
+        hello = flake-utils.lib.mkApp { drv = self.packages.${system}.hello; };
+      };
+
+      # For Development: style .nix files with `nix fmt` in this repo
       formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     });
 }
