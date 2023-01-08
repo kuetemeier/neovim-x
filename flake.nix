@@ -22,6 +22,7 @@
       nvim = nixvim'.makeNixvim config;
     in
     {
+      formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
       packages = {
         inherit nvim;
         default = nvim;
