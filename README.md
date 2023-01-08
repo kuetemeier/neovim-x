@@ -40,6 +40,15 @@ If you have not enabled flakes yet, just enable them temporarily on the command 
 nix --experimental-features 'nix-command flakes' run .#
 ```
 
-# Thanks to
+## Thanks to
 
 - [nixvim](https://github.com/pta2002/nixvim)
+
+## Copyright and MPL-2.0 License
+
+(c) 2009-2023 Jörg Kütemeier - https://kuetemeier.de
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v.
+2.0. See the file [LICENSE](LICENSE) in this repo. If a copy of the MPL was not
+distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
