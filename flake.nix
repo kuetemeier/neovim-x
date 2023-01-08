@@ -62,6 +62,7 @@
           type = "app";
           program = "${self.packages.${system}.jkr-nvim-test}/bin/nvim";
         };
+        test=jkr-test;
 
         # For fun and tests - Hello World - `nix run .#hello`
         hello = flake-utils.lib.mkApp { drv = self.packages.${system}.hello; };
