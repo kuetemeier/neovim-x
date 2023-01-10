@@ -1,7 +1,7 @@
-{ config, pkgs, modules, ... }:
+{ config, pkgs, modules }:
 {
+  modules = with modules; [ theme options keymaps comment ];
+
   config = {
-    d = "Hallo Welt Profile Override";
   };
-  modules = with modules; [ comment ];
 }

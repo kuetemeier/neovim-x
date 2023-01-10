@@ -1,4 +1,4 @@
-{ config, pkgs, nixvim, ... }:
+{ config, pkgs }:
 let
   lib = pkgs.lib;
   modules = import ../modules { inherit config pkgs; };
