@@ -13,11 +13,12 @@
 #
 # }}}
 
-{ config, pkgs, ... } :
+{ config, pkgs, ... }:
 
 let
-  jkrPlugIns = ( import ./jkrPlugIns.nix { inherit config pkgs; } );
-in {
+  jkrPlugIns = (import ./jkrPlugIns.nix { inherit config pkgs; });
+in
+{
   colorschemes.gruvbox.enable = true;
 
   maps.normal = {
@@ -32,29 +33,4 @@ in {
     mouse = "a";
   };
 
-  plugins = {
-    lightline = {
-      enable = true;
-
-      # colorscheme = "gruvbox";
-      colorscheme = "wombat";
-
-      active = {
-        left = [
-          [ "mode" "paste" ]
-          [ "redaonly" "filename" "modified" "helloworld" ]
-        ];
-      };
-    };
-    barbar = {
-      enable = true;
-
-      autoHide = true;
-    };
-  };
-
-  # What about plugins not available as a module?
-  # Use extraPlugins:
-  extraPlugins = with pkgs.vimPlugins; [ vim-toml ] ++ jkrPlugIns.all;
-
-}
+} // (import ./plugins { inherit config pkgs; }).all
