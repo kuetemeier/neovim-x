@@ -35,6 +35,8 @@
     let
       nixvim' = nixvim.legacyPackages."${system}";
 
+      jkr-nvim-minimal = (import ./profiles { inherit config pkgs; nixvim=nixvim'; });
+
       jkr-nvim-default = nixvim'.makeNixvim (import ./default-config.nix { inherit config pkgs; });
       jkr-nvim-test = nixvim'.makeNixvim config2;
 
@@ -45,6 +47,7 @@
         nvim = jkr-nvim-default;
         inherit jkr-nvim-test;
         hello = pkgs.hello;
+        inherit jkr-nvim-minimal;
 
         default = nvim;
       };
