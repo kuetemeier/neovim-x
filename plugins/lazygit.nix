@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... } :
+{ config, pkgs, lib, inputs, ... }:
 
 with lib;
 
@@ -13,15 +13,17 @@ in
     };
   };
 
-  config = let
-  in
-  mkIf cfg.enable {
+  config =
+    let
+    in
+    mkIf cfg.enable {
+      # TODO: Add options from https://github.com/kdheepak/lazygit.nvim/
 
-    extraPlugins = with pkgs.vimPlugins; [ lazygit-nvim ];
+      extraPlugins = with pkgs.vimPlugins; [ lazygit-nvim ];
 
-    extraPackages = with pkgs; [ git lazygit ];
+      extraPackages = with pkgs; [ git lazygit ];
 
-    extraConfigLua = ''
-    '';
-  };
+      # extraConfigLua = ''
+      # '';
+    };
 }

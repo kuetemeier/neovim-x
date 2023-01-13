@@ -20,6 +20,7 @@
 {
   imports = [
     ../plugins
+    ../modules
     ./theme.nix
   ];
 
