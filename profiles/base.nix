@@ -19,6 +19,7 @@
 
 {
   imports = [
+    ../plugins
     ./theme.nix
   ];
 

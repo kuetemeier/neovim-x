@@ -33,6 +33,8 @@
     plugins.telescope.enable = true;
 
     plugins.barbar.enable = true;
+
+    plugins.lazygit.enable = true;
   };
 
 }
