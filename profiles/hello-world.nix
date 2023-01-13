@@ -1,5 +1,7 @@
-#  nvim-jkr.nix - My default Neovim configuration for desktop systems
+#  hello-world.nix - Minimal Neovim configuration
 #
+#  Prints "Hello World from jkr!" into Neovim output.
+#  A demonstration how to use extra Lua and a simple profile test.
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
 #    ._// )   (c) Copyright 2023 - License: MPL-2.0
@@ -16,9 +18,9 @@
 { config, pkgs, lib, inputs }:
 
 {
-
-  imports = [
-    ../profiles/base.nix
-  ];
-
+  config = {
+    extraConfigLua = ''
+      print ("Hello Worl from jkr!")
+    '';
+  };
 }

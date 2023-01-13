@@ -1,5 +1,21 @@
+#  flake.nix - Flake file for my Neovim configurations
+#
+#  See README.md
+#
+#       //_/  Jörg Kütemeier <https://kuetemeier.de>
+#    ._// )   (c) Copyright 2023 - License: MPL-2.0
+#
+#
+# {{{ MPL-2.0
+#
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# }}}
+
 {
-  description = "jkr-neovim: Joerg Kuetemeier - NeoVim Configuration";
+  description = "jkr-neovim: Joerg Kuetemeier - NeoVim Configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
@@ -63,13 +79,16 @@
 
       }; res;
 
+      # Import ./suites configurations
       suites = importNixFilesFromDir ./suites;
 
+      # Build all Packages from ./suites
       nvimJkrPkgs = builtins.mapAttrs
         (name: value:
           nixvim'.makeNixvimWithModule { module = value; })
         suites;
 
+      # Build all Apps from ./suites
       nvimJkrApps = builtins.mapAttrs
         (name: value:
           {
@@ -81,25 +100,26 @@
     in
     {
       packages = rec {
+        # Default Neovim configuration for systems
         nvim = self.packages.${system}.nvim-jkr-system;
+
+        # Default package is my Neovim configuration for Desktops
+        # Just run it with `nix run` or `nix run .#nvim-jkr -- test.md`
         default = self.packages.${system}.nvim-jkr;
+
+        # Hello World package for fun and tests
         inherit (pkgs) hello;
       } // nvimJkrPkgs // { };
 
       apps = rec {
+        # Plain Neovim (for tests and debugging)
         plain = {
           type = "app";
           program = "${pkgs.neovim}/bin/nvim";
         };
 
+        # Set default App to nvim-jkr
         default = self.apps.${system}.nvim-jkr;
-
-        # # default configuration
-        # nvim-jkr = {
-        #   type = "app";
-        #   program = "${self.packages.${system}.nvim-jkr}/bin/nvim";
-        # };
-        # default = nvim-jkr;
 
         # For fun and tests - Hello World - `nix run .#hello`
         hello = flake-utils.lib.mkApp { drv = self.packages.${system}.hello; };
