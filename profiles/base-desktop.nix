@@ -29,6 +29,10 @@
     # Base desktop plugins
 
     plugins.startify.enable = true;
+
+    plugins.telescope.enable = true;
+
+    plugins.barbar.enable = true;
   };
 
 }

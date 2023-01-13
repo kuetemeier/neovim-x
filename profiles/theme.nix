@@ -13,8 +13,21 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  colorschemes.gruvbox.enable = true;
+
+  colorschemes.gruvbox = {
+    enable = lib.mkDefault true;
+
+    italics = true;
+    bold = true;
+    underline = true;
+    undercurl = true;
+
+    #contrastDark = "medium";
+    contrastDark = "hard";
+
+  };
+
 }

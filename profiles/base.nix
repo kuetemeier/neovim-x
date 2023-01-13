@@ -18,10 +18,11 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ./theme.nix
+  ];
 
   config = {
-    colorschemes.gruvbox.enable = lib.mkDefault true;
-
 
     # --------------------
     # Base plugins
