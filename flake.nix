@@ -34,14 +34,37 @@
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
-      module = (import ./module-test.nix { inherit config pkgs; inputs = self.inputs; });
+
+      # module = (import ./module-test.nix { inherit config pkgs; inputs = self.inputs; });
+
+      importNixFilesFromDir = dir: with rec {
+        inherit (builtins) readDir attrNames substring stringLength listToAttrs;
+        inherit (pkgs.lib.attrsets) filterAttrs;
+        inherit (pkgs.lib.strings) hasSuffix;
+
+        files = readDir dir;
+        nixFiles = filterAttrs (name: _: hasSuffix ".nix" name) files;
+        fileNames = attrNames nixFiles; 
+        # remove '.nix'
+        onlyNames = map (name: substring 0 ((stringLength name) - 4) name) fileNames;
+        res = listToAttrs
+          (map (name: {
+                inherit name;
+                value = import (dir + "/${name}.nix") { inherit config pkgs; lib = pkgs.lib; inputs = self.inputs; };
+                } ) onlyNames);
+
+      }; res;
 
       nixvim' = nixvim.legacyPackages."${system}";
+
+      suites = importNixFilesFromDir ./suites;
+
+      jkr-nvim-test = nixvim'.makeNixvimWithModule { module = suites.jkr-test; };
 
       jkr-nvim-minimal = nixvim'.makeNixvim (import ./profiles { inherit config pkgs; }).minimal;
 
       jkr-nvim-default = nixvim'.makeNixvim (import ./default-config.nix { inherit config pkgs; });
-      jkr-nvim-test = nixvim'.makeNixvimWithModule { inherit module; };
+      # jkr-nvim-test = nixvim'.makeNixvimWithModule { inherit module; };
 
     in
     {
