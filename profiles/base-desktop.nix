@@ -28,13 +28,15 @@
     # --------------------
     # Base desktop plugins
 
+    plugins.barbar.enable = true;
+
+    plugins.lazygit.enable = true;
+
     plugins.startify.enable = true;
 
     plugins.telescope.enable = true;
 
-    plugins.barbar.enable = true;
-
-    plugins.lazygit.enable = true;
+    plugins.which-key.enable = true;
   };
 
 }

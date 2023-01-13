@@ -21,5 +21,6 @@
 {
   imports = [
     ./lazygit.nix
+    ./which-key-nvim.nix
   ];
 }
