@@ -2,6 +2,5 @@
 {
   modules = with modules; [ theme options keymaps comment ];
 
-  config = {
-  };
+  config = { };
 }

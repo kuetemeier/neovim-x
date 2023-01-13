@@ -33,14 +33,16 @@
     in
     flake-utils.lib.eachDefaultSystem (system:
     let
+      pkgs = nixpkgs.legacyPackages.${system};
+      module = (import ./module-test.nix { inherit config pkgs; inputs = self.inputs; });
+
       nixvim' = nixvim.legacyPackages."${system}";
 
       jkr-nvim-minimal = nixvim'.makeNixvim (import ./profiles { inherit config pkgs; }).minimal;
 
       jkr-nvim-default = nixvim'.makeNixvim (import ./default-config.nix { inherit config pkgs; });
-      jkr-nvim-test = nixvim'.makeNixvim config2;
+      jkr-nvim-test = nixvim'.makeNixvimWithModule { inherit module; };
 
-      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       packages = rec {

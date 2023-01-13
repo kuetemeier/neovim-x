@@ -13,7 +13,7 @@ let
     let
       config' = if (builtins.hasAttr "config" definition) then definition.config else { };
       moduleConfigs = if (builtins.hasAttr "modules" definition) then definition.modules else [ ];
-      mergedModuleConfigs = builtins.foldl' (a: b: lib.recursiveUpdate a b) {} moduleConfigs;
+      mergedModuleConfigs = builtins.foldl' (a: b: lib.recursiveUpdate a b) { } moduleConfigs;
     in
     # merge all modules configurations with the profile configuration
     (lib.recursiveUpdate mergedModuleConfigs config'));
