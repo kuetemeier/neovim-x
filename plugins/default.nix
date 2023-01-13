@@ -16,11 +16,12 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
     ./lazygit.nix
+    ./obsidian-nvim.nix
     ./which-key-nvim.nix
   ];
 }

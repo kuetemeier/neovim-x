@@ -15,7 +15,7 @@
 #
 # }}}
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -31,6 +31,8 @@
     plugins.barbar.enable = true;
 
     plugins.lazygit.enable = true;
+
+    plugins.obsidian.enable = true;
 
     plugins.startify.enable = true;
 

@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.plugins.lazygit;
-  helpers = import inputs.nixvim/helpers.nix { inherit lib; };
+  # helpers = import inputs.nixvim/helpers.nix { inherit lib; };
 in
 {
   options = {
