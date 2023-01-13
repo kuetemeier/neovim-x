@@ -40,11 +40,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1673056779,
-        "narHash": "sha256-+Mjz9puicCHhik7QQxm9SviN0T8cLznIXqMTAoau4dA=",
+        "lastModified": 1673527292,
+        "narHash": "sha256-903EpRSDCfUvic7Hsiqwy+h7zlMTLAUbCXkEGGriCfM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8c03897e2622f4bc8060370736df431d5942522c",
+        "rev": "6a3f9996408c970b99b8b992b11bb249d1455b62",
         "type": "github"
       },
       "original": {
@@ -65,15 +65,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1673018070,
-        "narHash": "sha256-/NtDkyxRqkHg1Y8GhpOc9UGjqkZs8KVLU3bbPkko3GY=",
-        "owner": "pta2002",
+        "lastModified": 1673606904,
+        "narHash": "sha256-vK4dCZEwsetub7FLu+IpD2Ro6pMzifPBPPQutfZcxsY=",
+        "owner": "kuetemeier",
         "repo": "nixvim",
-        "rev": "7713f5d4414e73616651f5df2c1a2de674c9faaf",
+        "rev": "b9a4f0ca19201cbc2e6c583f3f3a269fe1a6314f",
         "type": "github"
       },
       "original": {
-        "owner": "pta2002",
+        "owner": "kuetemeier",
+        "ref": "jkr",
         "repo": "nixvim",
         "type": "github"
       }

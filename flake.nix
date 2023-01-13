@@ -22,7 +22,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixvim = {
-      url = "github:pta2002/nixvim";
+      url = "github:kuetemeier/nixvim?ref=jkr";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
