@@ -15,7 +15,7 @@
 #
 # }}}
 
-{ config, pkgs, lib, inputs }:
+{ config, ... }:
 
 {
   config = {

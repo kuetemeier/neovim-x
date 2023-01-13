@@ -17,6 +17,6 @@
 
 {
   imports = [
-    ../profiles/base.nix
+    ../profiles/base-desktop.nix
   ];
 }

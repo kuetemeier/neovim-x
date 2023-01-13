@@ -21,6 +21,12 @@
 
   config = {
     colorschemes.gruvbox.enable = lib.mkDefault true;
+
+
+    # --------------------
+    # Base plugins
+
+    plugins.commentary.enable = true;
   };
 
 }

@@ -48,7 +48,9 @@ nix --experimental-features 'nix-command flakes' run .#
 
 Use `nix fmt` to format the `.nix` files with `nixpkgs-fmt`.
 
-## Thanks to
+## My thanks to
+
+Great work and a good source of inspiration:
 
 - [nixvim](https://github.com/pta2002/nixvim)
 

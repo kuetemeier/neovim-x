@@ -1,5 +1,7 @@
-#  nvim-jkr-test.nix - Neovim configuration for testing a development
+#  base-desktop.nix - Base for my Neovim configuration desktop configurations
 #
+#  This profile includes the common configuration for the
+#  `nvim-jkr` and `nvim-jkr-pde` suites
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
 #    ._// )   (c) Copyright 2023 - License: MPL-2.0
@@ -13,18 +15,20 @@
 #
 # }}}
 
-{ config, pkgs, lib, inputs }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
-    ../profiles/base.nix
-    ../profiles/hello-world.nix
+    # Build our configuration on the base.nix configuration
+    ./base.nix
   ];
 
   config = {
-    extraConfigLua = ''
-      print ("Happy testing!")
-    '';
+
+    # --------------------
+    # Base desktop plugins
+
+    plugins.startify.enable = true;
   };
 
 }
