@@ -14,7 +14,8 @@ in
 
   config =
     let
-      pluginGitHub = (import ../helpers.nix).pluginGitHub;
+      jkr-helpers = import ../jkr-helpers.nix { inherit pkgs lib; };
+      pluginGitHub = jkr-helpers.pluginGitHub;
     in
     mkIf cfg.enable {
       # TODO: Add options from https://github.com/folke/which-key.nvim/

@@ -1,19 +1,6 @@
-{ config, pkgs, lib } :
-
-let
-  cfg = config.nvim-jkr.helpers;
-in
+{ pkgs, lib } :
 
 {
-  options = {
-
-  };
-
-  config = {
-
-    lib.extend (final: prev: {
-        
-        });
 
   # Example:
   # (pluginGitHub {
@@ -36,14 +23,5 @@ in
         inherit owner repo rev sha256;
       };
     };
-
-  # demoPluginGitHub = pluginGitHub {
-  #    owner = "folke";
-  #    repo = "which-key.nvim";
-  #    version = "jkr-2021-12-02";
-  #    rev = "d3032b6d3e0adb667975170f626cb693bfc66baa";
-  #    sha256 = "sha256-mgLmwP8ci9VjRiwBedZDPXi6CjNtJy3iOJDbmSXtisk=";
-  # };
-  }
 
 }

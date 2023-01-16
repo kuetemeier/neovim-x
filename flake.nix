@@ -132,11 +132,12 @@
       # For Development: style .nix files with `nix fmt` in this repo
       formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     });
-  in flakeOutput // {
+  in flakeOutput // rec {
     overlays.default = final: prev: {
       nvim-jkr = flakeOutput.packages.${final.system}.nvim-jkr;
       nvim-jkr-minimal = flakeOutput.packages.${final.system}.nvim-jkr-minimal;
       nvim-jkr-system = flakeOutput.packages.${final.system}.nvim-jkr-system;
     };
+    overlay = overlays.default;
   };
 }
