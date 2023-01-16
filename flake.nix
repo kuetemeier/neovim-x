@@ -39,7 +39,11 @@
     , flake-utils
     }:
 
-    flake-utils.lib.eachDefaultSystem (system:
+    with builtins;
+
+    let
+
+      flakeOutput = flake-utils.lib.eachDefaultSystem (system:
 
     let
       config = { };
@@ -128,4 +132,11 @@
       # For Development: style .nix files with `nix fmt` in this repo
       formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     });
+  in flakeOutput // {
+    overlays.default = final: prev: {
+      nvim-jkr = flakeOutput.packages.${final.system}.nvim-jkr;
+      nvim-jkr-minimal = flakeOutput.packages.${final.system}.nvim-jkr-minimal;
+      nvim-jkr-system = flakeOutput.packages.${final.system}.nvim-jkr-system;
+    };
+  };
 }
