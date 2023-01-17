@@ -87,13 +87,13 @@
       suites = importNixFilesFromDir ./suites;
 
       # Build all Packages from ./suites
-      nvimJkrPkgs = builtins.mapAttrs
+      neovimJkrPkgs = builtins.mapAttrs
         (name: value:
           nixvim'.makeNixvimWithModule { module = value; })
         suites;
 
       # Build all Apps from ./suites
-      nvimJkrApps = builtins.mapAttrs
+      neovimJkrApps = builtins.mapAttrs
         (name: value:
           {
             type = "app";
@@ -105,38 +105,38 @@
     {
       packages = rec {
         # Default Neovim configuration for systems
-        nvim = self.packages.${system}.nvim-jkr-system;
+        neovim = self.packages.${system}.neovim-jkr-system;
 
         # Default package is my Neovim configuration for Desktops
-        # Just run it with `nix run` or `nix run .#nvim-jkr -- test.md`
-        default = self.packages.${system}.nvim-jkr;
+        # Just run it with `nix run` or `nix run .#neovim-jkr -- test.md`
+        default = self.packages.${system}.neovim-jkr;
 
         # Hello World package for fun and tests
         inherit (pkgs) hello;
-      } // nvimJkrPkgs // { };
+      } // neovimJkrPkgs // { };
 
       apps = rec {
         # Plain Neovim (for tests and debugging)
         plain = {
           type = "app";
-          program = "${pkgs.neovim}/bin/nvim";
+          program = "${pkgs.neovim}/bin/neovim";
         };
 
-        # Set default App to nvim-jkr
-        default = self.apps.${system}.nvim-jkr;
+        # Set default App to neovim-jkr
+        default = self.apps.${system}.neovim-jkr;
 
         # For fun and tests - Hello World - `nix run .#hello`
         hello = flake-utils.lib.mkApp { drv = self.packages.${system}.hello; };
-      } // nvimJkrApps;
+      } // neovimJkrApps;
 
       # For Development: style .nix files with `nix fmt` in this repo
       formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     });
   in flakeOutput // rec {
     overlays.default = final: prev: {
-      nvim-jkr = flakeOutput.packages.${final.system}.nvim-jkr;
-      nvim-jkr-minimal = flakeOutput.packages.${final.system}.nvim-jkr-minimal;
-      nvim-jkr-system = flakeOutput.packages.${final.system}.nvim-jkr-system;
+      neovim-jkr = flakeOutput.packages.${final.system}.neovim-jkr;
+      neovim-jkr-minimal = flakeOutput.packages.${final.system}.neovim-jkr-minimal;
+      neovim-jkr-system = flakeOutput.packages.${final.system}.neovim-jkr-system;
     };
     overlay = overlays.default;
   };

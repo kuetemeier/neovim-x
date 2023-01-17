@@ -22,6 +22,8 @@
     ../plugins
     ../modules
     ./theme.nix
+    ./keymaps.nix
+    ./options.nix
   ];
 
   config = {
