@@ -26,6 +26,9 @@
 
   config = {
 
+    viAlias = true;
+    vimAlias = true;
+
     # --------------------
     # Base desktop plugins
 
@@ -60,7 +63,11 @@
       indent = true;
 
       # Enable tree-sitter based folding
-      folding = true;
+      folding = false;
+
+      ensureInstalled = true;
+
+      disabledLanguages = [ "bash" ];
     };
 
       # rainbow - Rainbow parentheses for neovim using tree-sitter
