@@ -22,6 +22,7 @@
     # Build our configuration on the base.nix configuration
     ./base.nix
     ./lightline.nix
+    ./lsp.nix
   ];
 
   config = {
@@ -92,10 +93,6 @@
       git = {
         enable = true;
       };
-    };
-
-    plugins.lsp = {
-      enable = true;
     };
 
   };

@@ -17,12 +17,29 @@
 {
   description = "jkr-neovim: Joerg Kuetemeier - NeoVim Configurations";
 
-  inputs = {
+  inputs = rec {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
+    # Nix Language server, an incremental analysis assistent for writing in Nix.
+    # https://github.com/oxalica/nil
+    nil = {
+      # url = "github:oxalica/nil";
+      url = "github:oxalica/nil?ref=2023-01-01";
+      # url = "github:oxalica/nil?ref=6e5321582ca7595455edf2a9643f83ce390d0a71";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     nixvim = {
-      url = "github:kuetemeier/nixvim?ref=jkr";
+      # url = "github:kuetemeier/nixvim?ref=jkr";
+      # Last Update 2023-01-26
+      url = "github:pta2002/nixvim?ref=c73bef16ab2f8fe87210a840a2178a593f107eae";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
@@ -35,8 +52,10 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgs-unstable
     , nixvim
     , flake-utils
+    , nil
     }:
 
     with builtins;
@@ -47,9 +66,14 @@
 
     let
       config = { };
-      pkgs = nixpkgs.legacyPackages.${system};
-      lib = pkgs.lib;
-      inputs = self.inputs;
+      unstable-overlay = final: prev: {
+        unstable = import nixpkgs-unstable { inherit system; config = { allowUnfree = true; }; };
+      };
+      # TODO: use correct version of nil package => making overlay work
+      pkgs = (nixpkgs.legacyPackages.${system}.extend unstable-overlay).extend nil.overlays.nil;
+      # pkgs =  import nixpkgs { inherit system; overlays = [ nil.overlays.nil ]; };
+      inherit (pkgs) lib;
+      inherit (self) inputs;
 
       nixvim' = nixvim.legacyPackages."${system}";
 
@@ -89,7 +113,7 @@
       # Build all Packages from ./suites
       neovimJkrPkgs = builtins.mapAttrs
         (name: value:
-          nixvim'.makeNixvimWithModule { module = value; })
+          nixvim'.makeNixvimWithModule { module = value; inherit pkgs; })
         suites;
 
       # Build all Apps from ./suites
