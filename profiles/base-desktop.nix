@@ -36,7 +36,7 @@
 
     plugins.lazygit.enable = true;
 
-    plugins.obsidian.enable = true;
+    # plugins.obsidian.enable = true;
 
     plugins.startify.enable = true;
 
