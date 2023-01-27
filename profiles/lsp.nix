@@ -5,8 +5,22 @@
     plugins.lsp = {
       enable = true;
 
+      # nil - Nix files
+      # https://github.com/oxalica/nil
       servers.nil_ls.enable = true;
       servers.nil_ls.package = pkgs.unstable.nil;
+
+      # bashls - Bash, Shell
+      # https://github.com/bash-lsp/bash-language-server
+      servers.bashls.enable = true;
+
+      # TODO: Document, restructure and add more
+      servers.elixirls.enable = true;
+      servers.gopls.enable = true;
+      servers.html.enable = true;
+      servers.jsonls.enable = true;
+      servers.sumneko-lua.enable = true;
+
 
       onAttach = ''
         -- Enable completion triggered by <c-x><c-o>
@@ -33,6 +47,9 @@
       '';
     };
 
-    # extraPackages = [ pkgs.nil ];
+    plugins.lspsaga = {
+      enable = true;
+    };
+
   };
 }

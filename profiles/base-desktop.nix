@@ -22,7 +22,11 @@
     # Build our configuration on the base.nix configuration
     ./base.nix
     ./lightline.nix
+    ./telescope.nix
+    ./git.nix
     ./lsp.nix
+    ./marks.nix
+    # ./mark-radar.nix
   ];
 
   config = {
@@ -35,27 +39,9 @@
 
     plugins.barbar.enable = true;
 
-    plugins.lazygit.enable = true;
-
     # plugins.obsidian.enable = true;
 
     plugins.startify.enable = true;
-
-    plugins.telescope.enable = true;
-
-    maps.normal = {
-      "<leader>ff" = "<cmd>Telescope find_files<cr>";
-      "<leader>fg" = "<cmd>Telescope live_grep<cr>";
-      "<leader>fb" = "<cmd>Telescope buffers<cr>";
-      "<leader>fh" = "<cmd>Telescope help_tags<cr>";
-
-      "<c-p>" = "<cmd>Telescope find_files<cr>";
-      "<c-s-p>" = "<cmd>Telescope commands<cr>";
-      "<c-k>" = "<cmd>Telescope buffers<cr>";
-      "<c-s-k>" = "<cmd>Telescope keymaps<cr>";
-    };
-
-    plugins.which-key.enable = true;
 
     plugins.treesitter = {
       enable = true;
@@ -74,7 +60,6 @@
       # rainbow - Rainbow parentheses for neovim using tree-sitter
    #   nvim-ts-rainbow
 
-    plugins.gitsigns.enable = true;
 
     # https://github.com/junegunn/goyo.vim
     # Distraction-free writing in Vim

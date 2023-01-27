@@ -24,14 +24,10 @@
     ./theme.nix
     ./keymaps.nix
     ./options.nix
+    
+    # base profiles
+    ./comments.nix
+    ./which-key.nix
   ];
-
-  config = {
-
-    # --------------------
-    # Base plugins
-
-    plugins.commentary.enable = true;
-  };
 
 }
