@@ -21,6 +21,7 @@
   imports = [
     # Build our configuration on the base.nix configuration
     ./base.nix
+    ./clipboard.nix
     ./lightline.nix
     ./telescope.nix
     ./git.nix
