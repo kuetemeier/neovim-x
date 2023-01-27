@@ -30,4 +30,9 @@
     ./which-key.nix
   ];
 
+  config = {
+    viAlias = true;
+    vimAlias = true;
+  };
+
 }

@@ -33,9 +33,6 @@
 
   config = {
 
-    viAlias = true;
-    vimAlias = true;
-
     # --------------------
     # Base desktop plugins
 
