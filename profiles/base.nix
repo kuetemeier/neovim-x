@@ -24,10 +24,10 @@
     ./theme.nix
     ./keymaps.nix
     ./options.nix
-    
+
     # base profiles
     ./comments.nix
-    ./which-key.nix
+    ./folding.nix
   ];
 
   config = {
