@@ -17,7 +17,7 @@
 {
   description = "jkr-neovim: Joerg Kuetemeier - NeoVim Configurations";
 
-  inputs = rec {
+  inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -127,7 +127,7 @@
 
     in
     {
-      packages = rec {
+      packages = {
         # Default Neovim configuration for systems
         neovim = self.packages.${system}.neovim-jkr-system;
 
@@ -139,7 +139,7 @@
         inherit (pkgs) hello;
       } // neovimJkrPkgs // { };
 
-      apps = rec {
+      apps = {
         # Plain Neovim (for tests and debugging)
         plain = {
           type = "app";
