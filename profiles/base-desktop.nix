@@ -21,6 +21,7 @@
   imports = [
     # Build our configuration on the base.nix configuration
     ./base.nix
+    ./nvim-tree.nix
     ./clipboard.nix
     ./lightline.nix
     ./telescope.nix
@@ -65,21 +66,6 @@
     # https://github.com/junegunn/goyo.vim
     # Distraction-free writing in Vim
     plugins.goyo.enable = true;
-
-    # https://github.com/nvim-tree/nvim-tree.lua
-    # A file explorer tree for neovim written in lua
-    # (includes nvim-web-devicons)
-    plugins.nvim-tree.enable = true;
-
-    plugins.nvim-tree = {
-      disableNetrw = true;
-      hijackNetrw = true;
-      # autoClose = true;
-
-      git = {
-        enable = true;
-      };
-    };
 
   };
 
