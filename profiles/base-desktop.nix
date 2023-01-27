@@ -27,7 +27,8 @@
     ./telescope.nix
     ./git.nix
     ./lsp.nix
-    ./marks.nix
+    ./floaterm.nix
+    # ./marks.nix # TODO: Fix breakting boarders
     # ./mark-radar.nix
   ];
 

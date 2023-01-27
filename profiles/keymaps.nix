@@ -86,6 +86,20 @@
         };
 
       };
+
+      # use alt+hjkl to move between split/vsplit panels
+      normal."<A-h>" = { action = "<C-w>h"; };
+      normal."<A-j>" = { action = "<C-w>j"; };
+      normal."<A-k>" = { action = "<C-w>k"; };
+      normal."<A-l>" = { action = "<C-w>l"; };
+      terminal."<A-h>" = { action = "<C-\><C-n><C-w>h"; };
+      terminal."<A-j>" = { action = "<C-\><C-n><C-w>j"; };
+      terminal."<A-k>" = { action = "<C-\><C-n><C-w>k"; };
+      terminal."<A-l>" = { action = "<C-\><C-n><C-w>l"; };
+
+      # resize windows (horizontal splits)
+      normal."<leader>+" = { action = "<cmd>exe \"resize \" . (winheight(0) * 3/2)<CR>"; };
+      normal."<leader>-" = { action = "<cmd>exe \"resize \" . (winheight(0) * 2/3)<CR>"; };
     };
   };
 

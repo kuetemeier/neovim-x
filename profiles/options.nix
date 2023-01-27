@@ -62,6 +62,19 @@
       # Show the line and column number of the cursor position,
       # separated by a comma.
       ruler = true;
+
+      # Have the h and l cursor keys wrap between lines
+      # (like <Space> and <BkSpc> do by default.
+      # And ~ covert case over line breaks; also have the cursor
+      # wrap in insert mode
+      whichwrap = "h,l,~,[,],b,s";
+
+      # Natural open new windows
+      splitbelow = true;
+      splitright = true;
+
+      # automatically indent lines
+      cindent = true;
     };
 
     extraConfigLua = ''
