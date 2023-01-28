@@ -33,6 +33,8 @@
     ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
     ./treesitter.nix
+    ./completion.nix
+    ./colorizer.nix
   ];
 
   config = {
