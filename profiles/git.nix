@@ -1,7 +1,9 @@
 #  git.nix - Neovim git configuration 
 #
-#  This profile includes the common configuration for the
-#  `nvim-jkr` and `nvim-jkr-pde` suites
+#  Enables and configures lazygit and gitsigns
+#  https://github.com/kdheepak/lazygit.nvim
+#  https://github.com/lewis6991/gitsigns.nvim
+#
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
 #    ._// )   (c) Copyright 2023 - License: MPL-2.0
@@ -21,9 +23,11 @@
   config = {
 
     plugins.lazygit.enable = true;
-    maps.normal. "<leader>gg" = {
+
+    maps.normal. "<leader>lg" = {
       silent = true;
       action = "<cmd>LazyGit<CR>";
+      description = "Toggle LazyGit";
     };
 
     plugins.gitsigns.enable = true;
