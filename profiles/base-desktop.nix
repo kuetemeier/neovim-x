@@ -32,6 +32,7 @@
     # ./mark-radar.nix
     ./startify.nix # The fancy start screen for Vim
     ./goyo.nix # distraction free writing
+    ./treesitter.nix
   ];
 
   config = {
@@ -42,22 +43,6 @@
     # plugins.obsidian.enable = true;
 
 
-    plugins.treesitter = {
-      enable = true;
-
-      # Enable tree-sitter based indention
-      indent = true;
-
-      # Enable tree-sitter based folding
-      folding = false;
-
-      ensureInstalled = true;
-
-      disabledLanguages = [ "bash" ];
-    };
-
-      # rainbow - Rainbow parentheses for neovim using tree-sitter
-   #   nvim-ts-rainbow
 
 
     # https://github.com/junegunn/goyo.vim
