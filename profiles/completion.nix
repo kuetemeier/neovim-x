@@ -15,12 +15,31 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   config = {
     plugins.nvim-cmp = {
       enable = true;
+
+      sources = [ { name = "nvim_lsp"; } ];
+      mappingPresets = [ "insert" ];
+      mapping = {
+        "<CR>" = "cmp.mapping.confirm({ select = true })";
+      };
+      formatting.fields = [ "kind" "abbr" "menu" ];
+
+      window.completion = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None";
+        col_offset = -4;
+        side_padding = 0;
+        border = "single";
+      };
+
+      window.documentation = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None";
+        border = "single";
+      };
     };
   };
 }

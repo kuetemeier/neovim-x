@@ -1,6 +1,4 @@
-#  snippets.nix - Neovim snippets configuration
-#
-#  using lua-snip
+#  test.nix - Neovim configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -15,15 +13,18 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
+
+let
+  luaFile = pkgs.writeScript "kuetemeierNeoVimHello.lua" (builtins.readFile ./test.lua);
+in
 
 {
   config = {
-    plugins.luasnip = {
-      enable = true;
-    };
-    plugins.nvim-cmp = {
-      sources = [ { name = "luasnip"; } ];
-    };
+    extraConfigLua = ''
+      if (io.open("${luaFile}")) then
+        dofile("${luaFile}")
+      end
+    '';
   };
 }
