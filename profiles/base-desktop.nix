@@ -37,8 +37,6 @@
     # --------------------
     # Base desktop plugins
 
-    plugins.barbar.enable = true;
-
     # plugins.obsidian.enable = true;
 
     plugins.startify.enable = true;

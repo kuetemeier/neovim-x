@@ -28,6 +28,8 @@
     # base profiles
     ./comments.nix
     ./folding.nix
+    ./which-key.nix
+    ./barbar.nix
   ];
 
   config = {
