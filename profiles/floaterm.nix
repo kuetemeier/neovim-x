@@ -1,5 +1,8 @@
 #  floaterm.nix - Neovim configuration
 #
+#  > Terminal manager for (neo)vim
+#  https://github.com/voldikss/vim-floaterm
+#
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
 #    ._// )   (c) Copyright 2023 - License: MPL-2.0
@@ -26,9 +29,10 @@
     };
 
     maps = {
-      normal."<leader>t" = {
+      normal."<leader>tf" = {
         silent = true;
         action = "<cmd>FloatermToggle<CR>";
+        description = "Toggle a floating terminal";
       };
     };
 
