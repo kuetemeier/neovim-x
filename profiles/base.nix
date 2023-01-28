@@ -30,6 +30,7 @@
     ./folding.nix
     ./which-key.nix
     ./barbar.nix
+    ./undotree.nix
   ];
 
   config = {
