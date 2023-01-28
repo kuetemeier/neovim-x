@@ -30,6 +30,7 @@
     ./floaterm.nix
     # ./marks.nix # TODO: Fix breakting boarders
     # ./mark-radar.nix
+    ./startify.nix # The fancy start screen for Vim
     ./goyo.nix # distraction free writing
   ];
 
@@ -40,7 +41,6 @@
 
     # plugins.obsidian.enable = true;
 
-    plugins.startify.enable = true;
 
     plugins.treesitter = {
       enable = true;
