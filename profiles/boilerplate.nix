@@ -1,4 +1,4 @@
-#  .nix - Neovim configuration 
+#  .nix - Neovim configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -13,7 +13,7 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   config = {
