@@ -36,6 +36,7 @@
     ./completion.nix
     ./snippets.nix
     ./colorizer.nix
+    ./trouble.nix
   ];
 
   config = {
