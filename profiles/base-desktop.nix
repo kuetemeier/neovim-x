@@ -28,12 +28,13 @@
     ./clipboard.nix # system clipboard support
     ./lightline.nix # a pretty status line
     ./telescope.nix # fuzzy find files and everything else
-    ./git.nix # git support
+    ./git # git support
     ./lsp.nix # language server support
     ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
     ./treesitter.nix
     ./completion.nix
+    ./snippets.nix
     ./colorizer.nix
   ];
 

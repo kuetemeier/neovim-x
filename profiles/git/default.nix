@@ -1,8 +1,6 @@
 #  git.nix - Neovim git configuration 
 #
 #  Enables and configures lazygit and gitsigns
-#  https://github.com/kdheepak/lazygit.nvim
-#  https://github.com/lewis6991/gitsigns.nvim
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -20,17 +18,9 @@
 { config, pkgs, ... }:
 
 {
-  config = {
+  imports = [
+    ./gitsigns.nix
+    ./lazygit.nix
+  ];
 
-    plugins.lazygit.enable = true;
-
-    maps.normal. "<leader>lg" = {
-      silent = true;
-      action = "<cmd>LazyGit<CR>";
-      description = "Toggle LazyGit";
-    };
-
-    plugins.gitsigns.enable = true;
-
-  };
 }
