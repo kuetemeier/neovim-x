@@ -20,17 +20,17 @@
 {
   imports = [
     # Build our configuration on the base.nix configuration
-    ./base.nix
-    ./nvim-tree.nix
-    ./clipboard.nix
-    ./lightline.nix
-    ./telescope.nix
-    ./git.nix
-    ./lsp.nix
-    ./floaterm.nix
-    # ./marks.nix # TODO: Fix breakting boarders
-    # ./mark-radar.nix
+    ./base.nix 
+
+    # and add:
     ./startify.nix # The fancy start screen for Vim
+    ./nvim-tree.nix # file manager and netrw replacement
+    ./clipboard.nix # system clipboard support
+    ./lightline.nix # a pretty status line
+    ./telescope.nix # fuzzy find files and everything else
+    ./git.nix # git support
+    ./lsp.nix # language server support
+    ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
     ./treesitter.nix
   ];
