@@ -43,12 +43,6 @@
     # plugins.obsidian.enable = true;
 
 
-
-
-    # https://github.com/junegunn/goyo.vim
-    # Distraction-free writing in Vim
-    plugins.goyo.enable = true;
-
   };
 
 }
