@@ -17,6 +17,6 @@
 
 {
   config = {
-    plugins.commentary.enable = true;
+    plugins.comment-nvim.enable = true;
   };
 }
