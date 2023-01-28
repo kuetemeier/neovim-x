@@ -30,6 +30,7 @@
     ./floaterm.nix
     # ./marks.nix # TODO: Fix breakting boarders
     # ./mark-radar.nix
+    ./goyo.nix # distraction free writing
   ];
 
   config = {
