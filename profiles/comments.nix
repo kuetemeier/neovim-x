@@ -1,7 +1,5 @@
 #  comments.nix - Neovim configuration for comment handling
 #
-#  This profile includes the common configuration for the
-#  `nvim-jkr` and `nvim-jkr-pde` suites
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
 #    ._// )   (c) Copyright 2023 - License: MPL-2.0
