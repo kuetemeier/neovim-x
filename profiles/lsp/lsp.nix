@@ -1,4 +1,4 @@
-# lsp.nix - Neovim language server configuration
+# profiles/lsp/lsp.nix - Neovim language server configuration
 #
 #
 #      //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -41,30 +41,5 @@
       '';
     };
     extraPackages = [pkgs.alejandra];
-
-    plugins.lspkind = {
-      enable = true;
-      mode = "symbol_text";
-      cmp.ellipsisChar = "…";
-      cmp.menu = {
-        buffer = "[Buffer]";
-        nvim_lsp = "[LSP]";
-        luasnip = "[LuaSnip]";
-        nvim_lua = "[Lua]";
-        latex_symbols = "[Latex]";
-      };
-      cmp.after = ''
-        function(entry, vim_item, kind)
-          local strings = vim.split(kind.kind, "%s", { trimempty = true })
-          kind.kind = " " .. strings[1] .. " "
-          kind.menu = "   " .. strings[2]
-          return kind
-        end
-      '';
-    };
-
-    plugins.lspsaga = {
-      enable = true;
-    };
   };
 }

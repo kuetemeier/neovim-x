@@ -29,7 +29,8 @@
     ./lightline.nix # a pretty status line
     ./telescope.nix # fuzzy find files and everything else
     ./git # git support
-    ./lsp.nix # language server support
+    ./lsp # language server support
+    ./languages # programming languages support
     ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
     ./treesitter.nix
