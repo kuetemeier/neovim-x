@@ -22,5 +22,4 @@
     ./gitsigns.nix
     ./lazygit.nix
   ];
-
 }

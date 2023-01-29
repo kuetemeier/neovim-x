@@ -37,7 +37,6 @@
     ./snippets.nix
     ./colorizer.nix
     ./trouble.nix
-    ./test.nix
   ];
 
   config = {

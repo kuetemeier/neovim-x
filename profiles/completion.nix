@@ -22,10 +22,31 @@
     plugins.nvim-cmp = {
       enable = true;
 
-      sources = [ { name = "nvim_lsp"; } ];
+      sources = [
+        { name = "buffer"; }
+        { name = "path"; }
+        { name = "nvim_lsp"; }
+        { name = "luasnip"; }
+        { name = "latex_symbols"; }
+        { name = "emoji"; }
+      ];
       mappingPresets = [ "insert" ];
       mapping = {
         "<CR>" = "cmp.mapping.confirm({ select = true })";
+        "<Tab>" = ''
+          cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, {"i", "s"})'';
+
+
       };
       formatting.fields = [ "kind" "abbr" "menu" ];
 
@@ -41,5 +62,7 @@
         border = "single";
       };
     };
+
+
   };
 }
