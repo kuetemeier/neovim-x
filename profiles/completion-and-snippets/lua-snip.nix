@@ -27,6 +27,12 @@ in {
   config = {
     plugins.luasnip = {
       enable = true;
+
+      fromVscode = [
+      # same as: require('luasnip/loaders/from_vscode').lazy_load()
+      # to load friendly-snippets
+      {}
+      ];
     };
 
     plugins.nvim-cmp = {
@@ -38,15 +44,11 @@ in {
       '';
     };
 
-    extraPackages = [pkgs.vimPlugins.friendly-snippets];
+    # @see https://github.com/rafamadriz/friendly-snippets
+    extraPlugins = [pkgs.vimPlugins.friendly-snippets];
 
     extraConfigLua = ''
       -- Some more Luasnip configuration
-
-      -- Lazy Load VisualStudio Code compatible snippets
-      -- e.g. from the installed PlugIn 'friendly-snippets'
-      -- @see https://github.com/rafamadriz/friendly-snippets
-      require('luasnip/loaders/from_vscode').lazy_load()
 
       -- Some Theme settings
       local types = require("luasnip.util.types")

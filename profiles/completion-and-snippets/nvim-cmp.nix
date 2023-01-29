@@ -22,6 +22,7 @@
       {name = "nvim_lsp";}
       {name = "latex_symbols";}
       {name = "emoji";}
+      {name = "cmdline";}
       # {name = "luasnip";} # added by luasnip.nix
     ];
 
