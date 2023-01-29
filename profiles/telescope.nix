@@ -1,4 +1,4 @@
-#  telescope.nix - Neovim telescope configuration 
+#  telescope.nix - Neovim telescope configuration
 #
 #  This profile includes the common configuration for the
 #  `nvim-jkr` and `nvim-jkr-pde` suites
@@ -14,25 +14,23 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, lib, ... }:
-
-{
+{...}: let
+  mkMapCmd = (import ../helpers.nix).mkMapCmd;
+in {
   config = {
     plugins.telescope.enable = true;
 
     maps.normal = {
-      "<leader>ff" = "<cmd>Telescope find_files<cr>";
-      "<c-o>" = "<cmd>Telescope find_files<cr>";
+      "<leader>ff" = mkMapCmd "Telescope find_files" "Telescope: Find files";
 
-      "<leader>fg" = "<cmd>Telescope live_grep<cr>";
-      "<leader>fb" = "<cmd>Telescope buffers<cr>";
-      "<leader>fh" = "<cmd>Telescope help_tags<cr>";
-      "<leader>fk" = "<cmd>Telescope keymaps<cr>";
-      "<leader>fc" = "<cmd>Telescope commands<cr>";
-      "<leader>f/" = "<cmd>Telescope search_history<cr>";
-
-      "<leader>?" = "<cmd>Telescope keymaps<cr>";
+      "<c-o>" = mkMapCmd "Telescope live_grep" "Telescope: Live grep over all project files";
+      "<leader>fg" = mkMapCmd "Telescope live_grep" "Telescope: Live grep over all project files";
+      "<leader>fb" = mkMapCmd "Telescope buffers" "Telescope: Find buffer";
+      "<leader>fh" = mkMapCmd "Telescope help_tags" "Telescope: Find help tag";
+      "<leader>fk" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
+      "<leader>?" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
+      "<leader>fc" = mkMapCmd "Telescope commands" "Telescope: Find command";
+      "<leader>f/" = mkMapCmd "Telescope search_history" "Telescope: Search in command history";
     };
   };
 }

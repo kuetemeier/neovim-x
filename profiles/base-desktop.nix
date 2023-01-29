@@ -14,13 +14,16 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, lib, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     # Build our configuration on the base.nix configuration
-    ./base.nix 
+    ./base.nix
 
     # and add:
     ./startify.nix # The fancy start screen for Vim
@@ -35,18 +38,15 @@
     ./goyo.nix # distraction free writing
     ./treesitter.nix
     ./completion-and-snippets # nvim-cmp, lua-snip and some magic
+    ./projects.nix
     ./colorizer.nix
     ./trouble.nix
   ];
 
   config = {
-
     # --------------------
     # Base desktop plugins
 
     # plugins.obsidian.enable = true;
-
-
   };
-
 }

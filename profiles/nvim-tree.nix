@@ -1,4 +1,4 @@
-#  nvim-tree.nix - Neovim nvim-tree configuration 
+#  nvim-tree.nix - Neovim nvim-tree configuration
 #
 #  A file explorer tree for neovim written in lua
 #  https://github.com/nvim-tree/nvim-tree.lua
@@ -15,11 +15,13 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
+    # INFO: More configuration can be found in the projects.nix profile
 
     # (includes nvim-web-devicons)
     plugins.nvim-tree = {
@@ -32,6 +34,5 @@
         enable = true;
       };
     };
-
   };
 }
