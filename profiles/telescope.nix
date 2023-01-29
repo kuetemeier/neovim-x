@@ -27,10 +27,15 @@ in {
       "<leader>fg" = mkMapCmd "Telescope live_grep" "Telescope: Live grep over all project files";
       "<leader>fb" = mkMapCmd "Telescope buffers" "Telescope: Find buffer";
       "<leader>fh" = mkMapCmd "Telescope help_tags" "Telescope: Find help tag";
+      "<leader>fc" = mkMapCmd "Telescope commands" "Telescope: Find command";
+      "<leader>f:" = mkMapCmd "Telescope search_history" "Telescope: Search in command history";
+      "<leader>f/" = mkMapCmd "Telescope current_buffer_fuzzy_find" "Telesoope: Search in current file";
+      "<leader>fm" = mkMapCmd "Telescope marks" "Telescope: Search in marks";
+      "<leader>fr" = mkMapCmd "Telescope registers" "Search in Registers";
+      "<leader>fs" = mkMapCmd "lua require('telescope.builtin').spell_suggest()" "Telescope: Spell suggest";
+      "<leader>fo" = mkMapCmd "Telescope oldfiles" "Telescope: Recently opened files";
       "<leader>fk" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
       "<leader>?" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
-      "<leader>fc" = mkMapCmd "Telescope commands" "Telescope: Find command";
-      "<leader>f/" = mkMapCmd "Telescope search_history" "Telescope: Search in command history";
     };
   };
 }
