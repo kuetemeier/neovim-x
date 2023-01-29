@@ -19,6 +19,7 @@
   pkgs,
   ...
 }: let
+  mkMapCmd = (import ../../helpers.nix).mkMapCmd;
   jkr-luasnip-snippets-01 =
     pkgs.writeScript "jkr-luasnip-snippets-01.lua"
     (builtins.readFile ./jkr-luasnip-snippets-01.lua);
@@ -37,10 +38,34 @@ in {
       '';
     };
 
+    extraPackages = [pkgs.vimPlugins.friendly-snippets];
+
     extraConfigLua = ''
+      -- Some more Luasnip configuration
+
+      -- Lazy Load VisualStudio Code compatible snippets
+      -- e.g. from the installed PlugIn 'friendly-snippets'
+      -- @see https://github.com/rafamadriz/friendly-snippets
+      require('luasnip/loaders/from_vscode').lazy_load()
+
+      -- Some Theme settings
+      local types = require("luasnip.util.types")
+      require'luasnip'.config.setup({
+        ext_opts = {
+          [types.choiceNode] = {active = {virt_text = {{"●", "GruvboxOrange"}}}},
+          [types.insertNode] = {active = {virt_text = {{"●", "GruvboxBlue"}}}}
+        }
+      })
+
+      -- Load custom snippet configurations
       if (io.open("${jkr-luasnip-snippets-01}")) then
         dofile("${jkr-luasnip-snippets-01}")
       end
     '';
+
+    maps.normal = {
+      "<leader>j" = mkMapCmd "lua require'luasnip'.jump(1)" "";
+      "<leader>k" = mkMapCmd "lua require'luasnip'.jump(-1)" "";
+    };
   };
 }
