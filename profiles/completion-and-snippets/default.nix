@@ -1,6 +1,4 @@
-#  snippets.nix - Neovim snippets configuration
-#
-#  using lua-snip
+#  default.nix - Neovim completion and snippet support
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -15,15 +13,11 @@
 #
 # }}}
 
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  config = {
-    plugins.luasnip = {
-      enable = true;
-    };
-    plugins.nvim-cmp = {
-      sources = [ { name = "luasnip"; } ];
-    };
-  };
+  imports = [
+    ./nvim-cmp.nix
+    ./lua-snip.nix
+  ];
 }

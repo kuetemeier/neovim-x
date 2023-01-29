@@ -34,8 +34,7 @@
     ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
     ./treesitter.nix
-    ./completion.nix
-    ./snippets.nix
+    ./completion-and-snippets # nvim-cmp, lua-snip and some magic
     ./colorizer.nix
     ./trouble.nix
   ];
