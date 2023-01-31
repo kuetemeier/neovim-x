@@ -34,9 +34,15 @@ in {
       };
     };
 
-    extraConfigLua = ''
-      require('telescope').load_extension('projects')
-    '';
+    plugins.telescope.extensions = {
+      project-nvim = {
+        enable = true;
+      };
+    };
+
+    # extraConfigLua = ''
+    #   require('telescope').load_extension('projects')
+    # '';
 
     maps.normal."<leader>fp" = mkMapCmd "Telescope projects" "Telescope: Search latest projects";
   };
