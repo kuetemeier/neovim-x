@@ -14,10 +14,13 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, lib, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     ../plugins
     ../modules
@@ -29,7 +32,8 @@
     ./comments.nix
     ./folding.nix
     ./which-key.nix
-    ./barbar.nix
+    ./bufferline.nix
+    # ./barbar.nix
     ./terminal.nix
     ./undotree.nix
   ];
@@ -38,5 +42,4 @@
     viAlias = true;
     vimAlias = true;
   };
-
 }
