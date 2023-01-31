@@ -15,11 +15,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   config = {
     # INFO: More configuration can be found in the projects.nix profile
 
@@ -30,8 +26,14 @@
       hijackNetrw = true;
       autoClose = true;
 
+      updateFocusedFile = {
+        enable = true;
+      };
+
       git = {
         enable = true;
+        ignore = true;
+        timeout = 500;
       };
     };
   };
