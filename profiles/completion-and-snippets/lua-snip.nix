@@ -29,9 +29,9 @@ in {
       enable = true;
 
       fromVscode = [
-      # same as: require('luasnip/loaders/from_vscode').lazy_load()
-      # to load friendly-snippets
-      {}
+        # same as: require('luasnip/loaders/from_vscode').lazy_load()
+        # to load friendly-snippets
+        {}
       ];
     };
 
