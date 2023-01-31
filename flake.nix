@@ -38,7 +38,8 @@
     nixvim = {
       # url = "github:kuetemeier/nixvim?ref=jkr";
       # Last Update 2023-01-26
-      url = "github:pta2002/nixvim?ref=c73bef16ab2f8fe87210a840a2178a593f107eae";
+      # url = "github:pta2002/nixvim?ref=c73bef16ab2f8fe87210a840a2178a593f107eae";
+      url = "github:pta2002/nixvim?ref=8ef6945e7550f81352564a70796554e7997be5c1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
