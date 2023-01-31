@@ -36,10 +36,31 @@
       servers.jsonls.enable = true;
       servers.sumneko-lua.enable = true;
 
+      servers = {
+        pyright.enable = true;
+        rust-analyzer.enable = true;
+        cssls.enable = true;
+        eslint.enable = true;
+      };
+
       onAttach = ''
         vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
       '';
     };
+
+    maps = {
+      # LSP stuff
+      normal."gD" = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+      normal."gd" = "<cmd>lua vim.lsp.buf.definition()<CR>";
+      normal."K" = "<cmd>lua vim.lsp.buf.hover()<CR>";
+      normal."gi" = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+      # normal."<C-k>" = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
+      normal."gr" = "<cmd>lua vim.lsp.buf.references()<CR>";
+      normal."<leader>ck" = "<cmd>lua vim.diagnostic.open_float()<CR>";
+      normal."<leader>ca" = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      normal."<leader>cf" = "<cmd>lua vim.lsp.buf.formatting_sync()<CR>";
+    };
+
     extraPackages = [pkgs.alejandra];
   };
 }
