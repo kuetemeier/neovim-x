@@ -1,8 +1,26 @@
-{ config, pkgs, ... }:
-{
+#  options-snip.nix - Neovim options - nix part
+#
+#  using lua-snip
+#
+#
+#       //_/  Jörg Kütemeier <https://kuetemeier.de>
+#    ._// )   (c) Copyright 2023 - License: MPL-2.0
+#
+#
+# {{{ MPL-2.0
+#
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# }}}
+{pkgs, ...}: let
+  jkr-neovim-options =
+    pkgs.writeScript "jkr-neovim-options.lua"
+    (builtins.readFile ./options.lua);
+in {
   config = {
     options = {
-
       # Mouse support
       mouse = "a";
 
@@ -19,16 +37,16 @@
       relativenumber = true;
 
       # Spellcheck
-#      spelllang = "en_us";
+      #      spelllang = "en_us";
 
       # Use X clipboard
-#      clipboard = "unnamedplus";
+      #      clipboard = "unnamedplus";
 
       # Some defaults
       tabstop = 2;
       shiftwidth = 2;
       expandtab = true;
-
+      smartindent = 1;
 
       # don't unload buffer when it is |abandon|ed
       # notice: required by many config options in this file
@@ -75,11 +93,26 @@
 
       # automatically indent lines
       cindent = true;
+
+      smartcase = true; # "smart" search
+      ignorecase = true;
+
+      # keeps lines above and below scrolling
+      scrolloff = 4;
+    };
+
+    globals = {
+      mapleader = " ";
     };
 
     extraConfigLua = ''
-      -- 
+      --
       vim.opt.path:append { '**' }
+
+      -- Load custom snippet configurations
+      if (io.open("${jkr-neovim-options}")) then
+        dofile("${jkr-neovim-options}")
+      end
     '';
   };
 }
