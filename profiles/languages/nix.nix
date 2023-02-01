@@ -1,4 +1,4 @@
-#  profiles/languages/default.nix - Neovim configuration
+#  .nix - Neovim configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -13,7 +13,13 @@
 #
 # }}}
 {...}: {
-  imports = [
-    ./nix.nix
-  ];
+  config = {
+    extraConfigVim = ''
+
+      " Don't Jump to first line if we write an inline comment
+      autocmd FileType nix setlocal cinkeys-=0# indentkeys-=0#
+
+      autocmd FileType nix setlocal commentstring=#\ %s
+    '';
+  };
 }
