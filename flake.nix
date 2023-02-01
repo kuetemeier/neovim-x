@@ -26,9 +26,9 @@
     # Nix Language server, an incremental analysis assistent for writing in Nix.
     # https://github.com/oxalica/nil
     nil = {
-      # url = "github:oxalica/nil";
-      url = "github:oxalica/nil?ref=2023-01-01";
-      # url = "github:oxalica/nil?ref=6e5321582ca7595455edf2a9643f83ce390d0a71";
+      # url = "github:oxalica/nil?ref=2023-01-01";
+      # Last Update 2023-02-01
+      url = "github:oxalica/nil?ref=dfd91e3b7e760559bd79226ad5ad41444078a882";
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
@@ -37,9 +37,9 @@
 
     nixvim = {
       # url = "github:kuetemeier/nixvim?ref=jkr";
-      # Last Update 2023-01-26
-      # url = "github:pta2002/nixvim?ref=c73bef16ab2f8fe87210a840a2178a593f107eae";
+      # Last Update 2023-02-01
       url = "github:pta2002/nixvim?ref=8ef6945e7550f81352564a70796554e7997be5c1";
+      # url = "github:pta2002/nixvim?ref=247e3da2fe4fd6e242333e2b40ad6edf730c136a";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
