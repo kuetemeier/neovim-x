@@ -29,7 +29,8 @@
     ./startify.nix # The fancy start screen for Vim
     ./nvim-tree.nix # file manager and netrw replacement
     ./clipboard.nix # system clipboard support
-    ./lightline.nix # a pretty status line
+    # ./lightline.nix # a pretty status line
+    ./lualine.nix
     ./telescope.nix # fuzzy find files and everything else
     ./git # git support
     ./lsp # language server support

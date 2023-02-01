@@ -6,28 +6,29 @@ let g:vim_is_in_tmux = 0
 
 "{{{lightline.vim
 "{{{functions
-function! CocDiagnosticError() abort "{{{
-  let info = get(b:, 'coc_diagnostic_info', {})
-  return get(info, 'error', 0) ==# 0 ? '' : "\uf00d" . info['error']
-endfunction "}}}
-function! CocDiagnosticWarning() abort "{{{
-  let info = get(b:, 'coc_diagnostic_info', {})
-  return get(info, 'warning', 0) ==# 0 ? '' : "\uf529" . info['warning']
-endfunction "}}}
-function! CocDiagnosticOK() abort "{{{
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if get(info, 'error', 0) ==# 0 && get(info, 'error', 0) ==# 0
-    let msg = "\uf00c"
-  else
-    let msg = ''
-  endif
-  return msg
-endfunction "}}}
-function! CocStatus() abort "{{{
-  return get(g:, 'coc_status', '')
-endfunction "}}}
+" function! CocDiagnosticError() abort "{{{
+"   let info = get(b:, 'coc_diagnostic_info', {})
+"   return get(info, 'error', 0) ==# 0 ? '' : "\uf00d" . info['error']
+" endfunction "}}}
+" function! CocDiagnosticWarning() abort "{{{
+"   let info = get(b:, 'coc_diagnostic_info', {})
+"   return get(info, 'warning', 0) ==# 0 ? '' : "\uf529" . info['warning']
+" endfunction "}}}
+" function! CocDiagnosticOK() abort "{{{
+"   let info = get(b:, 'coc_diagnostic_info', {})
+"   if get(info, 'error', 0) ==# 0 && get(info, 'error', 0) ==# 0
+"     let msg = "\uf00c"
+"   else
+"     let msg = ''
+"   endif
+"   return msg
+" endfunction "}}}
+" function! CocStatus() abort "{{{
+"  return get(g:, 'coc_status', '')
+"endfunction "}}}
 function! GitGlobal() abort "{{{
-  let git_status = get(g:, 'coc_git_status', '')
+  "let git_status = get(g:, 'coc_git_status', '')
+  let git_status = ''
   if git_status ==# ''
     if g:vim_lightline_artify ==# 2
       let status = ' ' . artify#convert(fnamemodify(getcwd(), ':t'), 'monospace')
@@ -47,15 +48,15 @@ function! DeviconsFiletype() "{{{
   " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction "}}}
-function! TabNum(n) abort "{{{
-  return a:n." \ue0bb"
-endfunction "}}}
-function! ArtifyActiveTabNum(n) abort "{{{
-  return artify#convert(a:n, 'bold')." \ue0bb"
-endfunction "}}}
-function! ArtifyInactiveTabNum(n) abort "{{{
-  return artify#convert(a:n, 'double_struck')." \ue0bb"
-endfunction "}}}
+" function! TabNum(n) abort "{{{
+"   return a:n." \ue0bb"
+" endfunction "}}}
+" function! ArtifyActiveTabNum(n) abort "{{{
+"   return artify#convert(a:n, 'bold')." \ue0bb"
+" endfunction "}}}
+" function! ArtifyInactiveTabNum(n) abort "{{{
+"   return artify#convert(a:n, 'double_struck')." \ue0bb"
+" endfunction "}}}
 " function! ArtifyLightlineTabFilename(s) abort "{{{
 "   if g:vim_lightline_artify ==# 2
 "     return artify#convert(lightline#tab#filename(a:s), 'monospace')
@@ -84,8 +85,8 @@ set laststatus=2  " Basic
 let g:lightline = {}
 let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
 let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
-let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
-let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
+" let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+" let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
 let g:lightline#asyncrun#indicator_none = ''
 let g:lightline#asyncrun#indicator_run = 'Running...'
 if g:vim_lightline_artify == 0
@@ -100,14 +101,14 @@ if g:vim_lightline_artify == 0
         \ 'left': [ [ 'filename' , 'modified', 'fileformat', 'devicons_filetype' ] ],
         \ 'right': [ [ 'lineinfo' ] ]
         \ }
-  let g:lightline.tabline = {
-        \ 'left': [ [ 'vim_logo', 'tabs' ] ],
-        \ 'right': [ [ 'git_global' ],
-        \ [ 'git_buffer' ] ]
-        \ }
-  let g:lightline.tab = {
-        \ 'active': [ 'tabnum', 'filename', 'modified' ],
-        \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
+  " let g:lightline.tabline = {
+  "       \ 'left': [ [ 'vim_logo', 'tabs' ] ],
+  "       \ 'right': [ [ 'git_global' ],
+  "       \ [ 'git_buffer' ] ]
+  "       \ }
+  " let g:lightline.tab = {
+  "       \ 'active': [ 'tabnum', 'filename', 'modified' ],
+  "       \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
 else
   let g:lightline.active = {
         \ 'left': [ [ 'artify_mode', 'paste' ],
@@ -120,26 +121,25 @@ else
         \ 'left': [ [ 'filename' , 'modified', 'fileformat', 'devicons_filetype' ] ],
         \ 'right': [ [ 'artify_lineinfo' ] ]
         \ }
-  let g:lightline.tabline = {
-        \ 'left': [ [ 'vim_logo', 'tabs' ] ],
-        \ 'right': [ [ 'git_global' ],
-        \ [ 'git_buffer' ] ]
-        \ }
-  let g:lightline.tab = {
-        \ 'active': [ 'artify_activetabnum', 'artify_filename', 'modified' ],
-        \ 'inactive': [ 'artify_inactivetabnum', 'filename', 'modified' ] }
+  " let g:lightline.tabline = {
+  "       \ 'left': [ [ 'vim_logo', 'tabs' ] ],
+  "       \ 'right': [ [ 'git_global' ],
+  "       \ [ 'git_buffer' ] ]
+  "       \ }
+  " let g:lightline.tab = {
+  "       \ 'active': [ 'artify_activetabnum', 'artify_filename', 'modified' ],
+  "       \ 'inactive': [ 'artify_inactivetabnum', 'filename', 'modified' ] }
 endif
-let g:lightline.tab_component_function = {
-      \ 'artify_activetabnum': 'ArtifyActiveTabNum',
-      \ 'artify_inactivetabnum': 'ArtifyInactiveTabNum',
-      \ 'artify_filename': 'ArtifyLightlineTabFilename',
-      \ 'tabnum': 'TabNum',
-      \ 'filename': 'lightline#tab#filename',
-      \ 'modified': 'lightline#tab#modified',
-      \ 'readonly': 'lightline#tab#readonly'
-      \ }
+" let g:lightline.tab_component_function = {
+"       \ 'artify_activetabnum': 'ArtifyActiveTabNum',
+"       \ 'artify_inactivetabnum': 'ArtifyInactiveTabNum',
+"       \ 'artify_filename': 'ArtifyLightlineTabFilename',
+"       \ 'tabnum': 'TabNum',
+"       \ 'filename': 'lightline#tab#filename',
+"       \ 'modified': 'lightline#tab#modified',
+"       \ 'readonly': 'lightline#tab#readonly'
+"       \ }
 let g:lightline.component = {
-      \ 'git_buffer' : '%{get(b:, "coc_git_status", "")}',
       \ 'git_global' : '%{GitGlobal()}',
       \ 'artify_mode': '%{ArtifyLightlineMode()}',
       \ 'artify_lineinfo': "%2{ArtifyLinePercent()}\uf295 %3{ArtifyLineNum()}:%-2{ArtifyColNum()}",
@@ -169,12 +169,8 @@ let g:lightline.component = {
       \ }
 let g:lightline.component_function = {
       \ 'devicons_filetype': 'DeviconsFiletype',
-      \ 'coc_status': 'CocStatus',
       \ }
 let g:lightline.component_expand = {
-      \ 'linter_warnings': 'CocDiagnosticWarning',
-      \ 'linter_errors': 'CocDiagnosticError',
-      \ 'linter_ok': 'CocDiagnosticOK',
       \ 'asyncrun_status': 'lightline#asyncrun#status'
       \ }
 let g:lightline.component_type = {

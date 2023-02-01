@@ -17,14 +17,18 @@
 
 {
   imports = [
-    ../profiles/base.nix
-    ../profiles/hello-world.nix
+#    ../profiles/base.nix
+#    ../profiles/hello-world.nix
+    ../profiles/keymaps.nix
+    ../profiles/bufferline.nix
+    ../profiles/nvim-tree.nix
   ];
 
   config = {
-    extraConfigLua = ''
-      print ("Happy testing!")
-    '';
+    plugins.lualine.enable = true;
+    # extraConfigLua = ''
+    #  print ("Happy testing!")
+    #'';
   };
 
 }

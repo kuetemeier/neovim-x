@@ -36,5 +36,23 @@
         timeout = 500;
       };
     };
+
+    maps = {
+      normal."<leader>e" = {
+        silent = true;
+        action = "<cmd>NvimTreeToggle<CR>";
+      };
+
+      normal."<leader>r" = {
+        silent = true;
+        action = "<cmd>NvimTreeRefresh<CR>";
+      };
+
+      normal."<leader>n" = {
+        silent = true;
+        action = "<cmd>NvimTreeFindFile<CR>";
+      };
+    };
+
   };
 }
