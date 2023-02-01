@@ -1,4 +1,4 @@
-#  terminal.nix - Neovim terminal configuration 
+#  terminal.nix - Neovim terminal configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -12,10 +12,11 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     maps = {
       normal."<leader>tt" = {
@@ -24,5 +25,14 @@
         description = "Open a terminal";
       };
     };
+
+    extraConfigVim = ''
+      " turn terminal to normal mode with escape
+      tnoremap <Esc> <C-\><C-n>
+
+      " TODO: not working
+      " start terminal in insert mode
+      au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+    '';
   };
 }
