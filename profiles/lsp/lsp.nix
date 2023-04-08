@@ -30,7 +30,8 @@
       servers.bashls.enable = true;
 
       # TODO: Document, restructure and add more
-      servers.elixirls.enable = true;
+      # elixir: temporary disabled, compiler errors and not time to fix ;-)
+      # servers.elixirls.enable = true;
       servers.gopls.enable = true;
       servers.html.enable = true;
       servers.jsonls.enable = true;
@@ -43,9 +44,9 @@
         eslint.enable = true;
       };
 
-      onAttach = ''
-        vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
-      '';
+      # onAttach = ''
+      #   vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+      # '';
     };
 
     maps = {
