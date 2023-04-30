@@ -37,11 +37,11 @@
 
     nixvim = {
       # url = "github:kuetemeier/nixvim?ref=jkr";
-      # Last Update 2023-02-01
+      # Last Update 2023-04-30
       url = "github:pta2002/nixvim?ref=8ef6945e7550f81352564a70796554e7997be5c1";
-      # url = "github:pta2002/nixvim?ref=247e3da2fe4fd6e242333e2b40ad6edf730c136a";
+      # url = "github:pta2002/nixvim?ref=d62edf4178bf4dac277b5ce5189d9737e97efe5e";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-unstable";
         flake-utils.follows = "flake-utils";
         # TODO: beautysh.inputs.utils.follows = "flake-utils";
       };

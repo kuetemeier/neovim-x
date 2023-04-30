@@ -24,7 +24,7 @@
       enable = true;
       disableNetrw = true;
       hijackNetrw = true;
-      autoClose = true;
+      autoClose = false;
 
       updateFocusedFile = {
         enable = true;
