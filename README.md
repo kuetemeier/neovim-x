@@ -48,6 +48,10 @@ nix --experimental-features 'nix-command flakes' run .#
 
 Use `nix fmt` to format the `.nix` files with `nixpkgs-fmt`.
 
+### Upgrading nixvim
+
+Upgrading nixvim to the latest version is sometimes a little bit tricky. Not to say "a problem". [nixvim](https://github.com/pta2002/nixvim) has decided to follow `nixos-unstable`. Especially in <https://github.com/pta2002/nixvim/blob/main/plugins/nvim-lsp/language-servers/default.nix> there are sometimes (most of the time) modules that are only available in `nixos-unstable` but not in the regular `nixpkgs` releases. Because of this the build will fail.
+
 ## My thanks to
 
 Great work and a good source of inspiration:
