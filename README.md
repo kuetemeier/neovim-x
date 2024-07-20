@@ -1,1 +1,1 @@
-# NeovimX - Extended, Batteries included!
+# Neovim NixVim eXtended - Batteries Included with Profiles and Suites
