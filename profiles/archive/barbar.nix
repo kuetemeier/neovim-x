@@ -15,10 +15,11 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (builtins) toString;
 
   mkMap = actionStr: description: {
@@ -28,11 +29,8 @@ let
   };
 
   mkMapGotoBufferPosition = pos:
-    mkMap "BufferGoto ${toString(pos)}" "Go to buffer (tab) ${toString(pos)} in position";
-
-in
-
-{
+    mkMap "BufferGoto ${toString pos}" "Go to buffer (tab) ${toString pos} in position";
+in {
   config = {
     plugins.barbar = {
       enable = true;
@@ -51,7 +49,6 @@ in
     };
 
     maps.normalVisualOp = {
-
       # Move to previous / next
       "<A-,>" = mkMap "BufferPrevious" "Move to previous buffer (tab)";
       "<A-.>" = mkMap "BufferNext" "Move to next buffer (tab)";
@@ -72,7 +69,9 @@ in
       "<A-9>" = mkMapGotoBufferPosition 9;
       "<A-0>" = mkMap "BufferLast" "Go to last buffer (tab) in position";
 
-      /* pin */
+      /*
+      pin
+      */
       "<A-p>" = mkMap "BufferPin" "Pin/unpin buffer";
 
       # Close buffer

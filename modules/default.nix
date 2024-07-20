@@ -15,13 +15,8 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, lib, inputs, ... }:
-
-{
-
+{...}: {
   imports = [
     # nohing to import, yet
   ];
-
 }

@@ -15,26 +15,24 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
-  config = {
-    plugins.floaterm = {
-      enable = true;
-
-      winType = "float";
-
-      autoInsert = true;
-    };
-
-    maps = {
-      normal."<leader>tf" = {
-        silent = true;
-        action = "<cmd>FloatermToggle<CR>";
-        description = "Toggle a floating terminal";
-      };
-    };
-
-  };
+{...}: {
+  # TODO - needs rework
+  # config = {
+  #   plugins.floaterm = {
+  #     enable = true;
+  #
+  #     # winType = "float";
+  #
+  #     # autoInsert = true;
+  #   };
+  #
+  #   maps = {
+  #     normal."<leader>tf" = {
+  #       silent = true;
+  #       action = "<cmd>FloatermToggle<CR>";
+  #       description = "Toggle a floating terminal";
+  #     };
+  #   };
+  #
+  # };
 }

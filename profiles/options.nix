@@ -20,7 +20,7 @@
     (builtins.readFile ./options.lua);
 in {
   config = {
-    options = {
+    opts = {
       # Mouse support
       mouse = "a";
 
@@ -46,7 +46,7 @@ in {
       tabstop = 2;
       shiftwidth = 2;
       expandtab = true;
-      smartindent = 1;
+      smartindent = true;
 
       # don't unload buffer when it is |abandon|ed
       # notice: required by many config options in this file

@@ -15,17 +15,18 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ ... }:
-
-{
+{...}: {
   config = {
     plugins.lazygit.enable = true;
 
-    maps.normal. "<leader>lg" = {
-      silent = true;
-      action = "<cmd>LazyGit<CR>";
-      description = "Toggle LazyGit";
-    };
+    keymaps = [
+      {
+        key = "<leader>lg";
+        mode = "n";
+        action = "<cmd>LazyGit<CR>";
+        options.desc = "Toggle LazyGit";
+        options.silent = true;
+      }
+    ];
   };
 }

@@ -15,20 +15,53 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ ... }:
-
-{
+{...}: {
   config = {
     plugins.trouble.enable = true;
 
-    maps.normalVisualOp = {
-      "<leader>xx" = "<cmd>TroubleToggle<cr>";
-      "<leader>xw" = "<cmd>TroubleToggle workspace_diagnostics<cr>";
-      "<leader>xd" = "<cmd>TroubleToggle document_diagnostics<cr>";
-      "<leader>xq" = "<cmd>TroubleToggle quickfix<cr>";
-      "<leader>xl" = "<cmd>TroubleToggle loclist<cr>";
-      "gR" = "<cmd>TroubleToggle lsp_references<cr>";
-    };
+    keymaps = [
+      {
+        key = "<leader>xx";
+        mode = "";
+        action = "<cmd>TroubleToggle<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+      {
+        key = "<leader>xw";
+        mode = "";
+        action = "<cmd>TroubleToggle workspace_diagnostics<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+      {
+        key = "<leader>xd";
+        mode = "";
+        action = "<cmd>TroubleToggle document_diagnostics<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+      {
+        key = "<leader>xq";
+        mode = "";
+        action = "<cmd>TroubleToggle quickfix<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+      {
+        key = "<leader>xl";
+        mode = "";
+        action = "<cmd>TroubleToggle loclist<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+      {
+        key = "gR";
+        mode = "";
+        action = "<cmd>TroubleToggle lsp_references<CR>";
+        options.desc = "Open Trouble";
+        options.silent = true;
+      }
+    ];
   };
 }

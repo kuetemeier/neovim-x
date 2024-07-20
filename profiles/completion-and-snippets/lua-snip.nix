@@ -14,12 +14,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{
-  config,
-  pkgs,
-  ...
-}: let
-  mkMapCmd = (import ../../helpers.nix).mkMapCmd;
+{pkgs, ...}: let
   jkr-luasnip-snippets-01 =
     pkgs.writeScript "jkr-luasnip-snippets-01.lua"
     (builtins.readFile ./jkr-luasnip-snippets-01.lua);
@@ -35,17 +30,8 @@ in {
       ];
     };
 
-    plugins.nvim-cmp = {
-      sources = [{name = "luasnip";}];
-      snippet.expand = ''
-        function(args)
-          require('luasnip').lsp_expand(args.body)
-        end
-      '';
-    };
-
     # @see https://github.com/rafamadriz/friendly-snippets
-    extraPlugins = [pkgs.vimPlugins.friendly-snippets];
+    # extraPlugins = [pkgs.vimPlugins.friendly-snippets];
 
     extraConfigLua = ''
       -- Some more Luasnip configuration
@@ -65,9 +51,29 @@ in {
       end
     '';
 
-    maps.normal = {
-      "<leader>j" = mkMapCmd "lua require'luasnip'.jump(1)" "";
-      "<leader>k" = mkMapCmd "lua require'luasnip'.jump(-1)" "";
-    };
+    keymaps = [
+      {
+        key = "<leader>j";
+        mode = "n";
+        action = "<cmd>lua require'luasnip'.jump(1)<CR>";
+        options.desc = "Lua Snippet: Jump to next mark";
+        options.silent = true;
+      }
+      {
+        key = "<leader>k";
+        mode = "n";
+        action = "<cmd>lua require'luasnip'.jump(-1)<CR>";
+        options.desc = "Lua Snippet: Jump to previous mark";
+        options.silent = true;
+      }
+    ];
   };
 }
+# {{{ SPDX Copyright Tags and Vim / NeoVim Modeline
+#
+# SPDX-FileCopyrightText: 2023 Jörg Kütemeier <https://kuetemeier.de/>
+# SPDX-License-Identifier: MPL-2.0
+#
+# vim: set sw=2 ts=2 sts=2 et tw=79 foldmethod=marker foldlevel=0
+# }}}
+

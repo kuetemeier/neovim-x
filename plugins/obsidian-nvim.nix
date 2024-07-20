@@ -1,71 +1,72 @@
-{ config, pkgs, lib, inputs, ... }:
-
-let
-  cfg = config.plugins.obsidian;
-in
+#  /neovim/plugins/obsidian-nvim.nix
+#
+#  > Neovim plugin for Obsidian, written in Lua
+#  https://github.com/epwalsh/obsidian.nvim
+#
+#
+#        //_/  Jörg Kütemeier <https://kuetemeier.de>
+#     ._// )   (c) Copyright 2023 - License: MPL-2.0
+#
+#
+# {{{ MPL-2.0
+#
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# }}}
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.plugins.obsidian;
+
+  obsidianPlugin = pkgs.vimUtils.buildVimPlugin rec {
+    pname = "obsidian-nvim";
+    version = "v1.15.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "epwalsh";
+      repo = "obsidian.nvim";
+      rev = version;
+      sha256 = "sha256-/7Wp38XTmkUAHFYwDaK5uH6eAfh7+3YQti1lfTnlNkc=";
+    };
+  };
+in {
   options = with lib; {
     plugins.obsidian = {
       enable = mkEnableOption "Enable obsidian";
     };
   };
 
-  config =
-    let
-      # jkr-helpers = import ../jkr-helpers.nix { inherit pkgs lib; };
-      # pluginGitHub = jkr-helpers.pluginGitHub; 
+  config = lib.mkIf cfg.enable {
+    plugins.nvim-cmp.enable = true; # required by obsidian-nvim
+    # plugins.packer.enable = true;
+    # plugins.packer.plugins = [
+    #   {
+    #     name = "epwalsh/obsidian.nvim";
+    #     tag = "v1.15.0";
+    #   }
+    # ];
 
-  pluginGitHub =
-    { repo
-    , owner ? repo
-    , rev
-    , sha256
-    , version ? rev
-    , ...
-    }: pkgs.vimUtils.buildVimPluginFrom2Nix {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = version;
-      src = pkgs.fetchFromGitHub {
-        inherit owner repo rev sha256;
-      };
-    };
+    extraPlugins = [obsidianPlugin];
 
-
-    obsidian-nvimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
-    pname = "obsidian-nvim";
-    # version = "9359f7ab453976ac4f5ab3c9b8bc30fc0b3c5e1c";
-    version = "a0eab5dbf54d33dd79c87ae3d026b50c71ae55f9";
-    src = pkgs.fetchFromGitHub {
-      owner = "epwalsh";
-      repo = "obsidian.nvim";
-      rev = version;
-      # sha256 = "sha256-EtTvS00cXTlnbND6v5mwjpqQUXPLho+SZElafYSqWdM=";
-      sha256 = "sha256-GiZHHVzmcm6ktc/IuyJ0+FSBg0QXb0orKYWvkfsv3as=";
-    };
+    extraConfigLua = lib.mkDefault ''
+      require("obsidian").setup({
+        dir = "~/Documents/jkr-notes",
+        completion = {
+          nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
+        }
+      })
+    '';
   };
-
-    in
-    lib.mkIf cfg.enable {
-      #extraPlugins = [ obsidian-nvimPlugin ];
-
-      plugins.nvim-cmp.enable = true; # required by obsidian-nvim
-      plugins.packer.enable = true;
-      plugins.packer.plugins = [
-      {
-        name = "epwalsh/obsidian.nvim";
-        tag = "v1.6.1";
-      }
-      ];
-
-      #extraPackages = [ pkgs.stylua ];
-
-      extraConfigLua = ''
-        require("obsidian").setup({
-          dir = "~/my-vault",
-          completion = {
-            nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
-          }
-        })
-      '';
-    };
 }
+# {{{ SPDX Copyright Tags and Vim / NeoVim Modeline
+#
+# SPDX-FileCopyrightText: 2023 Jörg Kütemeier <https://kuetemeier.de/>
+# SPDX-License-Identifier: MPL-2.0
+#
+# vim: set sw=2 ts=2 sts=2 et tw=79 foldmethod=marker foldlevel=0
+# }}}
+

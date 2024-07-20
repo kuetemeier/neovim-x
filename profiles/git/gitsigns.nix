@@ -19,17 +19,26 @@
   config = {
     plugins.gitsigns.enable = true;
 
-    maps = {
-      # Gitsigns
-      normal."<leader>hs" = "<cmd>Gitsigns stage_hunk<CR>";
-      visual."<leader>hs" = "<cmd>Gitsigns stage_hunk<CR>";
-      normal."<leader>hr" = "<cmd>Gitsigns reset_hunk<CR>";
-      visual."<leader>hr" = "<cmd>Gitsigns reset_hunk<CR>";
-      normal."<leader>hb" = "<cmd>Gitsigns blame_line<CR>";
-      normal."<leader>hd" = "<cmd>Gitsigns diffthis<CR>";
-      normal."<leader>hp" = "<cmd>Gitsigns preview_hunk<CR>";
-      normal."<leader>hn" = "<cmd>Gitsigns next_hunk<CR>";
-      normal."<leader>hN" = "<cmd>Gitsigns prev_hunk<CR>";
-    };
+    keymaps = [
+      {
+        key = "<leader>hs";
+        mode = "n";
+        action = "<cmd>Gitsigns stage_hunk<CR>";
+        options.desc = "Gitsigns: Stage Hunk";
+        options.silent = true;
+      }
+    ];
+    # keymaps = {
+    #   # Gitsigns
+    #   normal."<leader>hs" = "<cmd>Gitsigns stage_hunk<CR>";
+    #   visual."<leader>hs" = "<cmd>Gitsigns stage_hunk<CR>";
+    #   normal."<leader>hr" = "<cmd>Gitsigns reset_hunk<CR>";
+    #   visual."<leader>hr" = "<cmd>Gitsigns reset_hunk<CR>";
+    #   normal."<leader>hb" = "<cmd>Gitsigns blame_line<CR>";
+    #   normal."<leader>hd" = "<cmd>Gitsigns diffthis<CR>";
+    #   normal."<leader>hp" = "<cmd>Gitsigns preview_hunk<CR>";
+    #   normal."<leader>hn" = "<cmd>Gitsigns next_hunk<CR>";
+    #   normal."<leader>hN" = "<cmd>Gitsigns prev_hunk<CR>";
+    # };
   };
 }

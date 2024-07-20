@@ -12,12 +12,9 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
+{...}: {
   config = {
-    options = {
+    opts = {
       # turn on folding
       foldenable = true;
 
@@ -35,21 +32,80 @@
 
       # Specify the movements which open folds.
       foldopen = "block,hor,mark,percent,quickfix,tag,search";
-
     };
 
-    maps = {
-      normal."z0" = { silent = true; action = "<cmd>:set foldlevel=0<CR>"; };
-      normal."z1" = { silent = true; action = "<cmd>:set foldlevel=1<CR>"; };
-      normal."z2" = { silent = true; action = "<cmd>:set foldlevel=2<CR>"; };
-      normal."z3" = { silent = true; action = "<cmd>:set foldlevel=3<CR>"; };
-      normal."z4" = { silent = true; action = "<cmd>:set foldlevel=4<CR>"; };
-      normal."z5" = { silent = true; action = "<cmd>:set foldlevel=5<CR>"; };
-      normal."z6" = { silent = true; action = "<cmd>:set foldlevel=6<CR>"; };
-      normal."z7" = { silent = true; action = "<cmd>:set foldlevel=7<CR>"; };
-      normal."z8" = { silent = true; action = "<cmd>:set foldlevel=8<CR>"; };
-      normal."z9" = { silent = true; action = "<cmd>:set foldlevel=9<CR>"; };
-    };
+    keymaps = [
+      {
+        key = "z0";
+        mode = "n";
+        action = "<cmd>:set foldlevel=0<CR>";
+        options.desc = "Set foldlevel=0";
+        options.silent = true;
+      }
+      {
+        key = "z1";
+        mode = "n";
+        action = "<cmd>:set foldlevel=1<CR>";
+        options.desc = "Set foldlevel=1";
+        options.silent = true;
+      }
+      {
+        key = "z2";
+        mode = "n";
+        action = "<cmd>:set foldlevel=2<CR>";
+        options.desc = "Set foldlevel=2";
+        options.silent = true;
+      }
+      {
+        key = "z3";
+        mode = "n";
+        action = "<cmd>:set foldlevel=3<CR>";
+        options.desc = "Set foldlevel=3";
+        options.silent = true;
+      }
+      {
+        key = "z4";
+        mode = "n";
+        action = "<cmd>:set foldlevel=4<CR>";
+        options.desc = "Set foldlevel=4";
+        options.silent = true;
+      }
+      {
+        key = "z5";
+        mode = "n";
+        action = "<cmd>:set foldlevel=5<CR>";
+        options.desc = "Set foldlevel=5";
+        options.silent = true;
+      }
+      {
+        key = "z6";
+        mode = "n";
+        action = "<cmd>:set foldlevel=6<CR>";
+        options.desc = "Set foldlevel=6";
+        options.silent = true;
+      }
+      {
+        key = "z7";
+        mode = "n";
+        action = "<cmd>:set foldlevel=7<CR>";
+        options.desc = "Set foldlevel=7";
+        options.silent = true;
+      }
+      {
+        key = "z8";
+        mode = "n";
+        action = "<cmd>:set foldlevel=8<CR>";
+        options.desc = "Set foldlevel=8";
+        options.silent = true;
+      }
+      {
+        key = "z9";
+        mode = "n";
+        action = "<cmd>:set foldlevel=9<CR>";
+        options.desc = "Set foldlevel=9";
+        options.silent = true;
+      }
+    ];
 
     # TODO: Convert to lua, make international language (lines = Zeilen)
     extraConfigVim = ''

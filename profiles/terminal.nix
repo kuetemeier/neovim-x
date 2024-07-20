@@ -12,20 +12,17 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   config = {
-    maps = {
-      normal."<leader>tt" = {
-        silent = true;
+    keymaps = [
+      {
+        key = "<leader>tt";
+        mode = "n";
         action = "<cmd>terminal<CR>";
-        description = "Open a terminal";
-      };
-    };
-
+        options.desc = "Open Terminal";
+        options.silent = true;
+      }
+    ];
     extraConfigVim = ''
       " turn terminal to normal mode with escape
       tnoremap <Esc> <C-\><C-n>

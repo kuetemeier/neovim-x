@@ -1,4 +1,4 @@
-#  .nix - Neovim configuration 
+#  .nix - Neovim configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -12,10 +12,11 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     plugins.treesitter = {
       enable = true;
@@ -28,11 +29,10 @@
 
       ensureInstalled = true;
 
-      disabledLanguages = [ "bash" ];
+      disabledLanguages = ["bash"];
     };
 
-      # rainbow - Rainbow parentheses for neovim using tree-sitter
-   #   nvim-ts-rainbow
-
+    # rainbow - Rainbow parentheses for neovim using tree-sitter
+    #   nvim-ts-rainbow
   };
 }

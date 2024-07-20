@@ -1,4 +1,4 @@
-#  colorizer.nix - Neovim configuration 
+#  colorizer.nix - Neovim configuration
 #
 #  > A high-performance color highlighter for Neovim which has no external dependencies!
 #  https://github.com/norcalli/nvim-colorizer.lua
@@ -14,10 +14,11 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     extraPlugins = [pkgs.vimPlugins.nvim-colorizer-lua];
     extraConfigLua = ''

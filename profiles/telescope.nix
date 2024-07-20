@@ -14,28 +14,105 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{...}: let
-  mkMapCmd = (import ../helpers.nix).mkMapCmd;
-in {
+{...}: {
+  imports = [
+    ./dressing.nix
+  ];
   config = {
     plugins.telescope.enable = true;
 
-    maps.normal = {
-      "<leader>ff" = mkMapCmd "Telescope find_files" "Telescope: Find files";
-
-      "<c-o>" = mkMapCmd "Telescope live_grep" "Telescope: Live grep over all project files";
-      "<leader>fg" = mkMapCmd "Telescope live_grep" "Telescope: Live grep over all project files";
-      "<leader>fb" = mkMapCmd "Telescope buffers" "Telescope: Find buffer";
-      "<leader>fh" = mkMapCmd "Telescope help_tags" "Telescope: Find help tag";
-      "<leader>fc" = mkMapCmd "Telescope commands" "Telescope: Find command";
-      "<leader>f:" = mkMapCmd "Telescope search_history" "Telescope: Search in command history";
-      "<leader>f/" = mkMapCmd "Telescope current_buffer_fuzzy_find" "Telesoope: Search in current file";
-      "<leader>fm" = mkMapCmd "Telescope marks" "Telescope: Search in marks";
-      "<leader>fr" = mkMapCmd "Telescope registers" "Search in Registers";
-      "<leader>fs" = mkMapCmd "lua require('telescope.builtin').spell_suggest()" "Telescope: Spell suggest";
-      "<leader>fo" = mkMapCmd "Telescope oldfiles" "Telescope: Recently opened files";
-      "<leader>fk" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
-      "<leader>?" = mkMapCmd "Telescope keymaps" "Telescope: Find key mapping";
-    };
+    keymaps = [
+      {
+        key = "<leader>ff";
+        mode = "n";
+        action = "<cmd>Telescope find_files<CR>";
+        options.desc = "Telescope: Find files";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fg";
+        mode = "n";
+        action = "<cmd>Telescope live_grep<CR>";
+        options.desc = "Telescope: Live grep over all project files";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fb";
+        mode = "n";
+        action = "<cmd>Telescope buffers<CR>";
+        options.desc = "Telescope: Find buffer";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fh";
+        mode = "n";
+        action = "<cmd>Telescope help_tags<CR>";
+        options.desc = "Telescope: Find help tag";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fc";
+        mode = "n";
+        action = "<cmd>Telescope commands<CR>";
+        options.desc = "Telescope: Find command";
+        options.silent = true;
+      }
+      {
+        key = "<leader>f:";
+        mode = "n";
+        action = "<cmd>Telescope search_history<CR>";
+        options.desc = "Telescope: Search in command history";
+        options.silent = true;
+      }
+      {
+        key = "<leader>f/";
+        mode = "n";
+        action = "<cmd>Telescope current_buffer_fuzzy_find<CR>";
+        options.desc = "Telescope: Search in current file";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fm";
+        mode = "n";
+        action = "<cmd>Telescope marks<CR>";
+        options.desc = "Telescope: Search in marks";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fr";
+        mode = "n";
+        action = "<cmd>Telescope registers<CR>";
+        options.desc = "Telescope: Search in Registers";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fs";
+        mode = "n";
+        action = "lua require('telescope.builtin').spell_suggest()";
+        options.desc = "Telescope: Spell suggest";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fo";
+        mode = "n";
+        action = "<cmd>Telescope oldfiles<CR>";
+        options.desc = "Telescope: Recently opened files";
+        options.silent = true;
+      }
+      {
+        key = "<leader>fk";
+        mode = "n";
+        action = "<cmd>Telescope keymaps<CR>";
+        options.desc = "Telescope: Find key mapping";
+        options.silent = true;
+      }
+      {
+        key = "<leader>?";
+        mode = "n";
+        action = "<cmd>Telescope keymaps<CR>";
+        options.desc = "Telescope: Find key mapping";
+        options.silent = true;
+      }
+    ];
   };
 }

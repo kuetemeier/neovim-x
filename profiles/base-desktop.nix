@@ -14,13 +14,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: {
+{...}: {
   imports = [
     # Build our configuration on the base.nix configuration
     ./base.nix
@@ -37,7 +31,7 @@
     ./languages # programming languages support
     ./floaterm.nix # a floating terminal
     ./goyo.nix # distraction free writing
-    ./treesitter.nix
+    # ./treesitter.nix
     ./completion-and-snippets # nvim-cmp, lua-snip and some magic
     ./projects.nix
     ./colorizer.nix
@@ -47,7 +41,5 @@
   config = {
     # --------------------
     # Base desktop plugins
-
-    # plugins.obsidian.enable = true;
   };
 }

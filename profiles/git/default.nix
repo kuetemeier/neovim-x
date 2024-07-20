@@ -1,4 +1,4 @@
-#  git.nix - Neovim git configuration 
+#  git.nix - Neovim git configuration
 #
 #  Enables and configures lazygit and gitsigns
 #
@@ -14,12 +14,10 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
+{...}: {
   imports = [
     ./gitsigns.nix
     ./lazygit.nix
+    ./blame.nix
   ];
 }

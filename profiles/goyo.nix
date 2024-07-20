@@ -1,4 +1,4 @@
-#  goyo.nix - Neovim goyo plugin configuration 
+#  goyo.nix - Neovim goyo plugin configuration
 #
 #  > Distraction-free writing in Vim
 #  https://github.com/junegunn/goyo.vim
@@ -15,17 +15,18 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
+{...}: {
   config = {
     plugins.goyo.enable = true;
 
-    maps.normal."<leader>y" = {
-      silent = true;
-      action = "<cmd>Goyo<CR>";
-      description = "Toggle Goyo - distraction-free writing in Vim";
-    };
+    keymaps = [
+      {
+        key = "<leader>y";
+        mode = "n";
+        action = "<cmd>Goyo<CR>";
+        options.desc = "Toggle Goyo - distraction-free writing in Vim";
+        options.silent = true;
+      }
+    ];
   };
 }

@@ -54,45 +54,110 @@
 #  | unique  | false   | `<unique>`                               |
 #  | noremap | true    | Use the 'noremap' variant of the mapping |
 #  | action  | N/A     | Action to execute                        |
-{pkgs, ...}: {
+{...}: {
   config = {
     # set <leader> before everything else
     extraConfigLuaPre = ''
       vim.g.mapleader = " "
     '';
 
-    maps = {
-      normal = {
-        # leader = " ";  -- done above with extraConfigLuaPre
-      };
+    keymaps = [
+      # normal = {
+      #   # leader = " ";  -- done above with extraConfigLuaPre
+      # };
 
       # Make sure leader does not do it's default action
-      normal."<Space>" = "<Nop>";
+      {
+        key = "<Space>";
+        mode = "n";
+        action = "<Nop>";
+      }
 
       # use alt+hjkl to move between split/vsplit panels
-      normal."<A-h>" = {action = "<C-w>h";};
-      normal."<A-j>" = {action = "<C-w>j";};
-      normal."<A-k>" = {action = "<C-w>k";};
-      normal."<A-l>" = {action = "<C-w>l";};
-      terminal."<A-h>" = {action = "<C-\><C-n><C-w>h";};
-      terminal."<A-j>" = {action = "<C-\><C-n><C-w>j";};
-      terminal."<A-k>" = {action = "<C-\><C-n><C-w>k";};
-      terminal."<A-l>" = {action = "<C-\><C-n><C-w>l";};
+      {
+        key = "<A-h>";
+        mode = "n";
+        action = "<C-w>h";
+      }
+      {
+        key = "<A-j>";
+        mode = "n";
+        action = "<C-w>j";
+      }
+      {
+        key = "<A-k>";
+        mode = "n";
+        action = "<C-w>k";
+      }
+      {
+        key = "<A-l>";
+        mode = "n";
+        action = "<C-w>l";
+      }
+
+      {
+        key = "<A-h>";
+        mode = "t";
+        action = "<C-\><C-n><C-w>h";
+      }
+      {
+        key = "<A-j>";
+        mode = "t";
+        action = "<C-\><C-n><C-w>j";
+      }
+      {
+        key = "<A-k>";
+        mode = "t";
+        action = "<C-\><C-n><C-w>k";
+      }
+      {
+        key = "<A-l>";
+        mode = "t";
+        action = "<C-\><C-n><C-w>l";
+      }
 
       # resize windows (horizontal splits)
-      normal."<leader>+" = {action = "<cmd>exe \"resize \" . (winheight(0) * 3/2)<CR>";};
-      normal."<leader>-" = {action = "<cmd>exe \"resize \" . (winheight(0) * 2/3)<CR>";};
+      {
+        key = "<leader>+";
+        mode = "n";
+        action = "<cmd>exe \"resize \" . (winheight(0) * 3/2)<CR>";
+      }
+      {
+        key = "<leader>-";
+        mode = "n";
+        action = "<cmd>exe \"resize \" . (winheight(0) * 2/3)<CR>";
+      }
 
       # Indent, stay in visual mode
-      visual."<" = "<gv";
-      visual.">" = ">gv";
+      {
+        key = "<";
+        mode = "v";
+        action = "<gv";
+      }
+      {
+        key = ">";
+        mode = "v";
+        action = ">gv";
+      }
 
       # Move text under cursor up and down
-      visual."<A-j>" = ":m .+1<CR>==";
-      visual."<A-k>" = ":m .-2<CR>==";
+      {
+        key = "<A-j>";
+        mode = "v";
+        action = ":m .+1<CR>==";
+      }
+      {
+        key = "<A-k>";
+        mode = "v";
+        action = ":m .-2<CR>==";
+      }
 
       # When pasting in visual mode, do not yank the replaces text
-      visual."p" = "\"_dP";
-    };
+      {
+        key = "p";
+        mode = "v";
+        action = "\"_dP";
+      }
+    ];
   };
 }

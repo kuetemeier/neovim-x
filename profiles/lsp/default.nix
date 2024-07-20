@@ -12,7 +12,7 @@
 # SPDX-FileCopyrightText: 2023 Jörg Kütemeier <https://kuetemeier.de>
 # SPDX-License-Identifier: MPL-2.0
 #
-{pkgs, ...}: {
+{...}: {
   imports = [
     ./lsp.nix
     ./lspkind.nix

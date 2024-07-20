@@ -14,14 +14,14 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{...}: let
-  mkMapCmd = (import ../helpers.nix).mkMapCmd;
-in {
+{...}: {
   config = {
     plugins.project-nvim = {
       enable = true;
 
       silentChdir = false;
+
+      enableTelescope = true;
     };
 
     # nvim-tree integreation in projects
@@ -34,16 +34,14 @@ in {
       };
     };
 
-    plugins.telescope.extensions = {
-      project-nvim = {
-        enable = true;
-      };
-    };
-
-    # extraConfigLua = ''
-    #   require('telescope').load_extension('projects')
-    # '';
-
-    maps.normal."<leader>fp" = mkMapCmd "Telescope projects" "Telescope: Search latest projects";
+    keymaps = [
+      {
+        key = "<leader>fp";
+        mode = "n";
+        action = "<cmd>Telescope projects<CR>";
+        options.desc = "Telescope: Search latest projects";
+        options.silent = true;
+      }
+    ];
   };
 }

@@ -22,9 +22,11 @@
     # (includes nvim-web-devicons)
     plugins.nvim-tree = {
       enable = true;
-      disableNetrw = true;
-      hijackNetrw = true;
-      autoClose = false;
+      # disableNetrw = true;
+      # hijackNetrw = true;
+      disableNetrw = false;
+      hijackNetrw = false;
+      autoClose = true;
 
       updateFocusedFile = {
         enable = true;
@@ -37,22 +39,28 @@
       };
     };
 
-    maps = {
-      normal."<leader>e" = {
-        silent = true;
+    keymaps = [
+      {
+        key = "<leader>e";
+        mode = "n";
         action = "<cmd>NvimTreeToggle<CR>";
-      };
-
-      normal."<leader>r" = {
-        silent = true;
+        options.desc = "Toggle NvimTree";
+        options.silent = true;
+      }
+      {
+        key = "<leader>r";
+        mode = "n";
         action = "<cmd>NvimTreeRefresh<CR>";
-      };
-
-      normal."<leader>n" = {
-        silent = true;
+        options.desc = "NvimTree Refresh";
+        options.silent = true;
+      }
+      {
+        key = "<leader>n";
+        mode = "n";
         action = "<cmd>NvimTreeFindFile<CR>";
-      };
-    };
-
+        options.desc = "NvimTree Find File";
+        options.silent = true;
+      }
+    ];
   };
 }

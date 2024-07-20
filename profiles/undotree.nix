@@ -1,4 +1,4 @@
-#  undotree.nix - Neovim configuration 
+#  undotree.nix - Neovim configuration
 #
 #
 #       //_/  Jörg Kütemeier <https://kuetemeier.de>
@@ -12,23 +12,25 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-let
-  mkMap = actionStr: description: {
-    silent = true;
-    action = "<cmd>${actionStr}<CR>";
-    inherit description;
-  };
-
-in
-
-{
+{...}: {
   config = {
     plugins.undotree.enable = true;
 
-    maps.normal."<leader>ut" = mkMap "UndotreeToggle" "Toggle the undotree panel";
-    maps.normal."<leader>uf" = mkMap "UndotreeFocus" "Focus the undotree panel";
+    keymaps = [
+      {
+        key = "<leader>ut";
+        mode = "n";
+        action = "<cmd>UndotreeToggle<CR>";
+        options.desc = "Toggle the undotree panel";
+        options.silent = true;
+      }
+      {
+        key = "<leader>uf";
+        mode = "n";
+        action = "<cmd>UndotreeFocus<CR>";
+        options.desc = "Focus the undotree panel";
+        options.silent = true;
+      }
+    ];
   };
 }

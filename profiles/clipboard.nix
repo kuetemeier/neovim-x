@@ -1,4 +1,4 @@
-#  clipboard.nix - Neovim configuration for better clipboard support 
+#  clipboard.nix - Neovim configuration for better clipboard support
 #
 #  This profile includes the common configuration for the
 #  `nvim-jkr` and `nvim-jkr-pde` suites
@@ -14,16 +14,12 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   config = {
-
     extraConfigLua = ''
       -- this should work for Linux, Windows and Mac
       vim.opt.clipboard:append { 'unnamedplus' }
-      vim.opt.pastetoggle = '<F2>'
+      -- vim.opt.pastetoggle = '<F2>'
       vim.g.paste_mode = false
 
       function kuetemeierPasteToggle()
@@ -42,15 +38,16 @@
     '';
 
     # Add `xlip` (X11 support) and `wl-clipboard` (Wayland support)
-    extraPackages = [ pkgs.xclip pkgs.wl-clipboard ]; 
+    #extraPackages = [pkgs.xclip pkgs.wl-clipboard];
 
-    maps = {
-      normalVisualOp."<F2>" = {
-        silent = true;
+    keymaps = [
+      {
+        key = "<F2>";
+        mode = "";
         action = "<cmd>lua kuetemeierPasteToggle()<CR>";
-      };
-    };
-  
+        options.desc = "Toggle Paste-Mode";
+        options.silent = true;
+      }
+    ];
   };
 }
-

@@ -15,13 +15,9 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, lib, inputs, ... }:
-
-{
+{...}: {
   imports = [
-    ./lazygit.nix
-    ./obsidian-nvim.nix
-    ./which-key-nvim.nix
+    # ./obsidian-nvim.nix
+    ./rene-calendar.nix
   ];
 }

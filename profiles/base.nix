@@ -14,28 +14,26 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: {
+{...}: {
   imports = [
     ../plugins
     ../modules
-    ./theme.nix
+    ./colorscheme.nix
     ./keymaps.nix
     ./options.nix
+    ./goyo.nix
 
     # base profiles
     ./comments.nix
     ./folding.nix
     ./which-key.nix
     ./bufferline.nix
-    # ./barbar.nix
     ./terminal.nix
     ./undotree.nix
+    ./multicursors.nix
+    ./surround.nix
+    ./oil.nix
+    ./git
   ];
 
   config = {

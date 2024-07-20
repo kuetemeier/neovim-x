@@ -12,14 +12,9 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   luaFile = pkgs.writeScript "kuetemeierNeoVimHello.lua" (builtins.readFile ./test.lua);
-in
-
-{
+in {
   config = {
     extraConfigLua = ''
       if (io.open("${luaFile}")) then

@@ -12,11 +12,8 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 # }}}
-
-{ config, pkgs, ... }:
-
-{
+{...}: {
   config = {
-    plugins.comment-nvim.enable = true;
+    plugins.comment.enable = true;
   };
 }

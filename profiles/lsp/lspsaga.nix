@@ -15,7 +15,8 @@
 {pkgs, ...}: {
   config = {
     plugins.lspsaga = {
-      enable = true;
+      # enable = true;
+      # enable = false;
     };
   };
 }
