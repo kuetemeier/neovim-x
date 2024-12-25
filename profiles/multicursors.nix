@@ -3,7 +3,7 @@
     pname = "jkr-multicursors-nvim";
     version = "2024-06-16";
     src = pkgs.fetchFromGitHub {
-      owner = "kuetemeier";
+      owner = "smoka7";
       repo = "multicursors.nvim";
       rev = "59a28ff141b0b87f5d023b4380aa74496af9ae01";
       sha256 = "sha256-izYwDVd5aniM7PIQJ873phpj6kGOiO8n4cvl+TJj1r4=";

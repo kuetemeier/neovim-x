@@ -29,13 +29,14 @@
   };
 in {
   config = {
+    plugins.web-devicons.enable = true;
     plugins.bufferline = {
       enable = true;
 
-      diagnostics = "nvim_lsp";
+      settings.options.diagnostics = "nvim_lsp";
       # separatorStyle = "slant";
 
-      extraOptions = {
+      settings.options = {
         mode = "buffers";
         # "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise}): string
         numbers = "ordinal";

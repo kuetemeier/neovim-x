@@ -18,6 +18,7 @@
 {...}: {
   config = {
     plugins.trouble.enable = true;
+    plugins.web-devicons.enable = true;
 
     keymaps = [
       {

@@ -31,14 +31,14 @@ in {
 
       # nil - Nix files
       # https://github.com/oxalica/nil
-      servers.nil-ls = {
+      servers.nil_ls = {
         enable = true;
         # package = pkgs.unstable.nil;
         package = pkgs.nil;
         settings.formatting.command = ["alejandra"];
       };
 
-      servers.ruff-lsp = lib.mkForce {
+      servers.ruff_lsp = lib.mkForce {
         enable = false;
         # package = pkgs.ruff-lsp;
       };
@@ -53,7 +53,7 @@ in {
       servers.gopls.enable = true;
       servers.html.enable = true;
       servers.jsonls.enable = true;
-      servers.lua-ls.enable = true;
+      servers.lua_ls.enable = true;
       servers.terraformls.enable = true;
 
       # servers = {

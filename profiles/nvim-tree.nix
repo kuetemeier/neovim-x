@@ -18,6 +18,7 @@
 {...}: {
   config = {
     # INFO: More configuration can be found in the projects.nix profile
+    plugins.web-devicons.enable = true;
 
     # (includes nvim-web-devicons)
     plugins.nvim-tree = {

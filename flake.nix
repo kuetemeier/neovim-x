@@ -13,7 +13,7 @@
     #
     # GitHub: https://github.com/ipetkov/crane
 
-    crane.inputs.nixpkgs.follows = "nixpkgs";
+    # crane.inputs.nixpkgs.follows = "nixpkgs";
     crane.url = "github:ipetkov/crane";
 
     # devenv
@@ -77,12 +77,12 @@
 
     latest.url = "github:nixos/nixpkgs/master";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     #nixpkgs.url = "github:NixOS/nixpkgs/latest";
 
     #nixvim.url = "github:pta2002/nixvim?ref=36f2e51b28ee3389a67ed5e9ed5c4bd388b06918";
     # nixvim.inputs.nixpkgs.follows = "unstable";
-    nixvim.url = "github:pta2002/nixvim?ref=nixos-24.05";
+    nixvim.url = "github:pta2002/nixvim?ref=nixos-24.11";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     # nix-github-actions

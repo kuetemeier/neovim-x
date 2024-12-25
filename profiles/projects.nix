@@ -19,7 +19,7 @@
     plugins.project-nvim = {
       enable = true;
 
-      silentChdir = false;
+      settings.silent_chdir = false;
 
       enableTelescope = true;
     };
