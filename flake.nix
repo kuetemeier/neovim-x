@@ -77,12 +77,15 @@
 
     latest.url = "github:nixos/nixpkgs/master";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     #nixpkgs.url = "github:NixOS/nixpkgs/latest";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     #nixvim.url = "github:pta2002/nixvim?ref=36f2e51b28ee3389a67ed5e9ed5c4bd388b06918";
     # nixvim.inputs.nixpkgs.follows = "unstable";
-    nixvim.url = "github:pta2002/nixvim?ref=nixos-24.11";
+    # nixvim.url = "github:pta2002/nixvim?ref=nixos-24.11";
+    # nixvim.url = "github:nix-community/nixvim?ref=nixos-24.11";
+    nixvim.url = "github:nix-community/nixvim?ref=main";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     # nix-github-actions

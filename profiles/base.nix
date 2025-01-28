@@ -30,7 +30,7 @@
     ./bufferline.nix
     ./terminal.nix
     ./undotree.nix
-    ./multicursors.nix
+    #./multicursors.nix
     ./surround.nix
     ./oil.nix
     ./git
