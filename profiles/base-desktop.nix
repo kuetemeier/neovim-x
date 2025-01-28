@@ -36,6 +36,7 @@
     ./projects.nix
     ./colorizer.nix
     ./trouble.nix
+    ./copilot-vim.nix
   ];
 
   config = {
